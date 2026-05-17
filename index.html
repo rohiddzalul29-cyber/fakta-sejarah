@@ -117,10 +117,15 @@
       .nav-search-form {
         display: flex;
         align-items: center;
-        background: rgba(255, 255, 255, 0.07);
-        border: 1px solid rgba(201, 151, 43, 0.3);
-        border-radius: 2px;
+        background: transparent;
+        border: 1.5px solid rgba(255, 255, 255, 0.35);
+        border-radius: 999px;
         overflow: hidden;
+        padding: 0 4px 0 14px;
+        transition: border-color 0.2s;
+      }
+      .nav-search-form:focus-within {
+        border-color: var(--gold);
       }
       .nav-search-input {
         background: none;
@@ -129,17 +134,21 @@
         color: #fff;
         font-family: "DM Sans", sans-serif;
         font-size: 0.78rem;
-        padding: 7px 12px;
+        padding: 7px 4px;
         width: 180px;
+      }
+      .nav-search-input::placeholder {
+        color: rgba(255, 255, 255, 0.4);
       }
       .nav-search-btn {
         background: none;
         border: none;
-        border-left: 1px solid rgba(201, 151, 43, 0.3);
         color: rgba(255, 255, 255, 0.5);
         cursor: pointer;
-        padding: 7px 12px;
-        font-size: 0.9rem;
+        padding: 6px 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
       }
       .nav-search-btn:hover {
         color: var(--gold);
@@ -1242,9 +1251,19 @@
               autocomplete="off"
             />
             <button class="nav-search-btn" id="searchBtnMobile">
-              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="10.5" cy="10.5" r="7.5"/>
-                <line x1="16.5" y1="16.5" x2="22" y2="22"/>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2.5"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              >
+                <circle cx="10.5" cy="10.5" r="7.5" />
+                <line x1="16.5" y1="16.5" x2="22" y2="22" />
               </svg>
             </button>
           </div>
