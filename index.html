@@ -29,6 +29,7 @@
         background: #ffffff;
         color: #1a1a2e;
         min-height: 100vh;
+        overflow-x: hidden;
       }
       :root {
         --cream: #ffffff;
@@ -782,16 +783,42 @@
           padding: 1rem 1rem 1.5rem;
           margin: 0.5rem 0;
           max-width: 100%;
+          box-sizing: border-box;
+          overflow-x: hidden;
         }
         .article-page h1 {
           font-size: 1.2rem;
           line-height: 1.35;
+          word-break: break-word;
+        }
+        .article-content {
+          overflow-x: hidden;
+          word-break: break-word;
+          overflow-wrap: break-word;
+        }
+        .article-content a {
+          word-break: break-all;
+        }
+        .article-content img {
+          max-width: 100% !important;
+          height: auto !important;
+        }
+        .article-content table {
+          display: block;
+          overflow-x: auto;
+          max-width: 100%;
+        }
+        .article-content pre,
+        .article-content code {
+          white-space: pre-wrap;
+          word-break: break-word;
         }
         .article-meta {
-          flex-wrap: nowrap;
-          gap: 0.6rem;
+          flex-wrap: wrap;
+          gap: 0.5rem;
           font-size: 0.63rem;
           align-items: center;
+          overflow-x: hidden;
         }
         .article-meta span {
           display: inline-flex;
@@ -2928,7 +2955,7 @@
       function renderArticlePage(article) {
         document.querySelector('nav').classList.add('article-page-nav');
         const html = `
-        <div style="max-width: 960px; margin: 2rem auto; padding: 0 1rem;">
+        <div style="max-width: 960px; margin: 2rem auto; padding: 0 1rem; box-sizing: border-box; width: 100%; overflow-x: hidden;">
           <button id="backToHomeBtn" class="back-btn">Kembali ke Halaman Sebelumnya</button>
           <div class="article-page">
             <h1>${escapeHtml(article.title)}</h1>
