@@ -166,10 +166,7 @@
       /* Hamburger → X animation */
       .nav-hamburger span {
         transform-origin: center;
-        transition:
-          transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
-          opacity 0.3s ease,
-          background 0.2s;
+        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, background 0.2s;
       }
       .nav-hamburger.is-open span:nth-child(1) {
         transform: translateY(7px) rotate(45deg);
@@ -204,9 +201,7 @@
         width: 0;
         opacity: 0;
         pointer-events: none;
-        transition:
-          width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
-          opacity 0.25s ease;
+        transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
         position: absolute;
         right: 44px;
         white-space: nowrap;
@@ -229,9 +224,7 @@
         align-items: center;
         justify-content: center;
         border-radius: 50%;
-        transition:
-          background 0.2s,
-          color 0.2s;
+        transition: background 0.2s, color 0.2s;
         position: relative;
         z-index: 1;
       }
@@ -1540,7 +1533,7 @@
         font-size: 0.7rem;
         letter-spacing: 4px;
         text-transform: uppercase;
-        color: var(--gold);
+        color: rgba(255, 255, 255, 0.75);
       }
 
       /* ===== ABOUT PAGE FEEDBACK SECTION ===== */
@@ -1760,6 +1753,7 @@
         inset: 0;
         background: var(--blue-primary);
         transform-origin: left;
+        transform: scaleX(1);
         transition: transform 1s cubic-bezier(0.77, 0, 0.175, 1) 0.4s;
       }
       .about-quote blockquote.is-visible::after {
@@ -1844,9 +1838,7 @@
         align-items: center;
         justify-content: center;
         border-radius: 50%;
-        transition:
-          background 0.2s,
-          color 0.2s;
+        transition: background 0.2s, color 0.2s;
       }
       .nav-feedback-btn:hover {
         background: var(--blue-light);
@@ -2356,8 +2348,7 @@
             "
           />
           <div class="nav-logo-text">
-            <strong style="font-size: 1.12rem">FAKTA SEJARAH</strong
-            ><small>SETIAP HARI</small>
+            <strong style="font-size:1.12rem;">FAKTA SEJARAH</strong><small>SETIAP HARI</small>
           </div>
         </a>
         <div class="nav-right">
@@ -2369,11 +2360,7 @@
               placeholder="Cari artikel..."
               autocomplete="off"
             />
-            <button
-              class="nav-search-btn"
-              id="searchBtnMobile"
-              aria-label="Cari"
-            >
+            <button class="nav-search-btn" id="searchBtnMobile" aria-label="Cari">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="22"
@@ -2390,26 +2377,9 @@
               </svg>
             </button>
           </div>
-          <button
-            class="nav-feedback-btn"
-            id="openFeedbackBubble"
-            aria-label="Saran dan Masukan"
-            title="Saran &amp; Masukan"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="22"
-              height="22"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
-            >
-              <path
-                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
-              />
+          <button class="nav-feedback-btn" id="openFeedbackBubble" aria-label="Saran dan Masukan" title="Saran &amp; Masukan">
+            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
             </svg>
           </button>
         </div>
@@ -2554,7 +2524,7 @@
       let lastPage = 1;
 
       function renderHomePage() {
-        document.querySelector("nav").classList.remove("article-page-nav");
+        document.querySelector('nav').classList.remove('article-page-nav');
         cleanupAboutPage();
         const filtered =
           currentFilter === "all"
@@ -2956,7 +2926,7 @@
       }
 
       function renderArticlePage(article) {
-        document.querySelector("nav").classList.add("article-page-nav");
+        document.querySelector('nav').classList.add('article-page-nav');
         const html = `
         <div style="max-width: 960px; margin: 2rem auto; padding: 0 1rem;">
           <button id="backToHomeBtn" class="back-btn">Kembali ke Halaman Sebelumnya</button>
@@ -2988,7 +2958,7 @@
       }
 
       function renderAboutPage() {
-        document.querySelector("nav").classList.remove("article-page-nav");
+        document.querySelector('nav').classList.remove('article-page-nav');
         const html = `
           <div class="about-hero">
             <div class="about-hero-bg" id="aboutHeroBg"></div>
@@ -3339,7 +3309,7 @@
       }
 
       function renderPrivacyPage() {
-        document.querySelector("nav").classList.remove("article-page-nav");
+        document.querySelector('nav').classList.remove('article-page-nav');
         cleanupAboutPage();
         const html = `
           <div class="privacy-hero">
