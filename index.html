@@ -190,28 +190,31 @@
       .nav-search-form {
         display: flex;
         align-items: center;
-        background: transparent;
-        border: 1.5px solid var(--blue-primary);
-        border-radius: 999px;
-        overflow: hidden;
-        padding: 0 4px 0 14px;
-        transition:
-          border-color 0.2s,
-          background 0.2s;
-      }
-      .nav-search-form:focus-within {
-        border-color: var(--blue-dark);
-        background: var(--blue-light);
+        position: relative;
       }
       .nav-search-input {
-        background: none;
-        border: none;
+        background: var(--blue-light);
+        border: 1.5px solid var(--blue-primary);
+        border-radius: 999px;
         outline: none;
         color: var(--blue-dark);
         font-family: "DM Sans", sans-serif;
-        font-size: 0.78rem;
-        padding: 7px 4px;
-        width: 180px;
+        font-size: 0.82rem;
+        padding: 7px 16px 7px 14px;
+        width: 0;
+        opacity: 0;
+        pointer-events: none;
+        transition:
+          width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+          opacity 0.25s ease;
+        position: absolute;
+        right: 44px;
+        white-space: nowrap;
+      }
+      .nav-search-form.search-open .nav-search-input {
+        width: 200px;
+        opacity: 1;
+        pointer-events: auto;
       }
       .nav-search-input::placeholder {
         color: rgba(26, 95, 168, 0.5);
@@ -221,12 +224,19 @@
         border: none;
         color: var(--blue-primary);
         cursor: pointer;
-        padding: 6px 8px;
+        padding: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
+        border-radius: 50%;
+        transition:
+          background 0.2s,
+          color 0.2s;
+        position: relative;
+        z-index: 1;
       }
       .nav-search-btn:hover {
+        background: var(--blue-light);
         color: var(--blue-dark);
       }
       .hero {
@@ -658,14 +668,15 @@
         }
         .nav-right {
           margin-left: auto;
+          gap: 0.25rem;
         }
         .nav-search-form {
-          flex: 1;
-          min-width: 120px;
-          max-width: 160px;
+          flex: unset;
+          min-width: unset;
+          max-width: unset;
         }
         .nav-search-input {
-          width: 100%;
+          width: 140px;
           font-size: 0.8rem;
           padding: 7px 8px;
         }
@@ -1822,62 +1833,24 @@
         background: var(--blue-light);
       }
 
-      /* ===== FLOATING CHAT BUBBLE ===== */
-      .chat-bubble-btn {
-        position: fixed;
-        bottom: 2rem;
-        right: 2rem;
-        width: 64px;
-        height: 64px;
-        background: var(--blue-primary);
-        border: 2px solid var(--blue-dark);
-        border-radius: 50%;
+      /* ===== NAV FEEDBACK ICON ===== */
+      .nav-feedback-btn {
+        background: none;
+        border: none;
+        color: var(--blue-primary);
         cursor: pointer;
-        z-index: 999;
+        padding: 8px;
         display: flex;
         align-items: center;
         justify-content: center;
-        box-shadow: 0 4px 20px rgba(26, 95, 168, 0.4);
+        border-radius: 50%;
         transition:
-          transform 0.2s,
-          box-shadow 0.2s;
-        padding: 0;
+          background 0.2s,
+          color 0.2s;
       }
-      .chat-bubble-btn:hover {
-        transform: scale(1.1);
-        box-shadow: 0 8px 28px rgba(26, 95, 168, 0.5);
-      }
-      .chat-bubble-btn img {
-        width: 36px;
-        height: 36px;
-        object-fit: contain;
-        filter: brightness(0) saturate(100%) invert(100%);
-        opacity: 1;
-      }
-      .chat-bubble-tooltip {
-        position: fixed;
-        bottom: 6.8rem;
-        right: 2rem;
-        background: var(--blue-primary);
-        color: #fff;
-        font-family: "DM Sans", sans-serif;
-        font-size: 0.7rem;
-        letter-spacing: 1px;
-        padding: 6px 12px;
-        border: 1px solid var(--blue-dark);
-        white-space: nowrap;
-        pointer-events: none;
-        opacity: 0;
-        transform: translateY(6px);
-        transition:
-          opacity 0.2s,
-          transform 0.2s;
-        z-index: 998;
-      }
-      .chat-bubble-btn:hover + .chat-bubble-tooltip,
-      .chat-bubble-btn:focus + .chat-bubble-tooltip {
-        opacity: 1;
-        transform: translateY(0);
+      .nav-feedback-btn:hover {
+        background: var(--blue-light);
+        color: var(--blue-dark);
       }
 
       /* ===== MODAL SARAN & MASUKAN ===== */
@@ -2375,31 +2348,36 @@
             src="editlogo.png"
             alt="Fakta Sejarah Logo"
             style="
-              width: 52px;
-              height: 52px;
+              width: 62px;
+              height: 62px;
               object-fit: contain;
               filter: brightness(0) saturate(100%) invert(27%) sepia(90%)
                 saturate(600%) hue-rotate(195deg) brightness(0.85);
             "
           />
           <div class="nav-logo-text">
-            <strong>FAKTA SEJARAH</strong><small>SETIAP HARI</small>
+            <strong style="font-size: 1.12rem">FAKTA SEJARAH</strong
+            ><small>SETIAP HARI</small>
           </div>
         </a>
         <div class="nav-right">
-          <div class="nav-search-form">
+          <div class="nav-search-form" id="navSearchForm">
             <input
               class="nav-search-input"
               id="navSearchInput"
               type="text"
-              placeholder=" Cari artikel..."
+              placeholder="Cari artikel..."
               autocomplete="off"
             />
-            <button class="nav-search-btn" id="searchBtnMobile">
+            <button
+              class="nav-search-btn"
+              id="searchBtnMobile"
+              aria-label="Cari"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
-                width="16"
-                height="16"
+                width="22"
+                height="22"
                 viewBox="0 0 24 24"
                 fill="none"
                 stroke="currentColor"
@@ -2412,6 +2390,28 @@
               </svg>
             </button>
           </div>
+          <button
+            class="nav-feedback-btn"
+            id="openFeedbackBubble"
+            aria-label="Saran dan Masukan"
+            title="Saran &amp; Masukan"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+              />
+            </svg>
+          </button>
         </div>
       </div>
     </nav>
@@ -2433,6 +2433,41 @@
         _navDropdown.addEventListener("click", function (e) {
           e.stopPropagation();
         });
+      }
+
+      // Search icon toggle
+      const _searchForm = document.getElementById("navSearchForm");
+      const _searchBtn = document.getElementById("searchBtnMobile");
+      const _searchInput = document.getElementById("navSearchInput");
+      if (_searchBtn && _searchForm) {
+        _searchBtn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          const isOpen = _searchForm.classList.toggle("search-open");
+          if (isOpen) {
+            setTimeout(() => _searchInput && _searchInput.focus(), 50);
+          } else {
+            // trigger search if something typed
+            if (_searchInput && _searchInput.value.trim()) {
+              if (typeof performSearch === "function") performSearch();
+            }
+          }
+        });
+        document.addEventListener("click", function (e) {
+          if (_searchForm && !_searchForm.contains(e.target)) {
+            _searchForm.classList.remove("search-open");
+          }
+        });
+        if (_searchInput) {
+          _searchInput.addEventListener("keypress", function (e) {
+            if (e.key === "Enter") {
+              _searchForm.classList.remove("search-open");
+              if (typeof performSearch === "function") performSearch();
+            }
+          });
+          _searchInput.addEventListener("click", function (e) {
+            e.stopPropagation();
+          });
+        }
       }
     </script>
 
@@ -3515,17 +3550,6 @@
       }
       init();
     </script>
-
-    <!-- ===== FLOATING CHAT BUBBLE ===== -->
-    <button
-      class="chat-bubble-btn"
-      id="openFeedbackBubble"
-      title="Saran &amp; Masukan"
-      aria-label="Buka form saran dan masukan"
-    >
-      <img src="image.png" alt="Pesan" />
-    </button>
-    <div class="chat-bubble-tooltip">Saran &amp; Masukan</div>
 
     <!-- ===== MODAL SARAN & MASUKAN ===== -->
     <div
