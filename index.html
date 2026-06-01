@@ -3430,8 +3430,18 @@
         }
       }
 
+      // ── SLUG GENERATOR ─────────────────────────────────────
+      function generateSlug(title) {
+        const map = {'à':'a','á':'a','â':'a','ã':'a','ä':'a','è':'e','é':'e','ê':'e','ë':'e','ì':'i','í':'i','î':'i','ò':'o','ó':'o','ô':'o','õ':'o','ù':'u','ú':'u','û':'u','ü':'u','ñ':'n','ç':'c'};
+        return (title || '').toLowerCase()
+          .split('').map(c => map[c] || c).join('')
+          .replace(/[^a-z0-9\s-]/g, '').trim()
+          .replace(/\s+/g, '-').replace(/-+/g, '-');
+      }
+
       async function navigateToArticle(articleId, specialItem = null) {
         if (specialItem) {
+          history.pushState({ special: true }, '', '/artikel/sejarah-hari-ini');
           renderArticlePage({
             title: specialItem.title,
             content: specialItem.content || specialItem.excerpt,
@@ -3439,11 +3449,15 @@
             created_at: new Date().toISOString(),
             image_url: null,
             views: 0,
+            slug: 'sejarah-hari-ini',
           });
           return;
         }
         const article = allArticles.find((a) => a.id === articleId);
         if (!article) return;
+        // Gunakan slug artikel; fallback generate dari judul jika belum ada
+        const slug = article.slug || generateSlug(article.title);
+        history.pushState({ articleId }, '', '/artikel/' + slug);
         try {
           await db
             .from("articles")
@@ -3453,6 +3467,40 @@
         } catch (e) {}
         renderArticlePage(article);
       }
+
+      // ── ROUTING BERDASARKAN SLUG DI URL ────────────────────
+      async function routeFromUrl() {
+        const path = window.location.pathname;
+        const match = path.match(/^\/artikel\/(.+)$/);
+        if (match) {
+          const slug = match[1];
+          // Cari dulu di cache allArticles
+          let article = allArticles.find(a => (a.slug || generateSlug(a.title)) === slug);
+          if (!article) {
+            // Jika belum ada (misal akses langsung URL), ambil dari Supabase by slug
+            try {
+              const { data } = await db.from("articles").select("*").eq("slug", slug).eq("published", true).single();
+              if (data) {
+                article = data;
+                // Tambahkan ke cache jika belum ada
+                if (!allArticles.find(a => a.id === data.id)) allArticles.push(data);
+              }
+            } catch (e) {}
+          }
+          if (article) {
+            renderArticlePage(article);
+          } else {
+            renderHomePage();
+          }
+        } else {
+          renderHomePage();
+        }
+      }
+
+      // Handle tombol back/forward browser
+      window.addEventListener('popstate', () => {
+        routeFromUrl();
+      });
 
       function renderArticlePage(article) {
         document.querySelector("nav").classList.add("article-page-nav");
@@ -3472,6 +3520,8 @@
           .getElementById("backToHomeBtn")
           ?.addEventListener("click", (e) => {
             e.preventDefault();
+            // Update URL kembali ke homepage
+            history.pushState({}, '', '/');
             // Kembali ke posisi terakhir yang disimpan
             currentFilter = lastFilter;
             currentPage = lastPage;
@@ -4040,7 +4090,8 @@
             .eq("published", true)
             .order("created_at", { ascending: false });
           allArticles = data || [];
-          renderHomePage();
+          // Routing: buka artikel langsung jika URL mengandung /artikel/[slug]
+          routeFromUrl();
         } catch (e) {
           document.getElementById("appRoot").innerHTML =
             `<div style="padding:2rem; text-align:center">Gagal memuat data sejarah. Periksa koneksi atau konfigurasi.</div>`;
