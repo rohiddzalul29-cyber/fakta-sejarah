@@ -29,7 +29,6 @@
         background: #ffffff;
         color: #1a1a2e;
         min-height: 100vh;
-        overflow-x: hidden;
       }
       :root {
         --cream: #ffffff;
@@ -52,8 +51,8 @@
         position: sticky;
         top: 0;
         z-index: 100;
-        border-bottom: 2px solid var(--blue-primary);
-        box-shadow: 0 2px 12px rgba(26, 95, 168, 0.1);
+        border-bottom: 1px solid #e2eaf4;
+        box-shadow: 0 2px 12px rgba(26, 95, 168, 0.07);
       }
       .nav-inner {
         max-width: 1280px;
@@ -61,9 +60,48 @@
         padding: 0 2rem;
         display: flex;
         align-items: center;
-        height: 64px;
-        gap: 2rem;
+        height: 68px;
+        gap: 0;
       }
+      /* ── Hamburger beside logo ── */
+      .nav-hamburger-side {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 6px 10px 6px 0;
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        margin-right: 6px;
+      }
+      .nav-hamburger-side span {
+        display: block;
+        width: 20px;
+        height: 2px;
+        background: var(--blue-primary);
+        border-radius: 2px;
+        transform-origin: center;
+        transition:
+          transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
+          opacity 0.3s ease;
+      }
+      .nav-hamburger-side:hover span {
+        background: var(--blue-dark);
+      }
+      .nav-hamburger-side.is-open span:nth-child(1) {
+        transform: translateY(7px) rotate(45deg);
+      }
+      .nav-hamburger-side.is-open span:nth-child(2) {
+        opacity: 0;
+        transform: scaleX(0);
+      }
+      .nav-hamburger-side.is-open span:nth-child(3) {
+        transform: translateY(-7px) rotate(-45deg);
+      }
+
       .nav-logo {
         display: flex;
         align-items: center;
@@ -95,6 +133,38 @@
         color: var(--blue-dark);
         text-transform: uppercase;
       }
+
+      /* ── Center nav links ── */
+      .nav-links {
+        display: flex !important;
+        align-items: center;
+        gap: 0;
+        margin: 0 auto;
+        list-style: none;
+      }
+      .nav-links a {
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.82rem;
+        font-weight: 500;
+        color: #444;
+        text-decoration: none;
+        padding: 0 18px;
+        height: 68px;
+        display: flex;
+        align-items: center;
+        border-bottom: 3px solid transparent;
+        transition:
+          color 0.2s,
+          border-color 0.2s;
+        white-space: nowrap;
+      }
+      .nav-links a:hover,
+      .nav-links a.active {
+        color: var(--blue-primary);
+        border-bottom-color: var(--blue-primary);
+      }
+
+      /* ── Slide-down drawer for hamburger-side ── */
       .nav-menu-wrap {
         position: relative;
         display: flex;
@@ -102,37 +172,20 @@
         flex-shrink: 0;
       }
       .nav-hamburger {
-        background: none;
-        border: none;
-        cursor: pointer;
-        padding: 6px 8px;
-        display: flex;
-        flex-direction: column;
-        gap: 5px;
-        align-items: center;
-        justify-content: center;
-      }
-      .nav-hamburger span {
-        display: block;
-        width: 22px;
-        height: 2px;
-        background: var(--blue-primary);
-        border-radius: 2px;
-      }
-      .nav-hamburger:hover span {
-        background: var(--blue-dark);
+        display: none !important; /* old hamburger hidden */
       }
       .nav-dropdown {
         display: none;
         position: absolute;
-        top: calc(100% + 12px);
+        top: calc(100% + 8px);
         left: 0;
         background: #ffffff;
         border: 1px solid var(--blue-primary);
-        min-width: 180px;
+        min-width: 200px;
         z-index: 200;
         flex-direction: column;
         box-shadow: 0 8px 24px rgba(26, 95, 168, 0.15);
+        border-radius: 2px;
       }
       .nav-dropdown.open {
         display: flex;
@@ -144,7 +197,7 @@
         font-size: 0.8rem;
         letter-spacing: 1px;
         text-transform: uppercase;
-        padding: 10px 16px;
+        padding: 11px 18px;
         border-bottom: 1px solid var(--blue-light);
         transition: all 0.2s;
       }
@@ -156,34 +209,17 @@
         color: #fff;
         background: var(--blue-primary);
       }
-      /* keep old .nav-links hidden (in case rendered dynamically) */
-      .nav-links {
-        display: none !important;
-      }
-      /* Hide only search on article page, hamburger stays visible */
+
+      /* Hide only search on article page */
       nav.article-page-nav .nav-search-form {
         display: none !important;
       }
-      /* Hamburger → X animation */
-      .nav-hamburger span {
-        transform-origin: center;
-        transition: transform 0.3s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.3s ease, background 0.2s;
-      }
-      .nav-hamburger.is-open span:nth-child(1) {
-        transform: translateY(7px) rotate(45deg);
-      }
-      .nav-hamburger.is-open span:nth-child(2) {
-        opacity: 0;
-        transform: scaleX(0);
-      }
-      .nav-hamburger.is-open span:nth-child(3) {
-        transform: translateY(-7px) rotate(-45deg);
-      }
+
       .nav-right {
         display: flex;
         align-items: center;
-        gap: 0.5rem;
-        margin-left: auto;
+        gap: 0.25rem;
+        flex-shrink: 0;
       }
       .nav-search-form {
         display: flex;
@@ -202,7 +238,9 @@
         width: 0;
         opacity: 0;
         pointer-events: none;
-        transition: width 0.35s cubic-bezier(0.4, 0, 0.2, 1), opacity 0.25s ease;
+        transition:
+          width 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+          opacity 0.25s ease;
         position: absolute;
         right: 44px;
         white-space: nowrap;
@@ -225,7 +263,9 @@
         align-items: center;
         justify-content: center;
         border-radius: 50%;
-        transition: background 0.2s, color 0.2s;
+        transition:
+          background 0.2s,
+          color 0.2s;
         position: relative;
         z-index: 1;
       }
@@ -247,25 +287,25 @@
             rgba(10, 6, 2, 0.875) 40%,
             rgba(10, 6, 2, 0.37) 100%
           ),
-          url("revolusi.png") center/cover;
+          url("nav.jpeg") center/cover;
       }
       .hero-content {
         position: relative;
         z-index: 2;
         max-width: 1280px;
         margin: 0 auto;
-        padding: 0 2rem;
+        padding: 0 2rem 2.5rem;
         height: 100%;
         display: flex;
         flex-direction: column;
-        justify-content: center;
+        justify-content: flex-end;
       }
       .hero-eyebrow {
         font-family: "DM Sans", sans-serif;
         font-size: 0.7rem;
         letter-spacing: 4px;
         color: rgba(255, 255, 255, 0.8);
-        margin-bottom: 1rem;
+        margin-bottom: 1.4rem;
       }
       .hero h1 {
         font-family: "Playfair Display", serif;
@@ -273,13 +313,13 @@
         font-weight: 900;
         color: #fff;
         max-width: 580px;
-        margin-bottom: 1rem;
+        margin-bottom: 1.4rem;
       }
       .hero p {
         color: rgba(255, 255, 255, 0.7);
         max-width: 420px;
         line-height: 1.7;
-        margin-bottom: 2rem;
+        margin-bottom: 2.2rem;
       }
       .btn-hero {
         display: inline-block;
@@ -322,23 +362,35 @@
         text-transform: uppercase;
       }
       .articles-grid {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 1.5rem 1.2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0;
         margin-bottom: 2rem;
+        border-top: 1px solid var(--border);
       }
       .card {
         background: transparent;
         border: none;
+        border-bottom: 1px solid var(--border);
         overflow: hidden;
         cursor: pointer;
-        transition: opacity 0.2s;
+        transition: background 0.2s;
+        display: flex;
+        gap: 1.2rem;
+        align-items: flex-start;
+        padding: 1.2rem 0;
       }
       .card:hover {
-        opacity: 0.85;
+        background: var(--blue-light);
+        padding-left: 8px;
+        padding-right: 8px;
+        margin-left: -8px;
+        margin-right: -8px;
       }
       .card-img {
-        height: 160px;
+        width: 130px;
+        height: 90px;
+        flex-shrink: 0;
         overflow: hidden;
         position: relative;
         border-radius: 4px;
@@ -351,37 +403,38 @@
         border-radius: 4px;
       }
       .card:hover .card-img img {
-        transform: scale(1.03);
+        transform: scale(1.04);
       }
       .card-cat {
         display: inline-block;
         background: none;
         color: #e84118;
         font-family: "DM Sans", sans-serif;
-        font-size: 0.68rem;
+        font-size: 0.65rem;
         font-weight: 700;
         letter-spacing: 1px;
         text-transform: uppercase;
         padding: 0;
-        margin-top: 8px;
-        margin-bottom: 3px;
+        margin-top: 0;
+        margin-bottom: 4px;
       }
       .card-body {
         padding: 0;
-        padding-top: 4px;
+        flex: 1;
+        min-width: 0;
       }
       .card-body h3 {
         font-family: "Playfair Display", serif;
-        font-size: 0.95rem;
+        font-size: 1rem;
         line-height: 1.4;
-        margin-bottom: 4px;
+        margin-bottom: 5px;
         color: var(--text);
       }
       .card-body p {
         font-size: 0.78rem;
         color: var(--text-muted);
         line-height: 1.5;
-        margin-bottom: 4px;
+        margin-bottom: 6px;
         display: -webkit-box;
         -webkit-line-clamp: 2;
         -webkit-box-orient: vertical;
@@ -533,26 +586,62 @@
       }
       .filter-bar {
         display: flex;
-        gap: 0.5rem;
-        margin-bottom: 1.5rem;
+        gap: 0;
+        margin-bottom: 2rem;
         flex-wrap: wrap;
+        border-bottom: 1px solid var(--border);
       }
       .filter-btn {
         font-family: "DM Sans", sans-serif;
-        font-size: 0.7rem;
-        letter-spacing: 1px;
-        text-transform: uppercase;
-        padding: 6px 14px;
-        border: 1px solid var(--border);
+        font-size: 0.78rem;
+        font-weight: 500;
+        letter-spacing: 0.3px;
+        text-transform: none;
+        padding: 10px 18px;
+        border: none;
+        border-bottom: 3px solid transparent;
         background: none;
         cursor: pointer;
         color: var(--text-muted);
+        margin-bottom: -1px;
+        transition:
+          color 0.2s,
+          border-color 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 6px;
       }
       .filter-btn.active,
       .filter-btn:hover {
-        background: var(--blue-primary);
-        color: #fff;
-        border-color: var(--blue-primary);
+        color: var(--blue-primary);
+        background: none;
+        border-bottom-color: var(--blue-primary);
+      }
+      .fi-img {
+        width: 18px;
+        height: 18px;
+        object-fit: contain;
+        filter: invert(1) brightness(0.4);
+        transition: filter 0.2s;
+        flex-shrink: 0;
+      }
+      .filter-btn.active .fi-img,
+      .filter-btn:hover .fi-img {
+        filter: invert(28%) sepia(80%) saturate(600%) hue-rotate(185deg)
+          brightness(0.8);
+      }
+      .fi-img.fi-dokumen {
+        width: 34px;
+        height: 34px;
+      }
+      .fi-img.fi-indo {
+        width: 28px;
+        height: 28px;
+        filter: none !important;
+      }
+      .filter-btn.active .fi-img.fi-indo,
+      .filter-btn:hover .fi-img.fi-indo {
+        filter: none !important;
       }
       .loading {
         text-align: center;
@@ -630,6 +719,9 @@
         border-top: 1px solid rgba(255, 255, 255, 0.07);
       }
       @media (max-width: 900px) {
+        .nav-links {
+          display: none !important;
+        }
         .main {
           grid-template-columns: 1fr;
           padding: 2rem 1rem;
@@ -651,113 +743,234 @@
         }
       }
       @media (max-width: 600px) {
-        /* NAV */
+        /* ── NAV MOBILE: hamburger kiri · logo tengah · search kanan ── */
         .nav-inner {
-          padding: 0 0.75rem;
+          padding: 0 1rem;
           height: 56px;
-          gap: 0.5rem;
+          gap: 0;
+          position: relative;
         }
-        .nav-links {
-          display: none;
+        /* hamburger paling kiri */
+        .nav-menu-wrap {
+          flex-shrink: 0;
+          margin-right: auto;
+        }
+        .nav-hamburger-side {
+          padding: 6px 0;
+          margin-right: 0;
+        }
+        /* logo tengah absolut */
+        .nav-logo {
+          position: absolute;
+          left: 50%;
+          transform: translateX(-50%);
         }
         .nav-logo img {
-          width: 40px !important;
-          height: 40px !important;
+          width: 42px !important;
+          height: 42px !important;
         }
         .nav-logo-text strong {
-          font-size: 0.8rem !important;
+          font-size: 0.88rem;
         }
         .nav-logo-text small {
           font-size: 0.5rem;
-          letter-spacing: 1.5px;
+          letter-spacing: 2px;
         }
+        /* search ikon paling kanan, sembunyikan input expand & feedback */
         .nav-right {
           margin-left: auto;
-          gap: 0.1rem;
-          flex-shrink: 0;
+          gap: 0;
         }
-        .nav-search-form {
-          flex: unset;
-          min-width: unset;
-          max-width: unset;
-        }
-        .nav-search-input {
-          width: 120px;
-          font-size: 0.8rem;
-          padding: 7px 8px;
-        }
-        .nav-search-btn,
         .nav-feedback-btn {
-          padding: 6px;
+          display: none !important;
         }
-        .nav-logo-icon {
-          width: 30px;
-          height: 30px;
-          font-size: 15px;
+        .nav-search-form.search-open .nav-search-input {
+          width: 150px;
         }
-        /* HERO */
+        /* sembunyikan center nav links */
+        .nav-inner > div[style*="flex:1"] {
+          display: none !important;
+        }
+
+        /* ── HERO ── */
         .hero {
           height: auto;
           min-height: 280px;
+          border-radius: 10px;
+          margin: 0 0.75rem;
+          overflow: hidden;
         }
         .hero-bg {
+          border-radius: 10px;
           background:
             linear-gradient(
-              to bottom,
-              rgba(10, 6, 2, 0.9) 0%,
-              rgba(10, 6, 2, 0.55) 100%
+              to right,
+              rgba(10, 6, 2, 0.9) 45%,
+              rgba(10, 6, 2, 0.25) 100%
             ),
-            url("revolusi.png") center/cover;
+            url("nav.jpeg") center/cover;
         }
         .hero-content {
-          padding: 2.5rem 1rem 2rem;
+          padding: 2.5rem 1.2rem 1.8rem;
+          flex-direction: column;
+          align-items: flex-start;
+          justify-content: flex-end;
+        }
+        .hero-text-wrap {
+          max-width: 65%;
+          margin-top: auto;
         }
         .hero-eyebrow {
+          display: block;
           font-size: 0.6rem;
           letter-spacing: 2px;
-          margin-bottom: 0.7rem;
+          margin-bottom: 0.6rem;
+          color: rgba(255, 255, 255, 0.7);
         }
         .hero h1 {
-          font-size: 1.55rem;
+          font-size: 1.2rem;
           max-width: 100%;
-          margin-bottom: 0.8rem;
+          margin-bottom: 0.7rem;
+          line-height: 1.35;
         }
         .hero p {
-          font-size: 0.82rem;
+          font-size: 0.75rem;
           margin-bottom: 1.2rem;
           max-width: 100%;
+          line-height: 1.6;
         }
         .btn-hero {
-          padding: 10px 20px;
+          padding: 10px 18px;
           font-size: 0.65rem;
+          border-radius: 4px;
+          letter-spacing: 1px;
+          white-space: nowrap;
         }
-        /* MAIN / ARTICLES */
+
+        /* ── MAIN LAYOUT: single column, full width ── */
         .main {
-          padding: 1.5rem 0.9rem;
-          gap: 1.5rem;
+          grid-template-columns: 1fr;
+          padding: 1rem 0.75rem;
+          gap: 0;
+          max-width: 100%;
         }
-        .articles-grid {
-          grid-template-columns: 1fr 1fr;
-          gap: 0.8rem;
-        }
+
+        /* ── FILTER BAR: icon inline with text ── */
         .filter-bar {
-          gap: 0.4rem;
-          margin-bottom: 1.2rem;
+          display: flex;
+          gap: 0;
+          margin-bottom: 1.5rem;
+          border-bottom: 1px solid var(--border);
+          overflow-x: auto;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+        }
+        .filter-bar::-webkit-scrollbar {
+          display: none;
         }
         .filter-btn {
-          font-size: 0.65rem;
-          padding: 5px 10px;
-        }
-        .card-body h3 {
-          font-size: 0.82rem;
-        }
-        .card-body p {
+          flex-shrink: 0;
+          display: flex;
+          flex-direction: row;
+          align-items: center;
+          gap: 5px;
+          padding: 10px 12px;
           font-size: 0.72rem;
+          font-weight: 500;
+          letter-spacing: 0;
+          text-transform: none;
+          border: none;
+          border-bottom: 3px solid transparent;
+          margin-bottom: -1px;
+          white-space: nowrap;
+        }
+        .filter-btn span.fi {
+          font-size: 1rem;
+          line-height: 1;
+        }
+
+        /* ── SECTION HEADER ── */
+        .section-header {
+          margin-bottom: 0;
+          padding-bottom: 0.6rem;
+        }
+        .section-header h2 {
+          font-size: 0.72rem;
+          letter-spacing: 2px;
+        }
+
+        /* ── ARTICLE CARDS: full-width horizontal list ── */
+        .articles-grid {
+          display: flex;
+          flex-direction: column;
+          gap: 0;
+          border-top: 1px solid var(--border);
+        }
+        .card {
+          display: flex;
+          flex-direction: row;
+          gap: 0.9rem;
+          align-items: flex-start;
+          padding: 1rem 0;
+          border-bottom: 1px solid var(--border);
+          border-radius: 0;
+        }
+        .card:hover {
+          background: var(--blue-light);
+          padding-left: 6px;
+          padding-right: 6px;
+          margin-left: -6px;
+          margin-right: -6px;
         }
         .card-img {
-          height: 120px;
+          width: 110px;
+          height: 80px;
+          flex-shrink: 0;
+          border-radius: 6px;
         }
-        /* POPULAR LIST */
+        .card-body {
+          flex: 1;
+          min-width: 0;
+        }
+        .card-cat {
+          font-size: 0.62rem;
+          margin-bottom: 3px;
+        }
+        .card-body h3 {
+          font-size: 0.92rem;
+          line-height: 1.35;
+          margin-bottom: 4px;
+        }
+        .card-body p {
+          font-size: 0.75rem;
+          -webkit-line-clamp: 2;
+          margin-bottom: 5px;
+        }
+        .card-meta {
+          font-size: 0.62rem;
+          display: flex;
+          flex-wrap: wrap;
+          gap: 6px;
+        }
+
+        /* ── SIDEBAR: stacks below, 2-col widgets ── */
+        .sidebar {
+          display: grid;
+          grid-template-columns: 1fr 1fr;
+          gap: 0.75rem;
+          margin-top: 1.2rem;
+        }
+        .sidebar-widget {
+          padding: 1rem !important;
+          border-radius: 8px !important;
+        }
+        /* feedback widget spans full width */
+        .feedback-widget {
+          grid-column: 1 / -1;
+          display: none; /* hide on mobile to match reference */
+        }
+
+        /* ── POPULAR LIST ── */
         .popular-list {
           grid-template-columns: 1fr;
           gap: 1rem;
@@ -766,17 +979,8 @@
           width: 70px;
           height: 52px;
         }
-        /* SIDEBAR */
-        .sidebar-widget {
-          padding: 1.2rem;
-        }
-        .today-widget {
-          padding: 1.2rem;
-        }
-        .today-widget .tw-date {
-          font-size: 1.4rem;
-        }
-        /* PAGINATION */
+
+        /* ── PAGINATION ── */
         .pagination {
           gap: 0.3rem;
         }
@@ -792,73 +996,27 @@
           padding: 1rem 1rem 1.5rem;
           margin: 0.5rem 0;
           max-width: 100%;
-          box-sizing: border-box;
-          overflow-x: hidden;
         }
         .article-page h1 {
           font-size: 1.2rem;
           line-height: 1.35;
-          word-break: break-word;
         }
         .article-meta {
-          flex-wrap: wrap;
-          gap: 0.4rem 1rem;
+          flex-wrap: nowrap;
+          gap: 0.6rem;
           font-size: 0.63rem;
           align-items: center;
-          overflow-x: hidden;
-          padding-bottom: 0.6rem;
-          margin-bottom: 0.8rem;
         }
         .article-meta span {
           display: inline-flex;
           align-items: center;
           white-space: nowrap;
         }
-        .article-page {
-          padding: 0.5rem 1rem 1.5rem;
-          margin: 0.25rem 0;
-        }
-        .article-page h1 {
-          font-size: 1.2rem;
-          line-height: 1.35;
-          word-break: break-word;
-          margin-bottom: 0.4rem;
-        }
-        .article-content {
-          overflow-x: hidden;
-          word-break: break-word;
-          overflow-wrap: break-word;
-          font-size: 0.92rem;
-          line-height: 1.7;
-        }
-        .article-content a {
-          word-break: break-all;
-        }
-        .article-content img {
-          max-width: 100% !important;
-          height: auto !important;
-          margin: 0.8rem 0;
-        }
-        .article-content table {
-          display: block;
-          overflow-x: auto;
-          max-width: 100%;
-        }
-        .article-content pre,
-        .article-content code {
-          white-space: pre-wrap;
-          word-break: break-word;
-        }
         .back-btn {
           font-size: 0.7rem;
           padding: 5px 12px;
-          margin-bottom: 0.5rem;
         }
-        /* Article wrapper */
-        #appRoot > div[style] {
-          margin-top: 0.5rem !important;
-          margin-bottom: 0.5rem !important;
-        }
+        /* FOOTER */
         .footer-top {
           grid-template-columns: 1fr;
           gap: 1.5rem;
@@ -1894,7 +2052,9 @@
         align-items: center;
         justify-content: center;
         border-radius: 50%;
-        transition: background 0.2s, color 0.2s;
+        transition:
+          background 0.2s,
+          color 0.2s;
       }
       .nav-feedback-btn:hover {
         background: var(--blue-light);
@@ -2380,15 +2540,20 @@
   <body>
     <nav>
       <div class="nav-inner">
-        <!-- Hamburger + Dropdown Menu -->
+        <!-- Hamburger beside logo + Dropdown Menu -->
         <div class="nav-menu-wrap">
-          <button class="nav-hamburger" id="navHamburger" aria-label="Menu">
+          <button
+            class="nav-hamburger-side"
+            id="navHamburger"
+            aria-label="Menu"
+          >
             <span></span><span></span><span></span>
           </button>
           <div class="nav-dropdown" id="navDropdown">
             <a href="/" class="active" id="navHome">Beranda</a>
             <a href="#" id="navKategori">Kategori</a>
             <a href="#" id="navTentangKami">Tentang Kami</a>
+            <a href="#" id="navSaranMasukan"> Saran &amp; Masukan</a>
           </div>
         </div>
         <a href="/" class="nav-logo" id="homeLink">
@@ -2404,9 +2569,20 @@
             "
           />
           <div class="nav-logo-text">
-            <strong style="font-size:1.12rem;">FAKTA SEJARAH</strong><small>SETIAP HARI</small>
+            <strong style="font-size: 1.12rem">FAKTA SEJARAH</strong
+            ><small>SETIAP HARI</small>
           </div>
         </a>
+        <!-- Horizontal nav links (center) -->
+        <div style="flex: 1; display: flex; justify-content: center">
+          <ul class="nav-links">
+            <li><a href="/" class="active" id="navLinkHome">Beranda</a></li>
+            <li><a href="#" id="navLinkArtikel">Artikel</a></li>
+            <li><a href="#" id="navLinkTokoh">Tokoh</a></li>
+            <li><a href="#" id="navLinkPeristiwa">Peristiwa</a></li>
+            <li><a href="#" id="navLinkTentang">Tentang Kami</a></li>
+          </ul>
+        </div>
         <div class="nav-right">
           <div class="nav-search-form" id="navSearchForm">
             <input
@@ -2416,7 +2592,11 @@
               placeholder="Cari artikel..."
               autocomplete="off"
             />
-            <button class="nav-search-btn" id="searchBtnMobile" aria-label="Cari">
+            <button
+              class="nav-search-btn"
+              id="searchBtnMobile"
+              aria-label="Cari"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="22"
@@ -2433,9 +2613,26 @@
               </svg>
             </button>
           </div>
-          <button class="nav-feedback-btn" id="openFeedbackBubble" aria-label="Saran dan Masukan" title="Saran &amp; Masukan">
-            <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+          <button
+            class="nav-feedback-btn"
+            id="openFeedbackBubble"
+            aria-label="Saran dan Masukan"
+            title="Saran &amp; Masukan"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="22"
+              height="22"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path
+                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+              />
             </svg>
           </button>
         </div>
@@ -2460,6 +2657,54 @@
           e.stopPropagation();
         });
       }
+
+      // Wire up horizontal nav links
+      document.getElementById("navLinkHome")?.addEventListener("click", (e) => {
+        e.preventDefault();
+        currentFilter = "all";
+        currentPage = 1;
+        renderHomePage && renderHomePage();
+      });
+      document
+        .getElementById("navLinkArtikel")
+        ?.addEventListener("click", (e) => {
+          e.preventDefault();
+          currentFilter = "all";
+          currentPage = 1;
+          renderHomePage && renderHomePage();
+        });
+      document
+        .getElementById("navLinkTokoh")
+        ?.addEventListener("click", (e) => {
+          e.preventDefault();
+          currentFilter = "Tokoh";
+          currentPage = 1;
+          renderHomePage && renderHomePage();
+        });
+      document
+        .getElementById("navLinkPeristiwa")
+        ?.addEventListener("click", (e) => {
+          e.preventDefault();
+          currentFilter = "Sejarah Dunia";
+          currentPage = 1;
+          renderHomePage && renderHomePage();
+        });
+      document
+        .getElementById("navLinkTentang")
+        ?.addEventListener("click", (e) => {
+          e.preventDefault();
+          renderAboutPage && renderAboutPage();
+        });
+
+      // Wire up Saran & Masukan in hamburger dropdown
+      document
+        .getElementById("navSaranMasukan")
+        ?.addEventListener("click", (e) => {
+          e.preventDefault();
+          _navDropdown.classList.remove("open");
+          _hamburgerBtn.classList.remove("is-open");
+          openFeedbackModal && openFeedbackModal();
+        });
 
       // Search icon toggle
       const _searchForm = document.getElementById("navSearchForm");
@@ -2580,7 +2825,7 @@
       let lastPage = 1;
 
       function renderHomePage() {
-        document.querySelector('nav').classList.remove('article-page-nav');
+        document.querySelector("nav").classList.remove("article-page-nav");
         cleanupAboutPage();
         const filtered =
           currentFilter === "all"
@@ -2613,23 +2858,28 @@
         <div class="hero">
           <div class="hero-bg"></div>
           <div class="hero-content">
-            <p class="hero-eyebrow">✦ Temukan Kisah Masa Lalu</p>
-            <h1>Mempelajari Sejarah, Memahami Masa Depan.</h1>
-            <p>Temukan kisah, peristiwa, dan tokoh bersejarah dari Indonesia hingga dunia.</p>
-            <button class="btn-hero" id="scrollToArticles">Jelajahi Artikel</button>
+            <div class="hero-text-wrap">
+              <p class="hero-eyebrow">✦ Temukan Kisah Masa Lalu</p>
+              <h1>Mempelajari Sejarah, Memahami Masa Depan.</h1>
+              <p>Temukan kisah, peristiwa, dan tokoh bersejarah dari Indonesia hingga dunia.</p>
+              <button class="btn-hero" id="scrollToArticles">Jelajahi Artikel →</button>
+            </div>
           </div>
         </div>
         <div class="main">
           <div>
             <div class="filter-bar" id="filterBar">
-              <button class="filter-btn ${currentFilter === "all" ? "active" : ""}" data-filter="all">Semua</button>
-              <button class="filter-btn ${currentFilter === "Sejarah Indonesia" ? "active" : ""}" data-filter="Sejarah Indonesia">Sejarah Indonesia</button>
-              <button class="filter-btn ${currentFilter === "Sejarah Dunia" ? "active" : ""}" data-filter="Sejarah Dunia">Sejarah Dunia</button>
-              <button class="filter-btn ${currentFilter === "Tokoh" ? "active" : ""}" data-filter="Tokoh">Tokoh</button>
-              <button class="filter-btn ${currentFilter === "Perang" ? "active" : ""}" data-filter="Perang">Perang</button>
-              <button class="filter-btn ${currentFilter === "Fakta Sejarah" ? "active" : ""}" data-filter="Fakta Sejarah">Fakta Sejarah</button>
+              <button class="filter-btn ${currentFilter === "all" ? "active" : ""}" data-filter="all"><img src="globe-icon.png" class="fi-img" alt="">Semua</button>
+              <button class="filter-btn ${currentFilter === "Sejarah Dunia" ? "active" : ""}" data-filter="Sejarah Dunia"><img src="eart-icon.png" class="fi-img" alt="">Sejarah Dunia</button>
+              <button class="filter-btn ${currentFilter === "Sejarah Indonesia" ? "active" : ""}" data-filter="Sejarah Indonesia"><img src="indo-icon.png" class="fi-img fi-indo" alt="">Indonesia</button>
+              <button class="filter-btn ${currentFilter === "Tokoh" ? "active" : ""}" data-filter="Tokoh"><img src="person-icon.png" class="fi-img" alt="">Tokoh</button>
+              <button class="filter-btn ${currentFilter === "Perang" ? "active" : ""}" data-filter="Perang"><img src="pedang-icon.png" class="fi-img" alt="">Perang</button>
+              <button class="filter-btn ${currentFilter === "Fakta Sejarah" ? "active" : ""}" data-filter="Fakta Sejarah"><img src="dokumen-icon.png" class="fi-img fi-dokumen" alt="">Fakta Sejarah</button>
             </div>
-            <div class="section-header"><h2>Artikel Terbaru</h2></div>
+            <div class="section-header">
+              <h2>Artikel Terbaru</h2>
+              <a href="#" style="margin-left:auto; font-family:'DM Sans',sans-serif; font-size:0.78rem; color:var(--blue-primary); text-decoration:none; display:flex; align-items:center; gap:4px;" id="lihatSemua">Lihat semua →</a>
+            </div>
             <div class="articles-grid" id="articlesGrid">
               ${
                 paginated.length === 0
@@ -2687,26 +2937,46 @@
             </div>
           </div>
           <aside class="sidebar">
-            <div class="sidebar-widget">
-              <h3> Kategori</h3>
-              <ul class="cat-list">
-                <li data-filter="Sejarah Indonesia"><div class="cat-left"> Sejarah Indonesia</div><span>${catsCount["Sejarah Indonesia"]}</span></li>
-                <li data-filter="Sejarah Dunia"><div class="cat-left"> Sejarah Dunia</div><span>${catsCount["Sejarah Dunia"]}</span></li>
-                <li data-filter="Tokoh"><div class="cat-left"> Tokoh</div><span>${catsCount["Tokoh"]}</span></li>
-                <li data-filter="Perang"><div class="cat-left"> Perang</div><span>${catsCount["Perang"]}</span></li>
-                <li data-filter="Fakta Sejarah"><div class="cat-left"> Fakta Sejarah</div><span>${catsCount["Fakta Sejarah"]}</span></li>
-              </ul>
+            <div class="sidebar-widget" style="border-radius:6px; border:1px solid var(--border); background:#fff;">
+              <h3 style="display:flex;align-items:center;gap:8px;font-size:0.72rem;letter-spacing:2px;border-bottom:1px solid var(--border);padding-bottom:0.8rem;margin-bottom:1rem;font-family:'DM Sans',sans-serif;font-weight:700;">
+                <span style="font-size:1.1rem;">📅</span> PERISTIWA HARI INI
+              </h3>
+              <div id="todayWidget" style="padding:0;">
+                <div style="display:flex;gap:10px;align-items:flex-start;">
+                  <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;padding-top:3px;">
+                    <div style="width:10px;height:10px;background:var(--blue-primary);border-radius:50%;"></div>
+                    <div style="width:2px;flex:1;background:var(--border);margin-top:4px;min-height:40px;"></div>
+                  </div>
+                  <div>
+                    <div style="font-family:'DM Sans',sans-serif; font-size:0.82rem; font-weight:700; color:var(--text); margin-bottom:0.3rem;" id="todayDate">—</div>
+                    <div style="font-size:0.8rem; color:var(--text-muted); line-height:1.55;" id="todayText">Memuat kisah...</div>
+                  </div>
+                </div>
+                <div class="tw-link" id="todayLink" style="display:none; margin-top:1rem; color:var(--blue-primary); font-family:'DM Sans',sans-serif; font-size:0.78rem; font-weight:500;">Lihat peristiwa lainnya →</div>
+              </div>
             </div>
-            <div class="today-widget" id="todayWidget">
-              <div class="tw-header"> Sejarah Hari Ini</div>
-              <div class="tw-date" id="todayDate">—</div>
-              <div class="tw-text" id="todayText">Memuat kisah...</div>
-              <div class="tw-link" id="todayLink" style="display:none;">Baca selengkapnya →</div>
+            <div class="sidebar-widget" style="border-radius:6px; border:1px solid var(--border); background:#fff;">
+              <h3 style="display:flex;align-items:center;gap:8px;font-size:0.72rem;letter-spacing:2px;border-bottom:1px solid var(--border);padding-bottom:0.8rem;margin-bottom:1rem;font-family:'DM Sans',sans-serif;font-weight:700;">
+                <span style="font-size:1.1rem;">🔥</span> POPULER MINGGU INI
+              </h3>
+              <div style="display:flex;flex-direction:column;gap:0.7rem;">
+                ${popularSorted
+                  .map(
+                    (a, i) => `
+                  <div class="pop-item" data-id="${a.id}" style="display:flex;gap:10px;align-items:flex-start;cursor:pointer;">
+                    <div style="width:24px;height:24px;background:var(--blue-primary);color:#fff;font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0;margin-top:1px;">${i + 1}</div>
+                    <div style="flex:1;min-width:0;font-family:'DM Sans',sans-serif;font-size:0.82rem;line-height:1.4;color:var(--text);">${escapeHtml(a.title)}</div>
+                  </div>
+                `,
+                  )
+                  .join("")}
+              </div>
+              <div style="margin-top:1rem;"><a href="#" style="font-family:'DM Sans',sans-serif;font-size:0.78rem;color:var(--blue-primary);text-decoration:none;font-weight:500;">Lihat semua populer →</a></div>
             </div>
             <div class="feedback-widget">
-              <h3>💬 Saran &amp; Masukan</h3>
+              <h3> Saran &amp; Masukan</h3>
               <p>Ada saran, masukan, atau pertanyaan untuk kami? Sampaikan langsung — kami selalu terbuka untuk perbaikan.</p>
-              <button class="feedback-widget-btn" id="openFeedbackSidebar">Kirim Masukan →</button>
+              <button class="feedback-widget-btn" id="openFeedbackSidebar">Kirim Masukan</button>
             </div>
           </aside>
         </div>
@@ -2982,9 +3252,9 @@
       }
 
       function renderArticlePage(article) {
-        document.querySelector('nav').classList.add('article-page-nav');
+        document.querySelector("nav").classList.add("article-page-nav");
         const html = `
-        <div style="max-width: 960px; margin: 2rem auto; padding: 0 1rem; box-sizing: border-box; width: 100%; overflow-x: hidden;">
+        <div style="max-width: 960px; margin: 2rem auto; padding: 0 1rem;">
           <button id="backToHomeBtn" class="back-btn">Kembali ke Halaman Sebelumnya</button>
           <div class="article-page">
             <h1>${escapeHtml(article.title)}</h1>
@@ -3014,7 +3284,7 @@
       }
 
       function renderAboutPage() {
-        document.querySelector('nav').classList.remove('article-page-nav');
+        document.querySelector("nav").classList.remove("article-page-nav");
         const html = `
           <div class="about-hero">
             <div class="about-hero-bg" id="aboutHeroBg"></div>
@@ -3365,7 +3635,7 @@
       }
 
       function renderPrivacyPage() {
-        document.querySelector('nav').classList.remove('article-page-nav');
+        document.querySelector("nav").classList.remove("article-page-nav");
         cleanupAboutPage();
         const html = `
           <div class="privacy-hero">
