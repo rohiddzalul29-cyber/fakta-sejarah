@@ -519,6 +519,124 @@
         opacity: 0.4;
         cursor: not-allowed;
       }
+      /* ===== FEATURED TOP 3 ARTICLES ROW ===== */
+      .featured-articles-row {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+        margin-bottom: 2rem;
+      }
+      .featured-card {
+        background: var(--white);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        overflow: hidden;
+        cursor: pointer;
+        transition:
+          box-shadow 0.2s,
+          transform 0.2s;
+        display: flex;
+        flex-direction: column;
+      }
+      .featured-card:hover {
+        box-shadow: 0 4px 20px rgba(26, 95, 168, 0.15);
+        transform: translateY(-2px);
+      }
+      .featured-card-img {
+        width: 100%;
+        height: 160px;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+      .featured-card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s;
+      }
+      .featured-card:hover .featured-card-img img {
+        transform: scale(1.05);
+      }
+      .featured-card-body {
+        padding: 1rem;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .featured-card-cat {
+        display: inline-block;
+        color: #e84118;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        margin-bottom: 6px;
+      }
+      .featured-card-body h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 0.95rem;
+        line-height: 1.4;
+        margin-bottom: 6px;
+        color: var(--text);
+        flex: 1;
+      }
+      .featured-card-body p {
+        font-size: 0.75rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+        margin-bottom: 6px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .featured-card-meta {
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.68rem;
+        color: #888;
+      }
+      @media (max-width: 900px) {
+        .featured-articles-row {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0.7rem;
+        }
+        .featured-card-img {
+          height: 110px;
+        }
+        .featured-card-body h3 {
+          font-size: 0.8rem;
+        }
+      }
+      @media (max-width: 600px) {
+        .featured-articles-row {
+          grid-template-columns: repeat(3, 1fr);
+          gap: 0.5rem;
+        }
+        .featured-card-img {
+          height: 80px;
+        }
+        .featured-card-body {
+          padding: 0.5rem;
+        }
+        .featured-card-body h3 {
+          font-size: 0.72rem;
+          -webkit-line-clamp: 3;
+          display: -webkit-box;
+          -webkit-box-orient: vertical;
+          overflow: hidden;
+        }
+        .featured-card-body p {
+          display: none;
+        }
+        .featured-card-cat {
+          font-size: 0.58rem;
+        }
+        .featured-card-meta {
+          font-size: 0.6rem;
+        }
+      }
+
       .popular-list {
         display: grid;
         grid-template-columns: repeat(3, 1fr);
@@ -2932,8 +3050,35 @@
               <button class="filter-btn ${currentFilter === "Perang" ? "active" : ""}" data-filter="Perang"><img src="pedang-icon.png" class="fi-img" alt="">Perang</button>
               <button class="filter-btn ${currentFilter === "Fakta Sejarah" ? "active" : ""}" data-filter="Fakta Sejarah"><img src="dokumen-icon.png" class="fi-img fi-dokumen" alt="">Fakta Sejarah</button>
             </div>
+            ${
+              currentPage === 1
+                ? `
             <div class="section-header">
               <h2>Artikel Terbaru</h2>
+            </div>
+            <div class="featured-articles-row" id="featuredArticlesRow">
+              ${filtered
+                .slice(0, 3)
+                .map(
+                  (a) => `
+                <div class="featured-card" data-id="${a.id}">
+                  <div class="featured-card-img"><img src="${a.image_url || "https://via.placeholder.com/400x180/2D1F0E/C9972B?text=Sejarah"}" onerror="this.src='https://via.placeholder.com/400x180/2D1F0E/C9972B?text=Sejarah'"></div>
+                  <div class="featured-card-body">
+                    <span class="featured-card-cat">${escapeHtml(a.category)}</span>
+                    <h3>${escapeHtml(a.title)}</h3>
+                    <p>${escapeHtml(a.excerpt || "")}</p>
+                    <div class="featured-card-meta">${formatDate(a.created_at)}</div>
+                  </div>
+                </div>
+              `,
+                )
+                .join("")}
+            </div>
+            `
+                : ""
+            }
+            <div class="section-header">
+              <h2>${currentPage === 1 ? "Artikel" : "Artikel"}</h2>
               <a href="#" style="margin-left:auto; font-family:'DM Sans',sans-serif; font-size:0.78rem; color:var(--blue-primary); text-decoration:none; display:flex; align-items:center; gap:4px;" id="lihatSemua">Lihat semua →</a>
             </div>
             <div class="articles-grid" id="articlesGrid">
@@ -3043,17 +3188,19 @@
       }
 
       function attachHomeEvents() {
-        document.querySelectorAll(".card, .pop-item").forEach((el) => {
-          el.addEventListener("click", (e) => {
-            const id = el.getAttribute("data-id");
-            if (id) {
-              // Simpan posisi saat ini sebelum pergi ke artikel
-              lastFilter = currentFilter;
-              lastPage = currentPage;
-              navigateToArticle(id);
-            }
+        document
+          .querySelectorAll(".card, .pop-item, .featured-card")
+          .forEach((el) => {
+            el.addEventListener("click", (e) => {
+              const id = el.getAttribute("data-id");
+              if (id) {
+                // Simpan posisi saat ini sebelum pergi ke artikel
+                lastFilter = currentFilter;
+                lastPage = currentPage;
+                navigateToArticle(id);
+              }
+            });
           });
-        });
         document.querySelectorAll(".filter-btn").forEach((btn) => {
           btn.addEventListener("click", (e) => {
             currentFilter = btn.getAttribute("data-filter");
