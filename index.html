@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sejarah Setiap Hari | Arsip Nusantara & Dunia</title>
-    <link rel="icon" type="image/x-icon" href="merahlogo.png" />
+    <link rel="icon" type="image/x-icon" href="/merahlogo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link
       href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap"
@@ -328,7 +328,7 @@
             rgba(10, 6, 2, 0.875) 40%,
             rgba(10, 6, 2, 0.37) 100%
           ),
-          url("nav.jpeg") center/cover;
+          url("/nav.jpeg") center/cover;
       }
       .hero-content {
         position: relative;
@@ -980,7 +980,7 @@
               rgba(10, 6, 2, 0.9) 45%,
               rgba(10, 6, 2, 0.25) 100%
             ),
-            url("nav.jpeg") center/cover;
+            url("/nav.jpeg") center/cover;
         }
         .hero-content {
           padding: 2.5rem 1.2rem 1.8rem;
@@ -2730,7 +2730,7 @@
         </div>
         <a href="/" class="nav-logo" id="homeLink">
           <img
-            src="editlogo.png"
+            src="/editlogo.png"
             alt="Fakta Sejarah Logo"
             style="
               width: 62px;
@@ -2742,7 +2742,7 @@
           />
           <div class="nav-logo-text">
             <div class="nav-brand-img-wrap">
-              <img src="faktaa.png" alt="Fakta Sejarah" class="nav-brand-img" />
+              <img src="/faktaa.png" alt="Fakta Sejarah" class="nav-brand-img" />
               <div class="nav-brand-shine"></div>
             </div>
           </div>
@@ -2923,7 +2923,7 @@
         <div class="footer-brand">
           <div style="display: flex; gap: 10px; align-items: center">
             <img
-              src="editlogo.png"
+              src="/editlogo.png"
               alt="Fakta Sejarah Logo"
               style="
                 width: 60px;
@@ -3043,12 +3043,12 @@
         <div class="main">
           <div>
             <div class="filter-bar" id="filterBar">
-              <button class="filter-btn ${currentFilter === "all" ? "active" : ""}" data-filter="all"><img src="globe-icon.png" class="fi-img" alt="">Semua</button>
-              <button class="filter-btn ${currentFilter === "Sejarah Dunia" ? "active" : ""}" data-filter="Sejarah Dunia"><img src="eart-icon.png" class="fi-img" alt="">Sejarah Dunia</button>
-              <button class="filter-btn ${currentFilter === "Sejarah Indonesia" ? "active" : ""}" data-filter="Sejarah Indonesia"><img src="indo-icon.png" class="fi-img fi-indo" alt="">Indonesia</button>
-              <button class="filter-btn ${currentFilter === "Tokoh" ? "active" : ""}" data-filter="Tokoh"><img src="person-icon.png" class="fi-img" alt="">Tokoh</button>
-              <button class="filter-btn ${currentFilter === "Perang" ? "active" : ""}" data-filter="Perang"><img src="pedang-icon.png" class="fi-img" alt="">Perang</button>
-              <button class="filter-btn ${currentFilter === "Fakta Sejarah" ? "active" : ""}" data-filter="Fakta Sejarah"><img src="dokumen-icon.png" class="fi-img fi-dokumen" alt="">Fakta Sejarah</button>
+              <button class="filter-btn ${currentFilter === "all" ? "active" : ""}" data-filter="all"><img src="/globe-icon.png" class="fi-img" alt="">Semua</button>
+              <button class="filter-btn ${currentFilter === "Sejarah Dunia" ? "active" : ""}" data-filter="Sejarah Dunia"><img src="/eart-icon.png" class="fi-img" alt="">Sejarah Dunia</button>
+              <button class="filter-btn ${currentFilter === "Sejarah Indonesia" ? "active" : ""}" data-filter="Sejarah Indonesia"><img src="/indo-icon.png" class="fi-img fi-indo" alt="">Indonesia</button>
+              <button class="filter-btn ${currentFilter === "Tokoh" ? "active" : ""}" data-filter="Tokoh"><img src="/person-icon.png" class="fi-img" alt="">Tokoh</button>
+              <button class="filter-btn ${currentFilter === "Perang" ? "active" : ""}" data-filter="Perang"><img src="/pedang-icon.png" class="fi-img" alt="">Perang</button>
+              <button class="filter-btn ${currentFilter === "Fakta Sejarah" ? "active" : ""}" data-filter="Fakta Sejarah"><img src="/dokumen-icon.png" class="fi-img fi-dokumen" alt="">Fakta Sejarah</button>
             </div>
             ${
               currentPage === 1
@@ -3432,16 +3432,44 @@
 
       // ── SLUG GENERATOR ─────────────────────────────────────
       function generateSlug(title) {
-        const map = {'à':'a','á':'a','â':'a','ã':'a','ä':'a','è':'e','é':'e','ê':'e','ë':'e','ì':'i','í':'i','î':'i','ò':'o','ó':'o','ô':'o','õ':'o','ù':'u','ú':'u','û':'u','ü':'u','ñ':'n','ç':'c'};
-        return (title || '').toLowerCase()
-          .split('').map(c => map[c] || c).join('')
-          .replace(/[^a-z0-9\s-]/g, '').trim()
-          .replace(/\s+/g, '-').replace(/-+/g, '-');
+        const map = {
+          à: "a",
+          á: "a",
+          â: "a",
+          ã: "a",
+          ä: "a",
+          è: "e",
+          é: "e",
+          ê: "e",
+          ë: "e",
+          ì: "i",
+          í: "i",
+          î: "i",
+          ò: "o",
+          ó: "o",
+          ô: "o",
+          õ: "o",
+          ù: "u",
+          ú: "u",
+          û: "u",
+          ü: "u",
+          ñ: "n",
+          ç: "c",
+        };
+        return (title || "")
+          .toLowerCase()
+          .split("")
+          .map((c) => map[c] || c)
+          .join("")
+          .replace(/[^a-z0-9\s-]/g, "")
+          .trim()
+          .replace(/\s+/g, "-")
+          .replace(/-+/g, "-");
       }
 
       async function navigateToArticle(articleId, specialItem = null) {
         if (specialItem) {
-          history.pushState({ special: true }, '', '/artikel/sejarah-hari-ini');
+          history.pushState({ special: true }, "", "/artikel/sejarah-hari-ini");
           renderArticlePage({
             title: specialItem.title,
             content: specialItem.content || specialItem.excerpt,
@@ -3449,7 +3477,7 @@
             created_at: new Date().toISOString(),
             image_url: null,
             views: 0,
-            slug: 'sejarah-hari-ini',
+            slug: "sejarah-hari-ini",
           });
           return;
         }
@@ -3457,7 +3485,7 @@
         if (!article) return;
         // Gunakan slug artikel; fallback generate dari judul jika belum ada
         const slug = article.slug || generateSlug(article.title);
-        history.pushState({ articleId }, '', '/artikel/' + slug);
+        history.pushState({ articleId }, "", "/artikel/" + slug);
         try {
           await db
             .from("articles")
@@ -3475,15 +3503,23 @@
         if (match) {
           const slug = match[1];
           // Cari dulu di cache allArticles
-          let article = allArticles.find(a => (a.slug || generateSlug(a.title)) === slug);
+          let article = allArticles.find(
+            (a) => (a.slug || generateSlug(a.title)) === slug,
+          );
           if (!article) {
             // Jika belum ada (misal akses langsung URL), ambil dari Supabase by slug
             try {
-              const { data } = await db.from("articles").select("*").eq("slug", slug).eq("published", true).single();
+              const { data } = await db
+                .from("articles")
+                .select("*")
+                .eq("slug", slug)
+                .eq("published", true)
+                .single();
               if (data) {
                 article = data;
                 // Tambahkan ke cache jika belum ada
-                if (!allArticles.find(a => a.id === data.id)) allArticles.push(data);
+                if (!allArticles.find((a) => a.id === data.id))
+                  allArticles.push(data);
               }
             } catch (e) {}
           }
@@ -3498,7 +3534,7 @@
       }
 
       // Handle tombol back/forward browser
-      window.addEventListener('popstate', () => {
+      window.addEventListener("popstate", () => {
         routeFromUrl();
       });
 
@@ -3521,7 +3557,7 @@
           ?.addEventListener("click", (e) => {
             e.preventDefault();
             // Update URL kembali ke homepage
-            history.pushState({}, '', '/');
+            history.pushState({}, "", "/");
             // Kembali ke posisi terakhir yang disimpan
             currentFilter = lastFilter;
             currentPage = lastPage;
@@ -3568,7 +3604,7 @@
                   <div class="logo-orbit logo-orbit-2"><div class="logo-orbit-dot"></div></div>
                   <div class="logo-video-circle">
                     <video autoplay loop muted playsinline id="logoVid">
-                      <source src="Edit Logo Hapus Warna Merah.mp4" type="video/mp4">
+                      <source src="/Edit Logo Hapus Warna Merah.mp4" type="video/mp4">
                     </video>
                     <div class="logo-video-shine"></div>
                   </div>
@@ -3683,7 +3719,7 @@
               </div>
               <div class="about-feedback-illustration" data-scroll="fade-right">
                 <div class="about-feedback-icon-wrap" data-scroll="zoom-in" data-delay="200">
-                  <img src="image.png" alt="saran dan masukan"/>
+                  <img src="/image.png" alt="saran dan masukan"/>
                 </div>
                 <div class="about-feedback-facts">
                   <div class="about-feedback-fact" data-scroll="fade-up" data-delay="100"><span class="fact-icon">📩</span><span>Setiap pesan kami baca</span></div>
