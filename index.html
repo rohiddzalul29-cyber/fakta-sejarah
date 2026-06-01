@@ -3079,7 +3079,7 @@
             }
             <div class="section-header">
               <h2>${currentPage === 1 ? "Artikel" : "Artikel"}</h2>
-              <a href="#" style="margin-left:auto; font-family:'DM Sans',sans-serif; font-size:0.78rem; color:var(--blue-primary); text-decoration:none; display:flex; align-items:center; gap:4px;" id="lihatSemua">Lihat semua →</a>
+              <a href="#" style="margin-left:auto; font-family:'DM Sans',sans-serif; font-size:0.78rem; color:var(--blue-primary); text-decoration:none; display:flex; align-items:center; gap:4px;" id="lihatSemua"></a>
             </div>
             <div class="articles-grid" id="articlesGrid">
               ${
@@ -3101,7 +3101,7 @@
               totalPages > 1
                 ? `
               <div class="pagination" id="paginationControls">
-                <button class="page-btn" id="prevPageBtn" ${currentPage === 1 ? "disabled" : ""}>« Sebelumnya</button>
+                <button class="page-btn" id="prevPageBtn" ${currentPage === 1 ? "disabled" : ""}> Sebelumnya</button>
                 ${Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
                   let pageNum = i + 1;
                   if (totalPages > 5 && currentPage > 3) {
@@ -3113,7 +3113,7 @@
                 }).join("")}
                 ${totalPages > 5 && currentPage < totalPages - 2 ? '<span style="padding:0 4px;">...</span>' : ""}
                 ${totalPages > 5 && currentPage < totalPages - 2 ? `<button class="page-btn" data-page="${totalPages}">${totalPages}</button>` : ""}
-                <button class="page-btn" id="nextPageBtn" ${currentPage === totalPages ? "disabled" : ""}>Selanjutnya »</button>
+                <button class="page-btn" id="nextPageBtn" ${currentPage === totalPages ? "disabled" : ""}>Selanjutnya </button>
               </div>
               <div class="page-info">Halaman ${currentPage} dari ${totalPages} • Total ${filtered.length} artikel</div>
             `
@@ -3140,7 +3140,7 @@
           <aside class="sidebar">
             <div class="sidebar-widget" style="border-radius:6px; border:1px solid var(--border); background:#fff;">
               <h3 style="display:flex;align-items:center;gap:8px;font-size:0.72rem;letter-spacing:2px;border-bottom:1px solid var(--border);padding-bottom:0.8rem;margin-bottom:1rem;font-family:'DM Sans',sans-serif;font-weight:700;">
-                <img src="kalender-icon.png" alt="kalender" style="width:18px;height:18px;object-fit:contain;filter:invert(27%) sepia(90%) saturate(600%) hue-rotate(195deg) brightness(0.85);"> PERISTIWA HARI INI
+                <img src="/kalender-icon.png" alt="kalender" style="width:18px;height:18px;object-fit:contain;filter:invert(27%) sepia(90%) saturate(600%) hue-rotate(195deg) brightness(0.85);"> PERISTIWA HARI INI
               </h3>
               <div id="todayWidget" style="padding:0;">
                 <div style="display:flex;gap:10px;align-items:flex-start;">
@@ -4235,7 +4235,7 @@
         document.getElementById("fbPesan").value = "";
         document.getElementById("submitFeedbackBtn").disabled = false;
         document.getElementById("submitFeedbackBtn").textContent =
-          "Kirim Pesan →";
+          "Kirim Pesan ";
         // Focus first field
         setTimeout(() => document.getElementById("fbNama").focus(), 100);
       }
@@ -4306,7 +4306,7 @@
             }
           } catch (err) {
             btn.disabled = false;
-            btn.textContent = "Kirim Pesan →";
+            btn.textContent = "Kirim Pesan ";
             alert(
               "Gagal mengirim pesan. Periksa koneksi internet Anda dan coba lagi.",
             );
