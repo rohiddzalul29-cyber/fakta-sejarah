@@ -3450,8 +3450,20 @@
       let lastFilter = "all";
       let lastPage = 1;
 
+      function cleanupArticlePage() {
+        const pb = document.getElementById('articleReadProgress');
+        const pl = document.getElementById('articleReadLabel');
+        if (pb) pb.remove();
+        if (pl) pl.remove();
+        if (window._articleScrollHandler) {
+          window.removeEventListener('scroll', window._articleScrollHandler);
+          window._articleScrollHandler = null;
+        }
+      }
+
       function renderHomePage() {
         document.querySelector("nav").classList.remove("article-page-nav");
+        cleanupArticlePage();
         cleanupAboutPage();
         const filtered =
           currentFilter === "all"
