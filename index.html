@@ -1176,12 +1176,11 @@
           margin-bottom: 0.75rem;
         }
         .article-hero-meta {
-          font-size: 0.62rem;
-          gap: 0.45rem;
+          font-size: 0.6rem;
+          gap: 0.7rem;
           flex-direction: row !important;
           flex-wrap: nowrap !important;
           align-items: center;
-          overflow: hidden;
           max-width: 100%;
         }
         .article-hero-meta > span {
@@ -1191,12 +1190,14 @@
           align-items: center;
         }
         .article-hero-meta .sep {
-          opacity: 0.4;
-          flex-shrink: 0;
+          display: none;
         }
         .article-hero-cat {
           font-size: 0.52rem;
           padding: 2px 8px;
+          max-width: 100px;
+          overflow: hidden;
+          text-overflow: ellipsis;
           white-space: nowrap;
         }
         .article-body-wrap {
@@ -1384,6 +1385,9 @@
         margin-bottom: 1rem;
         border-radius: 2px;
         white-space: nowrap;
+        max-width: 140px;
+        overflow: hidden;
+        text-overflow: ellipsis;
       }
       .article-hero h1 {
         font-family: "Playfair Display", serif;
