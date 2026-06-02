@@ -60,7 +60,7 @@
         padding: 0 2rem;
         display: flex;
         align-items: center;
-        height: 100px;
+        height: 72px;
         gap: 0;
       }
       /* ── Hamburger beside logo ── */
@@ -68,18 +68,19 @@
         background: none;
         border: none;
         cursor: pointer;
-        padding: 6px 10px 6px 0;
+        padding: 8px 12px 8px 0;
         display: flex;
         flex-direction: column;
         gap: 5px;
         align-items: center;
         justify-content: center;
         flex-shrink: 0;
-        margin-right: 6px;
+        margin-right: 10px;
+        align-self: center;
       }
       .nav-hamburger-side span {
         display: block;
-        width: 20px;
+        width: 22px;
         height: 2px;
         background: var(--blue-primary);
         border-radius: 2px;
@@ -105,45 +106,58 @@
       .nav-logo {
         display: flex;
         align-items: center;
-        gap: 10px;
+        gap: 12px;
         text-decoration: none;
         flex-shrink: 0;
+        align-self: center;
       }
       .nav-logo-icon {
-        width: 36px;
-        height: 36px;
+        width: 46px;
+        height: 46px;
         background: transparent;
         border-radius: 4px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 18px;
+        font-size: 22px;
+        flex-shrink: 0;
+      }
+      .nav-logo-text {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 1px;
       }
       .nav-logo-text strong {
         display: block;
         font-family: "Playfair Display", serif;
-        font-size: 1rem;
-        letter-spacing: 1px;
+        font-size: 1.25rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
         color: var(--blue-primary);
+        line-height: 1.2;
       }
       .nav-logo-text small {
         font-family: "DM Sans", sans-serif;
-        font-size: 0.6rem;
-        letter-spacing: 3px;
+        font-size: 0.65rem;
+        letter-spacing: 2.5px;
         color: var(--blue-dark);
         text-transform: uppercase;
+        opacity: 0.75;
+        line-height: 1;
       }
       .nav-brand-img-wrap {
         position: relative;
         overflow: hidden;
-        display: inline-block;
+        display: inline-flex;
+        align-items: center;
         border-radius: 4px;
       }
       .nav-brand-img {
         display: block;
-        height: 78px;
+        height: 52px;
         width: auto;
-        max-width: 380px;
+        max-width: 320px;
         object-fit: contain;
         filter: drop-shadow(0 0 6px rgba(99, 60, 220, 0.4))
           drop-shadow(0 0 12px rgba(230, 80, 50, 0.25));
@@ -190,7 +204,7 @@
         color: #444;
         text-decoration: none;
         padding: 0 18px;
-        height: 68px;
+        height: 72px;
         display: flex;
         align-items: center;
         border-bottom: 3px solid transparent;
@@ -902,17 +916,17 @@
         }
       }
       @media (max-width: 600px) {
-        /* ── NAV MOBILE: hamburger kiri · logo tengah · search kanan ── */
+        /* ── NAV MOBILE: hamburger kiri · logo kiri · search kanan ── */
         .nav-inner {
           padding: 0 1rem;
-          height: 90px;
+          height: 64px;
           gap: 0;
           position: relative;
         }
         /* hamburger paling kiri */
         .nav-menu-wrap {
           flex-shrink: 0;
-          margin-right: 12px;
+          margin-right: 10px;
         }
         .nav-hamburger-side {
           padding: 6px 0;
@@ -923,6 +937,7 @@
           position: static;
           left: auto;
           transform: none;
+          gap: 9px;
         }
         .nav-logo > img:first-child {
           width: 40px !important;
@@ -930,23 +945,23 @@
           display: block !important;
         }
         .nav-logo-icon {
-          display: none !important;
-        }
-        .nav-logo {
-          gap: 6px;
+          width: 38px !important;
+          height: 38px !important;
+          font-size: 20px !important;
         }
         .nav-logo-text strong {
-          font-size: 0.88rem !important;
+          font-size: 1.05rem !important;
           white-space: nowrap;
+          letter-spacing: 0.3px;
         }
         .nav-logo-text small {
-          font-size: 0.5rem !important;
+          font-size: 0.58rem !important;
           letter-spacing: 2px;
           white-space: nowrap;
         }
         .nav-brand-img {
-          height: 62px !important;
-          max-width: 300px !important;
+          height: 44px !important;
+          max-width: 220px !important;
         }
         /* search ikon paling kanan, sembunyikan input expand & feedback */
         .nav-right {
@@ -1404,7 +1419,7 @@
         gap: 1.4rem;
         font-family: "DM Sans", sans-serif;
         font-size: 0.75rem;
-        color: rgba(255,255,255,0.72);
+        color: rgba(255, 255, 255, 0.72);
         flex-wrap: wrap;
       }
       .article-hero-meta span {
@@ -1526,7 +1541,8 @@
       .article-content p {
         margin-bottom: 1.2rem;
       }
-      .article-content ul, .article-content ol {
+      .article-content ul,
+      .article-content ol {
         padding-left: 1.5rem;
         margin-bottom: 1.2rem;
       }
@@ -3451,12 +3467,12 @@
       let lastPage = 1;
 
       function cleanupArticlePage() {
-        const pb = document.getElementById('articleReadProgress');
-        const pl = document.getElementById('articleReadLabel');
+        const pb = document.getElementById("articleReadProgress");
+        const pl = document.getElementById("articleReadLabel");
         if (pb) pb.remove();
         if (pl) pl.remove();
         if (window._articleScrollHandler) {
-          window.removeEventListener('scroll', window._articleScrollHandler);
+          window.removeEventListener("scroll", window._articleScrollHandler);
           window._articleScrollHandler = null;
         }
       }
@@ -4005,20 +4021,25 @@
       function renderArticlePage(article) {
         document.querySelector("nav").classList.add("article-page-nav");
         // Estimate reading time
-        const words = (article.content || "").replace(/<[^>]*>/g, "").split(/\s+/).length;
+        const words = (article.content || "")
+          .replace(/<[^>]*>/g, "")
+          .split(/\s+/).length;
         const readMins = Math.max(1, Math.round(words / 200));
         // Format date
-        const dateStr = article.created_at ? formatDate(article.created_at) : "";
+        const dateStr = article.created_at
+          ? formatDate(article.created_at)
+          : "";
         // Popular articles for sidebar (exclude current)
         const popularForSidebar = [...allArticles]
-          .filter(a => a.id !== article.id)
+          .filter((a) => a.id !== article.id)
           .sort((a, b) => (b.views || 0) - (a.views || 0))
           .slice(0, 5);
         const heroImg = article.image_url
           ? `<img class="article-hero-img" src="${article.image_url}" onerror="this.style.display='none'" alt="">`
           : `<div class="article-hero-img" style="background: linear-gradient(135deg, #0f3d72 0%, #1a5fa8 100%);"></div>`;
         const categoryBadge = article.category
-          ? `<span class="article-hero-cat">${escapeHtml(article.category)}</span>` : "";
+          ? `<span class="article-hero-cat">${escapeHtml(article.category)}</span>`
+          : "";
         const html = `
         <!-- HERO -->
         <div class="article-hero">
@@ -4031,7 +4052,7 @@
               ${dateStr ? `<span>📅 ${dateStr}</span><span class="sep">|</span>` : ""}
               <span>⏱ ${readMins} menit baca</span>
               <span class="sep">|</span>
-              <span>👁 ${(article.views || 0).toLocaleString('id-ID')} dibaca</span>
+              <span>👁 ${(article.views || 0).toLocaleString("id-ID")} dibaca</span>
             </div>
           </div>
         </div>
@@ -4067,15 +4088,19 @@
             <!-- Popular articles -->
             <div class="article-sidebar-widget">
               <h3>Artikel Populer</h3>
-              ${popularForSidebar.map(a => `
+              ${popularForSidebar
+                .map(
+                  (a) => `
                 <div class="article-popular-item" data-id="${a.id}">
-                  <img class="article-popular-img" src="${a.image_url || ''}" onerror="this.style.display='none'" alt="">
+                  <img class="article-popular-img" src="${a.image_url || ""}" onerror="this.style.display='none'" alt="">
                   <div>
                     <div class="article-popular-title">${escapeHtml(a.title)}</div>
-                    <div class="article-popular-date">📅 ${formatDate(a.created_at)} <span style="opacity:.5">·</span> 👁 ${(a.views||0).toLocaleString('id-ID')}</div>
+                    <div class="article-popular-date">📅 ${formatDate(a.created_at)} <span style="opacity:.5">·</span> 👁 ${(a.views || 0).toLocaleString("id-ID")}</div>
                   </div>
                 </div>
-              `).join('')}
+              `,
+                )
+                .join("")}
             </div>
           </aside>
         </div>
@@ -4096,15 +4121,19 @@
           <!-- Artikel lainnya -->
           <div class="article-mobile-section-title">Artikel Lainnya</div>
           <div id="articleMobilePopular">
-            ${popularForSidebar.map(a => `
+            ${popularForSidebar
+              .map(
+                (a) => `
               <div class="article-mobile-popular-item" data-id="${a.id}">
-                ${a.image_url ? `<img class="article-mobile-popular-img" src="${a.image_url}" onerror="this.style.display='none'" alt="">` : ''}
+                ${a.image_url ? `<img class="article-mobile-popular-img" src="${a.image_url}" onerror="this.style.display='none'" alt="">` : ""}
                 <div>
                   <div class="article-mobile-popular-title">${escapeHtml(a.title)}</div>
                   <div class="article-mobile-popular-date">📅 ${formatDate(a.created_at)}</div>
                 </div>
               </div>
-            `).join('')}
+            `,
+              )
+              .join("")}
           </div>
         </div>
       `;
@@ -4116,10 +4145,17 @@
             // Update URL kembali ke homepage
             history.pushState({}, "", "/");
             // Cleanup article progress bar
-            const pb = document.getElementById('articleReadProgress');
-            const pl = document.getElementById('articleReadLabel');
-            if (pb) pb.remove(); if (pl) pl.remove();
-            if (window._articleScrollHandler) { window.removeEventListener('scroll', window._articleScrollHandler); window._articleScrollHandler = null; }
+            const pb = document.getElementById("articleReadProgress");
+            const pl = document.getElementById("articleReadLabel");
+            if (pb) pb.remove();
+            if (pl) pl.remove();
+            if (window._articleScrollHandler) {
+              window.removeEventListener(
+                "scroll",
+                window._articleScrollHandler,
+              );
+              window._articleScrollHandler = null;
+            }
             // Kembali ke posisi terakhir yang disimpan
             currentFilter = lastFilter;
             currentPage = lastPage;
@@ -4132,12 +4168,16 @@
             }, 100);
           });
         // Sidebar + mobile popular items
-        document.querySelectorAll(".article-popular-item, .article-mobile-popular-item").forEach(el => {
-          el.addEventListener("click", () => {
-            const id = el.getAttribute("data-id");
-            if (id) navigateToArticle(id);
+        document
+          .querySelectorAll(
+            ".article-popular-item, .article-mobile-popular-item",
+          )
+          .forEach((el) => {
+            el.addEventListener("click", () => {
+              const id = el.getAttribute("data-id");
+              if (id) navigateToArticle(id);
+            });
           });
-        });
         // Reading progress bar
         const existingBar = document.getElementById("articleReadProgress");
         if (existingBar) existingBar.remove();
@@ -4145,16 +4185,22 @@
         if (existingLabel) existingLabel.remove();
         const rbar = document.createElement("div");
         rbar.id = "articleReadProgress";
-        rbar.style.cssText = "position:fixed;top:0;left:0;height:3px;background:var(--blue-primary);z-index:9999;width:0%;transition:width 0.1s linear;";
+        rbar.style.cssText =
+          "position:fixed;top:0;left:0;height:3px;background:var(--blue-primary);z-index:9999;width:0%;transition:width 0.1s linear;";
         document.body.appendChild(rbar);
         const progressLabel = document.createElement("div");
         progressLabel.id = "articleReadLabel";
-        progressLabel.style.cssText = "position:fixed;top:0;left:50%;transform:translateX(-50%);font-family:'DM Sans',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:2px;color:var(--blue-primary);padding-top:6px;z-index:9998;pointer-events:none;white-space:nowrap;";
+        progressLabel.style.cssText =
+          "position:fixed;top:0;left:50%;transform:translateX(-50%);font-family:'DM Sans',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:2px;color:var(--blue-primary);padding-top:6px;z-index:9998;pointer-events:none;white-space:nowrap;";
         progressLabel.textContent = "PROGRESS MEMBACA 0%";
         document.body.appendChild(progressLabel);
         function updateArticleProgress() {
-          const docH = document.documentElement.scrollHeight - window.innerHeight;
-          const pct = docH > 0 ? Math.min(Math.round((window.scrollY / docH) * 100), 100) : 0;
+          const docH =
+            document.documentElement.scrollHeight - window.innerHeight;
+          const pct =
+            docH > 0
+              ? Math.min(Math.round((window.scrollY / docH) * 100), 100)
+              : 0;
           rbar.style.width = pct + "%";
           progressLabel.textContent = "PROGRESS MEMBACA " + pct + "%";
         }
