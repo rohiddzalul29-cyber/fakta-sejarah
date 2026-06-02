@@ -916,57 +916,69 @@
         }
       }
       @media (max-width: 600px) {
-        /* ── NAV MOBILE: hamburger kiri · logo kiri · search kanan ── */
+        /* ── NAV MOBILE: hamburger kiri · logo · search kanan ── */
         .nav-inner {
-          padding: 0 1rem;
-          height: 64px;
+          padding: 0 1.1rem;
+          height: 72px;
           gap: 0;
           position: relative;
+          align-items: center;
         }
         /* hamburger paling kiri */
         .nav-menu-wrap {
           flex-shrink: 0;
-          margin-right: 10px;
+          margin-right: 12px;
+          display: flex;
+          align-items: center;
         }
         .nav-hamburger-side {
-          padding: 6px 0;
+          padding: 8px 0;
           margin-right: 0;
+        }
+        .nav-hamburger-side span {
+          width: 24px !important;
+          height: 2.5px !important;
         }
         /* logo kiri */
         .nav-logo {
           position: static;
           left: auto;
           transform: none;
-          gap: 9px;
+          gap: 11px;
+          align-items: center;
         }
+        /* logo icon (editlogo.png) via inline style — override width/height */
         .nav-logo > img:first-child {
-          width: 40px !important;
-          height: 40px !important;
+          width: 52px !important;
+          height: 52px !important;
           display: block !important;
         }
         .nav-logo-icon {
-          width: 38px !important;
-          height: 38px !important;
-          font-size: 20px !important;
+          width: 46px !important;
+          height: 46px !important;
+          font-size: 24px !important;
+        }
+        /* brand image (faktaa.png) */
+        .nav-brand-img {
+          height: 54px !important;
+          max-width: 260px !important;
         }
         .nav-logo-text strong {
-          font-size: 1.05rem !important;
+          font-size: 1.2rem !important;
           white-space: nowrap;
           letter-spacing: 0.3px;
         }
         .nav-logo-text small {
-          font-size: 0.58rem !important;
-          letter-spacing: 2px;
+          font-size: 0.62rem !important;
+          letter-spacing: 2.5px;
           white-space: nowrap;
         }
-        .nav-brand-img {
-          height: 44px !important;
-          max-width: 220px !important;
-        }
-        /* search ikon paling kanan, sembunyikan input expand & feedback */
+        /* search ikon paling kanan */
         .nav-right {
           margin-left: auto;
           gap: 0;
+          display: flex;
+          align-items: center;
         }
         .nav-feedback-btn {
           display: none !important;
@@ -3196,9 +3208,10 @@
           <img
             src="/editlogo.png"
             alt="Fakta Sejarah Logo"
+            class="nav-logo-main-img"
             style="
-              width: 62px;
-              height: 62px;
+              width: 52px;
+              height: 52px;
               object-fit: contain;
               filter: brightness(0) saturate(100%) invert(27%) sepia(90%)
                 saturate(600%) hue-rotate(195deg) brightness(0.85);
