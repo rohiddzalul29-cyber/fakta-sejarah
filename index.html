@@ -13,17 +13,20 @@
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <!-- Anti-flash: terapkan tema sebelum CSS dirender -->
     <script>
-      (function(){
+      (function () {
         try {
           if (localStorage.getItem("sehariTheme") === "dark") {
             document.documentElement.classList.add("dark-init");
           }
-        } catch(e){}
+        } catch (e) {}
       })();
     </script>
     <style>
       /* Terapkan dark background secepat mungkin untuk cegah flash */
-      .dark-init body, html.dark-init body { background: #0f1117 !important; }
+      .dark-init body,
+      html.dark-init body {
+        background: #0f1117 !important;
+      }
     </style>
     <style>
       * {
@@ -167,9 +170,6 @@
         align-items: center;
         height: 62px;
         max-height: 62px;
-        /* isolation penting agar mix-blend-mode terbatas di sini */
-        isolation: isolate;
-        overflow: hidden;
       }
       .nav-brand-img {
         display: block;
@@ -180,54 +180,36 @@
         position: relative;
         z-index: 1;
       }
-      /* Shimmer: gradient bergerak di atas gambar,
-         mix-blend-mode:overlay membuat warna hanya muncul
-         di piksel yang ada isinya (huruf) bukan area transparan */
-      .nav-brand-img-wrap::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-        pointer-events: none;
-        background: linear-gradient(
-          105deg,
-          transparent           0%,
-          transparent          38%,
-          rgba(160,200,255,0.55) 46%,
-          rgba(200,160,255,0.45) 50%,
-          rgba(255,160,100,0.35) 54%,
-          transparent          62%,
-          transparent         100%
-        );
-        background-size: 250% 100%;
-        background-position: 200% 0;
-        animation: brandShimmer 3.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        mix-blend-mode: overlay;
-      }
+      /* ── Logo shimmer: animasi kilap hanya pada piksel gambar ──
+         Tidak ada ::before / ::after / overlay / elemen absolut.
+         Shimmer dihasilkan dengan animasi filter brightness pada
+         img itu sendiri, sehingga tidak pernah bocor keluar area glyph. */
       @keyframes brandShimmer {
-        0%   { background-position: 200% 0; }
-        45%  { background-position: -30% 0; }
-        100% { background-position: -30% 0; }
+        0%   { filter: brightness(1); }
+        30%  { filter: brightness(1); }
+        45%  { filter: brightness(1.35) drop-shadow(0 0 6px rgba(100,170,255,0.45)); }
+        55%  { filter: brightness(1); }
+        100% { filter: brightness(1); }
       }
-      /* Dark mode: shimmer sedikit lebih terang agar tetap terlihat */
-      body.dark .nav-brand-img-wrap::after {
-        background: linear-gradient(
-          105deg,
-          transparent           0%,
-          transparent          38%,
-          rgba(180,220,255,0.65) 46%,
-          rgba(210,170,255,0.55) 50%,
-          rgba(255,180,120,0.45) 54%,
-          transparent          62%,
-          transparent         100%
-        );
-        background-size: 250% 100%;
-        background-position: 200% 0;
-        animation: brandShimmer 3.8s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-        mix-blend-mode: overlay;
+      .nav-brand-img {
+        animation: brandShimmer 4s ease-in-out infinite;
+        will-change: filter;
+      }
+      body.dark .nav-brand-img {
+        animation: brandShimmerDark 4s ease-in-out infinite;
+        will-change: filter;
+      }
+      @keyframes brandShimmerDark {
+        0%   { filter: brightness(1) invert(0); }
+        30%  { filter: brightness(1) invert(0); }
+        45%  { filter: brightness(1.5) drop-shadow(0 0 8px rgba(130,195,255,0.6)) invert(0); }
+        55%  { filter: brightness(1) invert(0); }
+        100% { filter: brightness(1) invert(0); }
       }
       /* Hapus elemen shine lama, tidak dipakai lagi */
-      .nav-brand-shine { display: none; }
+      .nav-brand-shine {
+        display: none;
+      }
 
       /* ── Center nav links ── */
       .nav-links {
@@ -3442,7 +3424,10 @@
       }
       .person-mobile-body {
         padding: 14px 18px 32px;
-        padding-bottom: max(32px, env(safe-area-inset-bottom, 32px)); /* safe area untuk iPhone home bar */
+        padding-bottom: max(
+          32px,
+          env(safe-area-inset-bottom, 32px)
+        ); /* safe area untuk iPhone home bar */
         overflow-y: auto; /* area scroll */
         -webkit-overflow-scrolling: touch;
         flex: 1; /* ambil sisa tinggi */
@@ -3561,7 +3546,8 @@
 
       /* ===== DARK MODE — THEME TOGGLE ===== */
       /* Smooth transition semua elemen saat ganti tema */
-      body, body * {
+      body,
+      body * {
         transition:
           background-color 0.35s ease,
           color 0.35s ease,
@@ -3569,7 +3555,6 @@
           box-shadow 0.35s ease !important;
       }
       /* Tapi jangan override transition animasi khusus */
-      .nav-brand-img-wrap::after,
       .logo-video-ring::before,
       .logo-orbit,
       .about-hero-bg,
@@ -3604,9 +3589,13 @@
         border-bottom-color: #252b3b;
         box-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
       }
-      body.dark .nav-links a { color: #9aa4b2; }
+      body.dark .nav-links a {
+        color: #9aa4b2;
+      }
       body.dark .nav-links a:hover,
-      body.dark .nav-links a.active { color: var(--blue-primary); }
+      body.dark .nav-links a.active {
+        color: var(--blue-primary);
+      }
       body.dark .nav-search-input {
         background: #1a2540;
         border-color: #2d78c8;
@@ -3625,42 +3614,83 @@
         color: #fff;
         background: #4d9de0;
       }
-      body.dark .card { border-bottom-color: #252b3b; }
-      body.dark .card:hover { background: #1a2540; }
-      body.dark .card-body h3 { color: #e8ecf0; }
+      body.dark .card {
+        border-bottom-color: #252b3b;
+      }
+      body.dark .card:hover {
+        background: #1a2540;
+      }
+      body.dark .card-body h3 {
+        color: #e8ecf0;
+      }
       body.dark .sidebar-widget {
         background: #13161f;
         border-color: #252b3b;
       }
-      body.dark .cat-list li { border-bottom-color: #252b3b; }
+      body.dark .cat-list li {
+        border-bottom-color: #252b3b;
+      }
       body.dark .today-widget {
         background: #1a2e50;
         border-color: #2d5080;
       }
-      body.dark .filter-bar { border-bottom-color: #252b3b; }
+      body.dark .filter-bar {
+        border-bottom-color: #252b3b;
+      }
       body.dark .featured-card {
         background: #13161f;
         border-color: #252b3b;
       }
-      body.dark .pop-text h4 { color: #e8ecf0; }
-      body.dark .pop-text .date { color: #9aa4b2; }
-      body.dark .section-header h2 { color: #e8ecf0; }
-      body.dark .sidebar-widget h3 { color: #e8ecf0; border-bottom-color: #252b3b; }
+      body.dark .pop-text h4 {
+        color: #e8ecf0;
+      }
+      body.dark .pop-text .date {
+        color: #9aa4b2;
+      }
+      body.dark .section-header h2 {
+        color: #e8ecf0;
+      }
+      body.dark .sidebar-widget h3 {
+        color: #e8ecf0;
+        border-bottom-color: #252b3b;
+      }
       body.dark .sidebar-widget h3,
-      body.dark .sidebar-widget h3 * { color: #e8ecf0 !important; }
-      body.dark .sidebar-widget { background: #13161f !important; border-color: #252b3b !important; }
-      body.dark #todayDate { color: #e8ecf0 !important; }
-      body.dark #todayText { color: #c0c8d4 !important; }
-      body.dark .cat-list li { color: #c0c8d4; border-bottom-color: #252b3b; }
-      body.dark .cat-list li:hover { color: #4d9de0; }
+      body.dark .sidebar-widget h3 * {
+        color: #e8ecf0 !important;
+      }
+      body.dark .sidebar-widget {
+        background: #13161f !important;
+        border-color: #252b3b !important;
+      }
+      body.dark #todayDate {
+        color: #e8ecf0 !important;
+      }
+      body.dark #todayText {
+        color: #c0c8d4 !important;
+      }
+      body.dark .cat-list li {
+        color: #c0c8d4;
+        border-bottom-color: #252b3b;
+      }
+      body.dark .cat-list li:hover {
+        color: #4d9de0;
+      }
       body.dark .today-widget {
         background: #1a2e50;
         border-color: #2d5080;
       }
-      body.dark .today-widget .tw-header { color: rgba(200, 220, 255, 0.75); }
-      body.dark .today-widget .tw-date { color: #e8ecf0; }
-      body.dark .today-widget .tw-text { color: rgba(200, 220, 255, 0.85); }
-      body.dark .tw-link { color: rgba(200, 220, 255, 0.9); }
+      body.dark .today-widget .tw-header {
+        color: rgba(200, 220, 255, 0.75);
+      }
+      body.dark .today-widget .tw-date {
+        color: #e8ecf0;
+      }
+      body.dark .today-widget .tw-text {
+        color: rgba(200, 220, 255, 0.85);
+      }
+      body.dark .tw-link {
+        color: rgba(200, 220, 255, 0.9);
+      }
       body.dark .page-btn {
         background: #13161f;
         border-color: #252b3b;
@@ -3671,18 +3701,31 @@
         color: #fff;
         border-color: #4d9de0;
       }
-      body.dark .page-btn:hover:not(.active) { background: #1a2540; }
-      body.dark footer { background: #13161f; border-top-color: #252b3b; }
-      body.dark .footer-top { border-color: #252b3b; }
+      body.dark .page-btn:hover:not(.active) {
+        background: #1a2540;
+      }
+      body.dark footer {
+        background: #13161f;
+        border-top-color: #252b3b;
+      }
+      body.dark .footer-top {
+        border-color: #252b3b;
+      }
       /* Article page */
-      body.dark .article-page { background: transparent; }
-      body.dark .article-content { color: #d8dde6; }
+      body.dark .article-page {
+        background: transparent;
+      }
+      body.dark .article-content {
+        color: #d8dde6;
+      }
       body.dark .article-content blockquote {
         background: #1a2540;
         border-left-color: #4d9de0;
       }
       body.dark .article-content blockquote p,
-      body.dark .article-content blockquote { color: #6ab0e8; }
+      body.dark .article-content blockquote {
+        color: #6ab0e8;
+      }
       body.dark .article-sidebar-widget {
         background: #13161f;
         border-color: #252b3b;
@@ -3690,17 +3733,31 @@
       body.dark .article-popular-item:hover {
         background: #1a2540;
       }
-      body.dark .article-meta { border-bottom-color: #252b3b; }
+      body.dark .article-meta {
+        border-bottom-color: #252b3b;
+      }
       body.dark .person-popup-inner {
         background: #13161f;
         border-color: #2a3142;
       }
-      body.dark .person-popup-name { color: #e8ecf0; }
-      body.dark .person-popup-desc { color: #c0c8d4; }
-      body.dark #personMobileCard { background: #13161f; }
-      body.dark .person-mobile-header { border-bottom-color: #252b3b; }
-      body.dark .person-mobile-handle { background: #2a3142; }
-      body.dark .person-mobile-desc { color: #c0c8d4; }
+      body.dark .person-popup-name {
+        color: #e8ecf0;
+      }
+      body.dark .person-popup-desc {
+        color: #c0c8d4;
+      }
+      body.dark #personMobileCard {
+        background: #13161f;
+      }
+      body.dark .person-mobile-header {
+        border-bottom-color: #252b3b;
+      }
+      body.dark .person-mobile-handle {
+        background: #2a3142;
+      }
+      body.dark .person-mobile-desc {
+        color: #c0c8d4;
+      }
       body.dark .person-mobile-close {
         background: #1a2540;
         color: #9aa4b2;
@@ -3715,14 +3772,20 @@
         border-color: #2a3142;
         color: #e8ecf0;
       }
-      body.dark .feedback-modal-body p.modal-intro { color: #9aa4b2; }
-      body.dark .privacy-body { background: transparent; }
+      body.dark .feedback-modal-body p.modal-intro {
+        color: #9aa4b2;
+      }
+      body.dark .privacy-body {
+        background: transparent;
+      }
       body.dark .privacy-toc {
         background: #13161f;
         border-color: #252b3b;
       }
       body.dark .privacy-section p,
-      body.dark .privacy-section li { color: #d8dde6; }
+      body.dark .privacy-section li {
+        color: #d8dde6;
+      }
       body.dark .privacy-highlight {
         background: #1a2540;
         border-left-color: #4d9de0;
@@ -3731,7 +3794,9 @@
         background: #13161f;
         border-color: #252b3b;
       }
-      body.dark .article-mobile-author-bio { color: #9aa4b2; }
+      body.dark .article-mobile-author-bio {
+        color: #9aa4b2;
+      }
 
       /* ── DARK MODE TOGGLE BUTTON ── */
       .theme-toggle-btn {
@@ -3800,18 +3865,33 @@
         animation: themeRipple 0.45s ease forwards;
       }
       @keyframes themeRipple {
-        0%   { opacity: 0.18; transform: scale(0); }
-        60%  { opacity: 0.08; transform: scale(2.2); }
-        100% { opacity: 0;    transform: scale(2.6); }
+        0% {
+          opacity: 0.18;
+          transform: scale(0);
+        }
+        60% {
+          opacity: 0.08;
+          transform: scale(2.2);
+        }
+        100% {
+          opacity: 0;
+          transform: scale(2.6);
+        }
       }
       /* Spin animasi saat ganti tema */
       .theme-toggle-btn.spin svg {
         animation: themeSpin 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
       }
       @keyframes themeSpin {
-        0%   { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
-        40%  { transform: translate(-50%, -50%) rotate(180deg) scale(0.7); }
-        100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
+        0% {
+          transform: translate(-50%, -50%) rotate(0deg) scale(1);
+        }
+        40% {
+          transform: translate(-50%, -50%) rotate(180deg) scale(0.7);
+        }
+        100% {
+          transform: translate(-50%, -50%) rotate(360deg) scale(1);
+        }
       }
     </style>
   </head>
@@ -3912,20 +3992,42 @@
             title="Mode Gelap / Terang"
           >
             <!-- Sun icon (light mode) -->
-            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="5"/>
-              <line x1="12" y1="1" x2="12" y2="3"/>
-              <line x1="12" y1="21" x2="12" y2="23"/>
-              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
-              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
-              <line x1="1" y1="12" x2="3" y2="12"/>
-              <line x1="21" y1="12" x2="23" y2="12"/>
-              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
-              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            <svg
+              class="icon-sun"
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="12" cy="12" r="5" />
+              <line x1="12" y1="1" x2="12" y2="3" />
+              <line x1="12" y1="21" x2="12" y2="23" />
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64" />
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78" />
+              <line x1="1" y1="12" x2="3" y2="12" />
+              <line x1="21" y1="12" x2="23" y2="12" />
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36" />
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22" />
             </svg>
             <!-- Moon icon (dark mode) -->
-            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
+            <svg
+              class="icon-moon"
+              xmlns="http://www.w3.org/2000/svg"
+              width="19"
+              height="19"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z" />
             </svg>
           </button>
           <button
@@ -4082,7 +4184,7 @@
           localStorage.setItem(STORAGE_KEY, isDark ? "dark" : "light");
           btn.setAttribute(
             "aria-label",
-            isDark ? "Ganti ke Mode Terang" : "Ganti ke Mode Gelap"
+            isDark ? "Ganti ke Mode Terang" : "Ganti ke Mode Gelap",
           );
         }
 
@@ -4093,7 +4195,7 @@
             "aria-label",
             body.classList.contains("dark")
               ? "Ganti ke Mode Terang"
-              : "Ganti ke Mode Gelap"
+              : "Ganti ke Mode Gelap",
           );
         }
       })();
@@ -5516,7 +5618,7 @@
     <div id="personMobileOverlay"></div>
     <div id="personMobileCard" role="dialog" aria-modal="true">
       <div class="person-mobile-handle"></div>
-      <div id="personMobileContent" style="display:contents">
+      <div id="personMobileContent" style="display: contents">
         <div class="person-popup-loading" style="padding: 32px">
           <div class="person-popup-loading-dot"></div>
           <div class="person-popup-loading-dot"></div>
