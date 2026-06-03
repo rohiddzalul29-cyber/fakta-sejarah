@@ -3172,6 +3172,270 @@
         }
       }
 
+      /* ===== PERSON TAG — INTERAKTIF TOKOH ===== */
+      .person-tag {
+        color: var(--blue-primary);
+        font-weight: 600;
+        cursor: pointer;
+        position: relative;
+        border-bottom: 1.5px dashed var(--blue-primary);
+        transition: color 0.18s, border-color 0.18s;
+        display: inline;
+      }
+      .person-tag:hover {
+        color: var(--blue-dark);
+        border-bottom-color: var(--blue-dark);
+      }
+
+      /* ── POPUP CONTAINER ── */
+      #personPopup {
+        position: fixed;
+        z-index: 9000;
+        pointer-events: none;
+        opacity: 0;
+        transform: translateY(6px) scale(0.97);
+        transition: opacity 0.2s cubic-bezier(0.4,0,0.2,1),
+                    transform 0.2s cubic-bezier(0.4,0,0.2,1);
+        will-change: transform, opacity;
+        max-width: 320px;
+        min-width: 260px;
+        filter: drop-shadow(0 8px 32px rgba(26,95,168,0.18)) drop-shadow(0 2px 8px rgba(0,0,0,0.10));
+      }
+      #personPopup.visible {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+        pointer-events: auto;
+      }
+      .person-popup-inner {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        overflow: hidden;
+        position: relative;
+      }
+      .person-popup-inner::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--blue-primary), var(--blue-dark));
+        border-radius: 12px 12px 0 0;
+      }
+      .person-popup-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 18px 18px 14px;
+        border-bottom: 1px solid var(--parchment);
+      }
+      .person-popup-photo {
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        object-fit: cover;
+        border: 2.5px solid var(--blue-light);
+        flex-shrink: 0;
+        background: var(--parchment);
+      }
+      .person-popup-photo-placeholder {
+        width: 58px;
+        height: 58px;
+        border-radius: 50%;
+        background: var(--blue-light);
+        border: 2.5px solid var(--blue-primary);
+        flex-shrink: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.5rem;
+      }
+      .person-popup-name {
+        font-family: 'Playfair Display', serif;
+        font-size: 1.02rem;
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1.25;
+        margin-bottom: 3px;
+      }
+      .person-popup-meta {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+      }
+      .person-popup-meta span {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+      }
+      .person-popup-body {
+        padding: 12px 18px 14px;
+      }
+      .person-popup-desc {
+        font-family: 'Source Serif 4', serif;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        line-height: 1.65;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .person-popup-footer {
+        padding: 0 18px 16px;
+      }
+      .person-popup-btn {
+        display: block;
+        width: 100%;
+        background: var(--blue-primary);
+        color: #fff;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        text-decoration: none;
+        text-align: center;
+        padding: 10px 16px;
+        border-radius: 6px;
+        border: none;
+        cursor: pointer;
+        transition: background 0.18s;
+      }
+      .person-popup-btn:hover {
+        background: var(--blue-dark);
+      }
+      .person-popup-loading {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        padding: 24px;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.78rem;
+        color: var(--text-muted);
+      }
+      .person-popup-loading-dot {
+        width: 7px; height: 7px;
+        border-radius: 50%;
+        background: var(--blue-primary);
+        animation: ppDot 1.1s ease-in-out infinite;
+      }
+      .person-popup-loading-dot:nth-child(2) { animation-delay: 0.18s; }
+      .person-popup-loading-dot:nth-child(3) { animation-delay: 0.36s; }
+      @keyframes ppDot {
+        0%, 80%, 100% { transform: scale(0.6); opacity: 0.4; }
+        40% { transform: scale(1); opacity: 1; }
+      }
+
+      /* ── MOBILE OVERLAY ── */
+      #personMobileOverlay {
+        display: none;
+        position: fixed;
+        inset: 0;
+        background: rgba(10,20,40,0.38);
+        z-index: 8900;
+        backdrop-filter: blur(2px);
+        -webkit-backdrop-filter: blur(2px);
+        animation: ppFadeIn 0.18s ease;
+      }
+      #personMobileOverlay.visible { display: block; }
+      @keyframes ppFadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+      }
+      #personMobileCard {
+        display: none;
+        position: fixed;
+        bottom: 0; left: 0; right: 0;
+        z-index: 8950;
+        background: #fff;
+        border-radius: 18px 18px 0 0;
+        max-width: 480px;
+        margin: 0 auto;
+        box-shadow: 0 -6px 32px rgba(26,95,168,0.18);
+        overflow: hidden;
+        transform: translateY(100%);
+        transition: transform 0.28s cubic-bezier(0.34,1.1,0.64,1);
+      }
+      #personMobileCard.visible {
+        display: block;
+        transform: translateY(0);
+      }
+      .person-mobile-handle {
+        width: 36px; height: 4px;
+        border-radius: 2px;
+        background: var(--border);
+        margin: 10px auto 0;
+      }
+      .person-mobile-header {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 16px 20px 12px;
+        border-bottom: 1px solid var(--parchment);
+        position: relative;
+      }
+      .person-mobile-header::before {
+        content: '';
+        position: absolute;
+        top: 0; left: 0; right: 0;
+        height: 3px;
+        background: linear-gradient(90deg, var(--blue-primary), var(--blue-dark));
+      }
+      .person-mobile-close {
+        position: absolute;
+        top: 14px; right: 16px;
+        background: var(--parchment);
+        border: none;
+        border-radius: 50%;
+        width: 30px; height: 30px;
+        cursor: pointer;
+        font-size: 1rem;
+        color: var(--text-muted);
+        display: flex; align-items: center; justify-content: center;
+        line-height: 1;
+      }
+      .person-mobile-body {
+        padding: 14px 20px 12px;
+      }
+      .person-mobile-desc {
+        font-family: 'Source Serif 4', serif;
+        font-size: 0.85rem;
+        color: var(--text-muted);
+        line-height: 1.7;
+        display: -webkit-box;
+        -webkit-line-clamp: 4;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .person-mobile-footer {
+        padding: 0 20px 24px;
+      }
+      .person-mobile-btn {
+        display: block;
+        width: 100%;
+        background: var(--blue-primary);
+        color: #fff;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        text-decoration: none;
+        text-align: center;
+        padding: 13px 16px;
+        border-radius: 8px;
+        border: none;
+        cursor: pointer;
+        transition: background 0.18s;
+      }
+      .person-mobile-btn:hover {
+        background: var(--blue-dark);
+      }
+
       @media (max-width: 900px) {
         .about-mission {
           grid-template-columns: 1fr;
@@ -4204,6 +4468,13 @@
         </div>
       `;
         document.getElementById("appRoot").innerHTML = html;
+        // Proses [person] tags di konten artikel
+        requestAnimationFrame(() => {
+          const articleContent = document.querySelector('.article-content');
+          if (articleContent && typeof window.processPersonTags === 'function') {
+            window.processPersonTags(articleContent);
+          }
+        });
         document
           .getElementById("backToHomeBtn")
           ?.addEventListener("click", (e) => {
@@ -4838,6 +5109,284 @@
         }
       }
       init();
+    </script>
+
+    <!-- ===== PERSON POPUP (DESKTOP) ===== -->
+    <div id="personPopup" role="tooltip" aria-live="polite">
+      <div class="person-popup-inner" id="personPopupInner">
+        <div class="person-popup-loading">
+          <div class="person-popup-loading-dot"></div>
+          <div class="person-popup-loading-dot"></div>
+          <div class="person-popup-loading-dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== PERSON CARD (MOBILE) ===== -->
+    <div id="personMobileOverlay"></div>
+    <div id="personMobileCard" role="dialog" aria-modal="true">
+      <div class="person-mobile-handle"></div>
+      <div id="personMobileContent">
+        <div class="person-popup-loading" style="padding:32px">
+          <div class="person-popup-loading-dot"></div>
+          <div class="person-popup-loading-dot"></div>
+          <div class="person-popup-loading-dot"></div>
+        </div>
+      </div>
+    </div>
+
+    <script>
+    // ===== PERSON TAG INTERACTIVE SYSTEM =====
+    (function() {
+      // Cache tokoh data agar tidak query berulang
+      const _personCache = {};
+      let _hideTimer = null;
+      const popup = document.getElementById('personPopup');
+      const popupInner = document.getElementById('personPopupInner');
+      const mobileCard = document.getElementById('personMobileCard');
+      const mobileOverlay = document.getElementById('personMobileOverlay');
+      const mobileContent = document.getElementById('personMobileContent');
+
+      // ── Detect touch device ──
+      function isTouchDevice() {
+        return window.matchMedia('(hover: none) and (pointer: coarse)').matches;
+      }
+
+      // ── Fetch tokoh dari Supabase by name ──
+      async function fetchTokoh(name) {
+        if (_personCache[name] !== undefined) return _personCache[name];
+        try {
+          // Cari berdasarkan nama (case-insensitive ilike)
+          const { data } = await db
+            .from('people')
+            .select('id, name, birth_year, death_year, country, nationality, description, photo_url, slug, birth_date, death_date')
+            .ilike('name', name)
+            .limit(1);
+          const result = (data && data.length > 0) ? data[0] : null;
+          _personCache[name] = result;
+          return result;
+        } catch(e) {
+          _personCache[name] = null;
+          return null;
+        }
+      }
+
+      // ── Render tahun hidup ──
+      function lifeSpan(t) {
+        if (!t) return '';
+        const b = t.birth_year || (t.birth_date ? t.birth_date.slice(0,4) : null);
+        const d = t.death_year || (t.death_date ? t.death_date.slice(0,4) : null);
+        if (b && d) return b + ' – ' + d;
+        if (b) return 'Lahir ' + b;
+        return '';
+      }
+
+      // ── Render negara ──
+      function country(t) {
+        return t.country || t.nationality || '';
+      }
+
+      // ── Build popup HTML ──
+      function buildPopupContent(tokoh) {
+        const span = lifeSpan(tokoh);
+        const land = country(tokoh);
+        const slug = tokoh.slug || tokoh.id;
+        const desc = tokoh.description || 'Informasi lebih lanjut tersedia di halaman profil.';
+        const photo = tokoh.photo_url
+          ? `<img class="person-popup-photo" src="${tokoh.photo_url}" alt="${tokoh.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'">`
+          : '';
+        const placeholder = `<div class="person-popup-photo-placeholder" ${tokoh.photo_url ? 'style="display:none"' : ''}>🏛️</div>`;
+        return `
+          <div class="person-popup-header">
+            ${photo}${placeholder}
+            <div>
+              <div class="person-popup-name">${tokoh.name}</div>
+              <div class="person-popup-meta">
+                ${span ? `<span>📅 ${span}</span>` : ''}
+                ${land ? `<span>🌍 ${land}</span>` : ''}
+              </div>
+            </div>
+          </div>
+          <div class="person-popup-body">
+            <div class="person-popup-desc">${desc}</div>
+          </div>
+          <div class="person-popup-footer">
+            <a class="person-popup-btn" href="/tokoh/${slug}">Lihat Profil Lengkap →</a>
+          </div>
+        `;
+      }
+
+      // ── Build mobile card HTML ──
+      function buildMobileContent(tokoh) {
+        const span = lifeSpan(tokoh);
+        const land = country(tokoh);
+        const slug = tokoh.slug || tokoh.id;
+        const desc = tokoh.description || 'Informasi lebih lanjut tersedia di halaman profil.';
+        const photo = tokoh.photo_url
+          ? `<img class="person-popup-photo" src="${tokoh.photo_url}" alt="${tokoh.name}" onerror="this.style.display='none';this.nextElementSibling.style.display='flex'" style="width:58px;height:58px;border-radius:50%;object-fit:cover;border:2.5px solid var(--blue-light)">`
+          : '';
+        const placeholder = `<div class="person-popup-photo-placeholder" ${tokoh.photo_url ? 'style="display:none"' : ''}>🏛️</div>`;
+        return `
+          <div class="person-mobile-header">
+            ${photo}${placeholder}
+            <div>
+              <div class="person-popup-name">${tokoh.name}</div>
+              <div class="person-popup-meta">
+                ${span ? `<span>📅 ${span}</span>` : ''}
+                ${land ? `<span>🌍 ${land}</span>` : ''}
+              </div>
+            </div>
+            <button class="person-mobile-close" id="closeMobilePersonCard" aria-label="Tutup">✕</button>
+          </div>
+          <div class="person-mobile-body">
+            <div class="person-mobile-desc">${desc}</div>
+          </div>
+          <div class="person-mobile-footer">
+            <a class="person-mobile-btn" href="/tokoh/${slug}">Lihat Profil Lengkap →</a>
+          </div>
+        `;
+      }
+
+      // ── Not found content ──
+      function buildNotFound(name) {
+        return `
+          <div class="person-popup-header">
+            <div class="person-popup-photo-placeholder">🏛️</div>
+            <div>
+              <div class="person-popup-name">${name}</div>
+              <div class="person-popup-meta"><span>Tokoh Sejarah</span></div>
+            </div>
+          </div>
+          <div class="person-popup-body">
+            <div class="person-popup-desc" style="font-style:italic">Profil tokoh ini belum tersedia di database kami.</div>
+          </div>
+        `;
+      }
+
+      // ── Position popup near cursor (desktop) ──
+      function positionPopup(e) {
+        const vw = window.innerWidth, vh = window.innerHeight;
+        const pw = popup.offsetWidth || 300, ph = popup.offsetHeight || 200;
+        let x = e.clientX + 16, y = e.clientY + 16;
+        if (x + pw > vw - 12) x = e.clientX - pw - 12;
+        if (y + ph > vh - 12) y = e.clientY - ph - 12;
+        if (x < 8) x = 8;
+        if (y < 8) y = 8;
+        popup.style.left = x + 'px';
+        popup.style.top = y + 'px';
+      }
+
+      // ── Show desktop popup ──
+      async function showPopup(e, name) {
+        clearTimeout(_hideTimer);
+        popupInner.innerHTML = `<div class="person-popup-loading"><div class="person-popup-loading-dot"></div><div class="person-popup-loading-dot"></div><div class="person-popup-loading-dot"></div></div>`;
+        popup.classList.add('visible');
+        positionPopup(e);
+        const tokoh = await fetchTokoh(name);
+        popupInner.innerHTML = tokoh ? buildPopupContent(tokoh) : buildNotFound(name);
+        positionPopup(e);
+      }
+
+      // ── Hide desktop popup ──
+      function hidePopup() {
+        _hideTimer = setTimeout(() => {
+          popup.classList.remove('visible');
+        }, 120);
+      }
+
+      // ── Show mobile card ──
+      async function showMobileCard(name) {
+        mobileContent.innerHTML = `<div class="person-popup-loading" style="padding:32px"><div class="person-popup-loading-dot"></div><div class="person-popup-loading-dot"></div><div class="person-popup-loading-dot"></div></div>`;
+        mobileOverlay.classList.add('visible');
+        mobileCard.style.display = 'block';
+        requestAnimationFrame(() => {
+          mobileCard.classList.add('visible');
+        });
+        document.body.style.overflow = 'hidden';
+        const tokoh = await fetchTokoh(name);
+        mobileContent.innerHTML = tokoh ? buildMobileContent(tokoh) : buildNotFound(name);
+        // bind close button
+        document.getElementById('closeMobilePersonCard')?.addEventListener('click', closeMobileCard);
+      }
+
+      // ── Close mobile card ──
+      function closeMobileCard() {
+        mobileCard.classList.remove('visible');
+        setTimeout(() => {
+          mobileCard.style.display = 'none';
+          mobileOverlay.classList.remove('visible');
+          document.body.style.overflow = '';
+        }, 280);
+      }
+
+      mobileOverlay.addEventListener('click', closeMobileCard);
+
+      // ── Keep popup alive when hovering over it ──
+      popup.addEventListener('mouseenter', () => clearTimeout(_hideTimer));
+      popup.addEventListener('mouseleave', hidePopup);
+
+      // ── Main: processPersonTags ──
+      // Call this after rendering article content
+      window.processPersonTags = function(container) {
+        if (!container) container = document.querySelector('.article-content');
+        if (!container) return;
+
+        // Find all text nodes and replace [person]...[/person]
+        const walker = document.createTreeWalker(container, NodeFilter.SHOW_TEXT);
+        const toReplace = [];
+        let node;
+        while ((node = walker.nextNode())) {
+          if (/\[person\](.+?)\[\/person\]/g.test(node.textContent)) {
+            toReplace.push(node);
+          }
+        }
+
+        toReplace.forEach(textNode => {
+          const frag = document.createDocumentFragment();
+          const parts = textNode.textContent.split(/(\[person\].+?\[\/person\])/g);
+          parts.forEach(part => {
+            const m = part.match(/^\[person\](.+?)\[\/person\]$/);
+            if (m) {
+              const span = document.createElement('span');
+              span.className = 'person-tag';
+              span.textContent = m[1];
+              span.setAttribute('data-person', m[1]);
+              span.setAttribute('tabindex', '0');
+              span.setAttribute('role', 'button');
+              span.setAttribute('aria-label', 'Lihat profil: ' + m[1]);
+              frag.appendChild(span);
+            } else {
+              frag.appendChild(document.createTextNode(part));
+            }
+          });
+          textNode.parentNode.replaceChild(frag, textNode);
+        });
+
+        // Bind events to all .person-tag inside container
+        container.querySelectorAll('.person-tag').forEach(el => {
+          const name = el.getAttribute('data-person');
+          if (isTouchDevice()) {
+            el.addEventListener('click', (e) => {
+              e.stopPropagation();
+              showMobileCard(name);
+            });
+          } else {
+            el.addEventListener('mouseenter', (e) => showPopup(e, name));
+            el.addEventListener('mousemove', (e) => {
+              if (popup.classList.contains('visible')) positionPopup(e);
+            });
+            el.addEventListener('mouseleave', hidePopup);
+            el.addEventListener('focus', (e) => showPopup(e, name));
+            el.addEventListener('blur', hidePopup);
+          }
+        });
+      };
+
+      // ── Escape key closes mobile card ──
+      document.addEventListener('keydown', e => {
+        if (e.key === 'Escape' && mobileCard.classList.contains('visible')) closeMobileCard();
+      });
+    })();
     </script>
 
     <!-- ===== MODAL SARAN & MASUKAN ===== -->
