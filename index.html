@@ -180,12 +180,14 @@
         position: relative;
         z-index: 1;
       }
-      .nav-brand-shine { display: none; }
+      .nav-brand-shine {
+        display: none;
+      }
 
       /* Filter warna logo ikon — dipindah ke CSS agar bisa dioverride animasi */
       .nav-logo-main-img {
         filter: brightness(0) saturate(100%) invert(27%) sepia(90%)
-                saturate(600%) hue-rotate(195deg) brightness(0.85);
+          saturate(600%) hue-rotate(195deg) brightness(0.85);
       }
 
       /* ── Efek cahaya pada logo teks (faktaa.png) ────────────────────────
@@ -193,9 +195,18 @@
          Light mode: glow biru halus. Dark mode: lebih terang.
       ──────────────────────────────────────────────────────────────────── */
       @keyframes imgLightSweep {
-        0%,20%  { filter: brightness(1)    drop-shadow(0 0 0px  rgba(26,95,168,0)); }
-        45%     { filter: brightness(1.18) drop-shadow(0 0 10px rgba(80,160,255,0.75)); }
-        65%,100%{ filter: brightness(1)    drop-shadow(0 0 0px  rgba(26,95,168,0)); }
+        0%,
+        20% {
+          filter: brightness(1) drop-shadow(0 0 0px rgba(26, 95, 168, 0));
+        }
+        45% {
+          filter: brightness(1.18)
+            drop-shadow(0 0 10px rgba(80, 160, 255, 0.75));
+        }
+        65%,
+        100% {
+          filter: brightness(1) drop-shadow(0 0 0px rgba(26, 95, 168, 0));
+        }
       }
       .nav-brand-img {
         animation: imgLightSweep 4s ease-in-out infinite;
@@ -203,14 +214,37 @@
       }
       /* Dark mode: logo ikon (editlogo.png) glow biru */
       @keyframes iconGlowDark {
-        0%,20%  { filter: brightness(0) saturate(100%) invert(27%) sepia(90%) saturate(600%) hue-rotate(195deg) brightness(0.85) drop-shadow(0 0 0px rgba(77,157,224,0)); }
-        45%     { filter: brightness(0) saturate(100%) invert(40%) sepia(90%) saturate(500%) hue-rotate(185deg) brightness(1.4)  drop-shadow(0 0 12px rgba(77,157,224,0.9)); }
-        65%,100%{ filter: brightness(0) saturate(100%) invert(27%) sepia(90%) saturate(600%) hue-rotate(195deg) brightness(0.85) drop-shadow(0 0 0px rgba(77,157,224,0)); }
+        0%,
+        20% {
+          filter: brightness(0) saturate(100%) invert(27%) sepia(90%)
+            saturate(600%) hue-rotate(195deg) brightness(0.85)
+            drop-shadow(0 0 0px rgba(77, 157, 224, 0));
+        }
+        45% {
+          filter: brightness(0) saturate(100%) invert(40%) sepia(90%)
+            saturate(500%) hue-rotate(185deg) brightness(1.4)
+            drop-shadow(0 0 12px rgba(77, 157, 224, 0.9));
+        }
+        65%,
+        100% {
+          filter: brightness(0) saturate(100%) invert(27%) sepia(90%)
+            saturate(600%) hue-rotate(195deg) brightness(0.85)
+            drop-shadow(0 0 0px rgba(77, 157, 224, 0));
+        }
       }
       @keyframes imgLightSweepDark {
-        0%,20%  { filter: brightness(1)    drop-shadow(0 0 0px  rgba(77,157,224,0)); }
-        45%     { filter: brightness(1.25) drop-shadow(0 0 14px rgba(100,180,255,0.9)); }
-        65%,100%{ filter: brightness(1)    drop-shadow(0 0 0px  rgba(77,157,224,0)); }
+        0%,
+        20% {
+          filter: brightness(1) drop-shadow(0 0 0px rgba(77, 157, 224, 0));
+        }
+        45% {
+          filter: brightness(1.25)
+            drop-shadow(0 0 14px rgba(100, 180, 255, 0.9));
+        }
+        65%,
+        100% {
+          filter: brightness(1) drop-shadow(0 0 0px rgba(77, 157, 224, 0));
+        }
       }
       body.dark .nav-brand-img {
         animation: imgLightSweepDark 4s ease-in-out infinite;
@@ -1256,10 +1290,6 @@
         .article-hero-cat {
           font-size: 0.52rem;
           padding: 2px 8px;
-          max-width: 100px;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap;
         }
         .article-body-wrap {
           margin: 1.5rem auto;
@@ -1471,6 +1501,7 @@
       }
       .article-hero-cat {
         display: inline-block;
+        width: fit-content;
         background: var(--blue-primary);
         color: #fff;
         font-family: "DM Sans", sans-serif;
@@ -1482,9 +1513,6 @@
         margin-bottom: 1rem;
         border-radius: 2px;
         white-space: nowrap;
-        max-width: 140px;
-        overflow: hidden;
-        text-overflow: ellipsis;
       }
       .article-hero h1 {
         font-family: "Playfair Display", serif;
@@ -3536,9 +3564,15 @@
       }
       /* Saat masuk viewport: garis tumbuh dari kiri + glow merah */
       @keyframes redGlow {
-        0%   { box-shadow: 0 0 0px   rgba(192,57,43,0); }
-        55%  { box-shadow: 0 0 10px  rgba(192,57,43,0.85); }
-        100% { box-shadow: 0 0 3px   rgba(192,57,43,0.25); }
+        0% {
+          box-shadow: 0 0 0px rgba(192, 57, 43, 0);
+        }
+        55% {
+          box-shadow: 0 0 10px rgba(192, 57, 43, 0.85);
+        }
+        100% {
+          box-shadow: 0 0 3px rgba(192, 57, 43, 0.25);
+        }
       }
       .highlight-word.hl-visible::after {
         width: 100%;
@@ -3947,7 +3981,7 @@
             src="/editlogo.png"
             alt="Fakta Sejarah Logo"
             class="nav-logo-main-img"
-            style="width:52px;height:52px;object-fit:contain;"
+            style="width: 52px; height: 52px; object-fit: contain"
           />
           <div class="nav-logo-text">
             <div class="nav-brand-img-wrap">
