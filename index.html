@@ -11,6 +11,20 @@
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <!-- Anti-flash: terapkan tema sebelum CSS dirender -->
+    <script>
+      (function(){
+        try {
+          if (localStorage.getItem("sehariTheme") === "dark") {
+            document.documentElement.classList.add("dark-init");
+          }
+        } catch(e){}
+      })();
+    </script>
+    <style>
+      /* Terapkan dark background secepat mungkin untuk cegah flash */
+      .dark-init body, html.dark-init body { background: #0f1117 !important; }
+    </style>
     <style>
       * {
         margin: 0;
@@ -27,7 +41,7 @@
       body {
         font-family: "Source Serif 4", serif;
         background: #ffffff;
-        color: #1a1a2e;
+        color: var(--text);
         min-height: 100vh;
         overflow-x: hidden;
       }
@@ -3521,9 +3535,271 @@
       .highlight-word.hl-visible:nth-of-type(5)::after {
         transition-delay: 0.32s;
       }
+
+      /* ===== DARK MODE — THEME TOGGLE ===== */
+      /* Smooth transition semua elemen saat ganti tema */
+      body, body * {
+        transition:
+          background-color 0.35s ease,
+          color 0.35s ease,
+          border-color 0.35s ease,
+          box-shadow 0.35s ease !important;
+      }
+      /* Tapi jangan override transition animasi khusus */
+      .nav-brand-shine,
+      .logo-video-ring::before,
+      .logo-orbit,
+      .about-hero-bg,
+      .highlight-word::after,
+      .person-popup-loading-dot,
+      #personMobileCard,
+      .about-value-card,
+      .scroll-line {
+        transition: unset !important;
+      }
+
+      body.dark {
+        --cream: #0f1117;
+        --parchment: #1a1d27;
+        --gold: #4d9de0;
+        --gold-light: #6ab0e8;
+        --dark: #0f1117;
+        --dark-brown: #4d9de0;
+        --brown: #3a82c8;
+        --text: #e8ecf0;
+        --text-muted: #9aa4b2;
+        --border: #2a3142;
+        --white: #161922;
+        --blue-primary: #4d9de0;
+        --blue-dark: #2d78c8;
+        --blue-light: #1a2540;
+        background: #0f1117;
+        color: #e8ecf0;
+      }
+      body.dark nav {
+        background: #13161f;
+        border-bottom-color: #252b3b;
+        box-shadow: 0 2px 16px rgba(0, 0, 0, 0.45);
+      }
+      body.dark .nav-links a { color: #9aa4b2; }
+      body.dark .nav-links a:hover,
+      body.dark .nav-links a.active { color: var(--blue-primary); }
+      body.dark .nav-search-input {
+        background: #1a2540;
+        border-color: #2d78c8;
+        color: #e8ecf0;
+      }
+      body.dark .nav-dropdown {
+        background: #13161f;
+        border-color: #4d9de0;
+      }
+      body.dark .nav-dropdown a {
+        color: #9aa4b2;
+        border-bottom-color: #1a2540;
+      }
+      body.dark .nav-dropdown a:hover,
+      body.dark .nav-dropdown a.active {
+        color: #fff;
+        background: #4d9de0;
+      }
+      body.dark .card { border-bottom-color: #252b3b; }
+      body.dark .card:hover { background: #1a2540; }
+      body.dark .card-body h3 { color: #e8ecf0; }
+      body.dark .sidebar-widget {
+        background: #13161f;
+        border-color: #252b3b;
+      }
+      body.dark .cat-list li { border-bottom-color: #252b3b; }
+      body.dark .today-widget {
+        background: #1a2e50;
+        border-color: #2d5080;
+      }
+      body.dark .filter-bar { border-bottom-color: #252b3b; }
+      body.dark .featured-card {
+        background: #13161f;
+        border-color: #252b3b;
+      }
+      body.dark .pop-text h4 { color: #e8ecf0; }
+      body.dark .pop-text .date { color: #9aa4b2; }
+      body.dark .section-header h2 { color: #e8ecf0; }
+      body.dark .sidebar-widget h3 { color: #e8ecf0; border-bottom-color: #252b3b; }
+      body.dark .sidebar-widget h3,
+      body.dark .sidebar-widget h3 * { color: #e8ecf0 !important; }
+      body.dark .sidebar-widget { background: #13161f !important; border-color: #252b3b !important; }
+      body.dark #todayDate { color: #e8ecf0 !important; }
+      body.dark #todayText { color: #c0c8d4 !important; }
+      body.dark .cat-list li { color: #c0c8d4; border-bottom-color: #252b3b; }
+      body.dark .cat-list li:hover { color: #4d9de0; }
+      body.dark .today-widget {
+        background: #1a2e50;
+        border-color: #2d5080;
+      }
+      body.dark .today-widget .tw-header { color: rgba(200, 220, 255, 0.75); }
+      body.dark .today-widget .tw-date { color: #e8ecf0; }
+      body.dark .today-widget .tw-text { color: rgba(200, 220, 255, 0.85); }
+      body.dark .tw-link { color: rgba(200, 220, 255, 0.9); }
+      body.dark .page-btn {
+        background: #13161f;
+        border-color: #252b3b;
+        color: #4d9de0;
+      }
+      body.dark .page-btn.active {
+        background: #4d9de0;
+        color: #fff;
+        border-color: #4d9de0;
+      }
+      body.dark .page-btn:hover:not(.active) { background: #1a2540; }
+      body.dark footer { background: #13161f; border-top-color: #252b3b; }
+      body.dark .footer-top { border-color: #252b3b; }
+      /* Article page */
+      body.dark .article-page { background: transparent; }
+      body.dark .article-content { color: #d8dde6; }
+      body.dark .article-content blockquote {
+        background: #1a2540;
+        border-left-color: #4d9de0;
+      }
+      body.dark .article-content blockquote p,
+      body.dark .article-content blockquote { color: #6ab0e8; }
+      body.dark .article-sidebar-widget {
+        background: #13161f;
+        border-color: #252b3b;
+      }
+      body.dark .article-popular-item:hover {
+        background: #1a2540;
+      }
+      body.dark .article-meta { border-bottom-color: #252b3b; }
+      body.dark .person-popup-inner {
+        background: #13161f;
+        border-color: #2a3142;
+      }
+      body.dark .person-popup-name { color: #e8ecf0; }
+      body.dark .person-popup-desc { color: #c0c8d4; }
+      body.dark #personMobileCard { background: #13161f; }
+      body.dark .person-mobile-header { border-bottom-color: #252b3b; }
+      body.dark .person-mobile-handle { background: #2a3142; }
+      body.dark .person-mobile-desc { color: #c0c8d4; }
+      body.dark .person-mobile-close {
+        background: #1a2540;
+        color: #9aa4b2;
+      }
+      body.dark .feedback-modal {
+        background: #13161f;
+        border-color: #4d9de0;
+      }
+      body.dark .feedback-field input,
+      body.dark .feedback-field textarea {
+        background: #1a1d27;
+        border-color: #2a3142;
+        color: #e8ecf0;
+      }
+      body.dark .feedback-modal-body p.modal-intro { color: #9aa4b2; }
+      body.dark .privacy-body { background: transparent; }
+      body.dark .privacy-toc {
+        background: #13161f;
+        border-color: #252b3b;
+      }
+      body.dark .privacy-section p,
+      body.dark .privacy-section li { color: #d8dde6; }
+      body.dark .privacy-highlight {
+        background: #1a2540;
+        border-left-color: #4d9de0;
+      }
+      body.dark .article-mobile-author {
+        background: #13161f;
+        border-color: #252b3b;
+      }
+      body.dark .article-mobile-author-bio { color: #9aa4b2; }
+
+      /* ── DARK MODE TOGGLE BUTTON ── */
+      .theme-toggle-btn {
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        color: var(--blue-primary);
+        transition:
+          background 0.2s,
+          color 0.2s !important;
+        position: relative;
+        width: 38px;
+        height: 38px;
+        overflow: hidden;
+        flex-shrink: 0;
+      }
+      .theme-toggle-btn:hover {
+        background: var(--blue-light);
+        color: var(--blue-dark);
+      }
+      .theme-toggle-btn svg {
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        transition:
+          opacity 0.3s ease,
+          transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+      }
+      /* Sun icon — tampil di light mode */
+      .theme-toggle-btn .icon-sun {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(0deg) scale(1);
+      }
+      /* Moon icon — tersembunyi di light mode */
+      .theme-toggle-btn .icon-moon {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(-90deg) scale(0.5);
+      }
+      /* Dark mode: tukar */
+      body.dark .theme-toggle-btn .icon-sun {
+        opacity: 0;
+        transform: translate(-50%, -50%) rotate(90deg) scale(0.5);
+      }
+      body.dark .theme-toggle-btn .icon-moon {
+        opacity: 1;
+        transform: translate(-50%, -50%) rotate(0deg) scale(1);
+      }
+      /* Ripple animasi saat klik */
+      .theme-toggle-btn::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: 50%;
+        background: currentColor;
+        opacity: 0;
+        transform: scale(0);
+        pointer-events: none;
+      }
+      .theme-toggle-btn.clicked::after {
+        animation: themeRipple 0.45s ease forwards;
+      }
+      @keyframes themeRipple {
+        0%   { opacity: 0.18; transform: scale(0); }
+        60%  { opacity: 0.08; transform: scale(2.2); }
+        100% { opacity: 0;    transform: scale(2.6); }
+      }
+      /* Spin animasi saat ganti tema */
+      .theme-toggle-btn.spin svg {
+        animation: themeSpin 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+      }
+      @keyframes themeSpin {
+        0%   { transform: translate(-50%, -50%) rotate(0deg) scale(1); }
+        40%  { transform: translate(-50%, -50%) rotate(180deg) scale(0.7); }
+        100% { transform: translate(-50%, -50%) rotate(360deg) scale(1); }
+      }
     </style>
   </head>
   <body>
+    <script>
+      // Pindahkan class dari html ke body untuk dark mode
+      if (document.documentElement.classList.contains("dark-init")) {
+        document.body.classList.add("dark");
+        document.documentElement.classList.remove("dark-init");
+      }
+    </script>
     <nav>
       <div class="nav-inner">
         <!-- Hamburger beside logo + Dropdown Menu -->
@@ -3606,6 +3882,30 @@
               </svg>
             </button>
           </div>
+          <!-- Dark / Light mode toggle -->
+          <button
+            class="theme-toggle-btn"
+            id="themeToggleBtn"
+            aria-label="Ganti tema"
+            title="Mode Gelap / Terang"
+          >
+            <!-- Sun icon (light mode) -->
+            <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="5"/>
+              <line x1="12" y1="1" x2="12" y2="3"/>
+              <line x1="12" y1="21" x2="12" y2="23"/>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/>
+              <line x1="1" y1="12" x2="3" y2="12"/>
+              <line x1="21" y1="12" x2="23" y2="12"/>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+            </svg>
+            <!-- Moon icon (dark mode) -->
+            <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/>
+            </svg>
+          </button>
           <button
             class="nav-feedback-btn"
             id="openFeedbackBubble"
@@ -3733,6 +4033,48 @@
           });
         }
       }
+    </script>
+
+    <!-- ===== DARK / LIGHT MODE TOGGLE ===== -->
+    <script>
+      (function () {
+        const btn = document.getElementById("themeToggleBtn");
+        const body = document.body;
+        const STORAGE_KEY = "sehariTheme";
+
+        // Terapkan tema tersimpan sebelum render (cegah flash)
+        const saved = localStorage.getItem(STORAGE_KEY);
+        if (saved === "dark") body.classList.add("dark");
+
+        function triggerAnimation() {
+          btn.classList.remove("clicked", "spin");
+          // force reflow
+          void btn.offsetWidth;
+          btn.classList.add("clicked", "spin");
+          setTimeout(() => btn.classList.remove("clicked", "spin"), 600);
+        }
+
+        function toggleTheme() {
+          triggerAnimation();
+          const isDark = body.classList.toggle("dark");
+          localStorage.setItem(STORAGE_KEY, isDark ? "dark" : "light");
+          btn.setAttribute(
+            "aria-label",
+            isDark ? "Ganti ke Mode Terang" : "Ganti ke Mode Gelap"
+          );
+        }
+
+        if (btn) {
+          btn.addEventListener("click", toggleTheme);
+          // Set initial aria-label
+          btn.setAttribute(
+            "aria-label",
+            body.classList.contains("dark")
+              ? "Ganti ke Mode Terang"
+              : "Ganti ke Mode Gelap"
+          );
+        }
+      })();
     </script>
 
     <div id="appRoot"></div>
@@ -3969,7 +4311,7 @@
             </div>
           </div>
           <aside class="sidebar">
-            <div class="sidebar-widget" style="border-radius:6px; border:1px solid var(--border); background:#fff;">
+            <div class="sidebar-widget" style="border-radius:6px; border:1px solid var(--border);">
               <h3 style="display:flex;align-items:center;gap:8px;font-size:0.72rem;letter-spacing:2px;border-bottom:1px solid var(--border);padding-bottom:0.8rem;margin-bottom:1rem;font-family:'DM Sans',sans-serif;font-weight:700;">
                 <img src="/kalender-icon.png" alt="kalender" style="width:26px;height:26px;object-fit:contain;filter:invert(27%) sepia(90%) saturate(600%) hue-rotate(195deg) brightness(0.85);"> PERISTIWA HARI INI
               </h3>
@@ -3987,7 +4329,7 @@
                 <div class="tw-link" id="todayLink" style="display:none; margin-top:1rem; color:var(--blue-primary); font-family:'DM Sans',sans-serif; font-size:0.78rem; font-weight:500;">Lihat peristiwa lainnya →</div>
               </div>
             </div>
-            <div class="sidebar-widget" style="border-radius:6px; border:1px solid var(--border); background:#fff;">
+            <div class="sidebar-widget" style="border-radius:6px; border:1px solid var(--border);">
               <h3 style="display:flex;align-items:center;gap:8px;font-size:0.72rem;letter-spacing:2px;border-bottom:1px solid var(--border);padding-bottom:0.8rem;margin-bottom:1rem;font-family:'DM Sans',sans-serif;font-weight:700;">
                 <span style="font-size:1.1rem;">🔥</span> POPULER MINGGU INI
               </h3>
