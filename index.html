@@ -5152,20 +5152,92 @@
         return window.matchMedia('(hover: none) and (pointer: coarse)').matches;
       }
 
+      // ── Auto-detect table & column names ──
+      let _detectedTable = null;
+      let _detectedSchema = null;
+
+      // Daftar kemungkinan nama tabel tokoh
+      const TABLE_CANDIDATES = ['people', 'tokoh', 'persons', 'figures', 'characters', 'historical_figures'];
+
+      async function detectTableAndSchema() {
+        if (_detectedTable) return true;
+        for (const tbl of TABLE_CANDIDATES) {
+          try {
+            const { data, error } = await db.from(tbl).select('*').limit(1);
+            if (!error && data) {
+              _detectedTable = tbl;
+              _detectedSchema = data.length > 0 ? Object.keys(data[0]) : [];
+              console.log('[PersonTag] Tabel ditemukan:', tbl, '| Kolom:', _detectedSchema);
+              return true;
+            }
+          } catch(e) {}
+        }
+        console.warn('[PersonTag] Tidak ada tabel tokoh yang cocok dari:', TABLE_CANDIDATES);
+        return false;
+      }
+
+      // ── Normalize data — map kolom apapun ke struktur standar ──
+      function normalizeRow(row) {
+        if (!row) return null;
+        const keys = Object.keys(row);
+        const find = (...candidates) => {
+          for (const c of candidates) {
+            const k = keys.find(k => k.toLowerCase() === c.toLowerCase());
+            if (k && row[k] != null && row[k] !== '') return row[k];
+          }
+          return null;
+        };
+        return {
+          id: find('id'),
+          name: find('name', 'nama', 'full_name', 'nama_lengkap', 'title'),
+          birth_year: find('birth_year', 'tahun_lahir', 'born', 'lahir_tahun', 'year_birth'),
+          death_year: find('death_year', 'tahun_wafat', 'tahun_meninggal', 'died', 'wafat_tahun', 'year_death'),
+          birth_date: find('birth_date', 'tanggal_lahir', 'tgl_lahir', 'date_of_birth'),
+          death_date: find('death_date', 'tanggal_wafat', 'tanggal_meninggal', 'tgl_wafat'),
+          country: find('country', 'negara', 'nationality', 'kebangsaan', 'asal_negara', 'origin'),
+          description: find('description', 'deskripsi', 'bio', 'biography', 'biografi', 'about', 'summary', 'ringkasan', 'keterangan', 'excerpt'),
+          photo_url: find('photo_url', 'foto_url', 'image_url', 'gambar_url', 'foto', 'image', 'avatar', 'picture', 'photo', 'gambar', 'img_url'),
+          slug: find('slug', 'url', 'permalink'),
+        };
+      }
+
       // ── Fetch tokoh dari Supabase by name ──
       async function fetchTokoh(name) {
         if (_personCache[name] !== undefined) return _personCache[name];
         try {
-          // Cari berdasarkan nama (case-insensitive ilike)
-          const { data } = await db
-            .from('people')
-            .select('id, name, birth_year, death_year, country, nationality, description, photo_url, slug, birth_date, death_date')
-            .ilike('name', name)
+          const ok = await detectTableAndSchema();
+          if (!ok) { _personCache[name] = null; return null; }
+
+          // Cari kolom nama yang benar
+          const nameColCandidates = ['name','nama','full_name','nama_lengkap','title'];
+          const nameCol = _detectedSchema.find(k => nameColCandidates.includes(k.toLowerCase())) || 'name';
+
+          const { data, error } = await db
+            .from(_detectedTable)
+            .select('*')
+            .ilike(nameCol, name)
             .limit(1);
-          const result = (data && data.length > 0) ? data[0] : null;
+
+          if (error) {
+            console.warn('[PersonTag] Query error:', error.message);
+            // Fallback: coba tanpa ilike
+            const { data: data2 } = await db.from(_detectedTable).select('*').limit(50);
+            if (data2) {
+              const found = data2.find(r => {
+                const n = r[nameCol] || r.nama || r.name || '';
+                return n.toLowerCase() === name.toLowerCase();
+              });
+              const result = normalizeRow(found || null);
+              _personCache[name] = result;
+              return result;
+            }
+          }
+
+          const result = normalizeRow(data && data.length > 0 ? data[0] : null);
           _personCache[name] = result;
           return result;
         } catch(e) {
+          console.error('[PersonTag] fetchTokoh error:', e);
           _personCache[name] = null;
           return null;
         }
@@ -5174,8 +5246,8 @@
       // ── Render tahun hidup ──
       function lifeSpan(t) {
         if (!t) return '';
-        const b = t.birth_year || (t.birth_date ? t.birth_date.slice(0,4) : null);
-        const d = t.death_year || (t.death_date ? t.death_date.slice(0,4) : null);
+        const b = t.birth_year || (t.birth_date ? String(t.birth_date).slice(0,4) : null);
+        const d = t.death_year || (t.death_date ? String(t.death_date).slice(0,4) : null);
         if (b && d) return b + ' – ' + d;
         if (b) return 'Lahir ' + b;
         return '';
@@ -5183,7 +5255,7 @@
 
       // ── Render negara ──
       function country(t) {
-        return t.country || t.nationality || '';
+        return t.country || '';
       }
 
       // ── Build popup HTML ──
