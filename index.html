@@ -180,36 +180,69 @@
         position: relative;
         z-index: 1;
       }
-      /* ── Logo shimmer: animasi kilap hanya pada piksel gambar ──
-         Tidak ada ::before / ::after / overlay / elemen absolut.
-         Shimmer dihasilkan dengan animasi filter brightness pada
-         img itu sendiri, sehingga tidak pernah bocor keluar area glyph. */
-      @keyframes brandShimmer {
-        0%   { filter: brightness(1); }
-        30%  { filter: brightness(1); }
-        45%  { filter: brightness(1.35) drop-shadow(0 0 6px rgba(100,170,255,0.45)); }
-        55%  { filter: brightness(1); }
-        100% { filter: brightness(1); }
+
+      /* ── Light sweep di dalam huruf ──────────────────────────────────────
+         Teknik: wrap diberi ::after yang membawa gradient cahaya.
+         Wrap pakai -webkit-mask: url(gambar) — ini memotong SEMUA konten
+         wrap (termasuk ::after) mengikuti kontur piksel PNG.
+         Hasilnya: gradient hanya terlihat di dalam area glyph huruf,
+         tidak pernah bocor ke area transparan di luar huruf.
+      ──────────────────────────────────────────────────────────────────── */
+      .nav-brand-img-wrap {
+        -webkit-mask-image: url('/faktaa.png');
+        -webkit-mask-size: contain;
+        -webkit-mask-repeat: no-repeat;
+        -webkit-mask-position: center;
+        mask-image: url('/faktaa.png');
+        mask-size: contain;
+        mask-repeat: no-repeat;
+        mask-position: center;
       }
-      .nav-brand-img {
-        animation: brandShimmer 4s ease-in-out infinite;
-        will-change: filter;
+      .nav-brand-img-wrap::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        z-index: 2;
+        pointer-events: none;
+        /* Cahaya sempit yang bergerak dari kiri ke kanan */
+        background: linear-gradient(
+          105deg,
+          transparent 0%,
+          transparent 35%,
+          rgba(255, 255, 255, 0.0)  40%,
+          rgba(255, 255, 255, 0.75) 48%,
+          rgba(200, 225, 255, 0.55) 50%,
+          rgba(255, 255, 255, 0.75) 52%,
+          rgba(255, 255, 255, 0.0)  60%,
+          transparent 65%,
+          transparent 100%
+        );
+        background-size: 300% 100%;
+        animation: lightSweep 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
       }
-      body.dark .nav-brand-img {
-        animation: brandShimmerDark 4s ease-in-out infinite;
-        will-change: filter;
+      @keyframes lightSweep {
+        0%   { background-position: 200% 0; }
+        50%  { background-position: -100% 0; }
+        100% { background-position: -100% 0; }
       }
-      @keyframes brandShimmerDark {
-        0%   { filter: brightness(1) invert(0); }
-        30%  { filter: brightness(1) invert(0); }
-        45%  { filter: brightness(1.5) drop-shadow(0 0 8px rgba(130,195,255,0.6)) invert(0); }
-        55%  { filter: brightness(1) invert(0); }
-        100% { filter: brightness(1) invert(0); }
+      /* Dark mode: cahaya sedikit lebih terang */
+      body.dark .nav-brand-img-wrap::after {
+        background: linear-gradient(
+          105deg,
+          transparent 0%,
+          transparent 35%,
+          rgba(255, 255, 255, 0.0)  40%,
+          rgba(255, 255, 255, 0.9)  48%,
+          rgba(180, 215, 255, 0.7)  50%,
+          rgba(255, 255, 255, 0.9)  52%,
+          rgba(255, 255, 255, 0.0)  60%,
+          transparent 65%,
+          transparent 100%
+        );
+        background-size: 300% 100%;
+        animation: lightSweep 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
       }
-      /* Hapus elemen shine lama, tidak dipakai lagi */
-      .nav-brand-shine {
-        display: none;
-      }
+      .nav-brand-shine { display: none; }
 
       /* ── Center nav links ── */
       .nav-links {
@@ -3555,6 +3588,7 @@
           box-shadow 0.35s ease !important;
       }
       /* Tapi jangan override transition animasi khusus */
+      .nav-brand-img-wrap::after,
       .logo-video-ring::before,
       .logo-orbit,
       .about-hero-bg,
