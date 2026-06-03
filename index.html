@@ -180,69 +180,55 @@
         position: relative;
         z-index: 1;
       }
-
-      /* ── Light sweep di dalam huruf ──────────────────────────────────────
-         Teknik: wrap diberi ::after yang membawa gradient cahaya.
-         Wrap pakai -webkit-mask: url(gambar) — ini memotong SEMUA konten
-         wrap (termasuk ::after) mengikuti kontur piksel PNG.
-         Hasilnya: gradient hanya terlihat di dalam area glyph huruf,
-         tidak pernah bocor ke area transparan di luar huruf.
-      ──────────────────────────────────────────────────────────────────── */
-      .nav-brand-img-wrap {
-        -webkit-mask-image: url('/faktaa.png');
-        -webkit-mask-size: contain;
-        -webkit-mask-repeat: no-repeat;
-        -webkit-mask-position: center;
-        mask-image: url('/faktaa.png');
-        mask-size: contain;
-        mask-repeat: no-repeat;
-        mask-position: center;
-      }
-      .nav-brand-img-wrap::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        z-index: 2;
-        pointer-events: none;
-        /* Cahaya sempit yang bergerak dari kiri ke kanan */
-        background: linear-gradient(
-          105deg,
-          transparent 0%,
-          transparent 35%,
-          rgba(255, 255, 255, 0.0)  40%,
-          rgba(255, 255, 255, 0.75) 48%,
-          rgba(200, 225, 255, 0.55) 50%,
-          rgba(255, 255, 255, 0.75) 52%,
-          rgba(255, 255, 255, 0.0)  60%,
-          transparent 65%,
-          transparent 100%
-        );
-        background-size: 300% 100%;
-        animation: lightSweep 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-      }
-      @keyframes lightSweep {
-        0%   { background-position: 200% 0; }
-        50%  { background-position: -100% 0; }
-        100% { background-position: -100% 0; }
-      }
-      /* Dark mode: cahaya sedikit lebih terang */
-      body.dark .nav-brand-img-wrap::after {
-        background: linear-gradient(
-          105deg,
-          transparent 0%,
-          transparent 35%,
-          rgba(255, 255, 255, 0.0)  40%,
-          rgba(255, 255, 255, 0.9)  48%,
-          rgba(180, 215, 255, 0.7)  50%,
-          rgba(255, 255, 255, 0.9)  52%,
-          rgba(255, 255, 255, 0.0)  60%,
-          transparent 65%,
-          transparent 100%
-        );
-        background-size: 300% 100%;
-        animation: lightSweep 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
-      }
       .nav-brand-shine { display: none; }
+
+      /* ── Efek cahaya melintas di dalam teks logo ──────────────────────────
+         background-clip: text → gradient hanya mewarnai area huruf.
+         Cahaya putih-biru sempit bergerak kiri→kanan di dalam teks.
+      ──────────────────────────────────────────────────────────────────── */
+      .nav-logo-text strong {
+        background: linear-gradient(
+          105deg,
+          var(--blue-primary)  0%,
+          var(--blue-primary) 35%,
+          #a8d4ff               44%,
+          #ffffff               50%,
+          #a8d4ff               56%,
+          var(--blue-primary) 65%,
+          var(--blue-primary) 100%
+        );
+        background-size: 300% 100%;
+        background-position: 150% 0;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        animation: textLightSweep 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+      @keyframes textLightSweep {
+        0%   { background-position: 150% 0; }
+        50%  { background-position: -50% 0; }
+        100% { background-position: -50% 0; }
+      }
+      body.dark .nav-logo-text strong {
+        background: linear-gradient(
+          105deg,
+          var(--blue-primary)  0%,
+          var(--blue-primary) 35%,
+          #90c8ff               44%,
+          #e0f0ff               50%,
+          #90c8ff               56%,
+          var(--blue-primary) 65%,
+          var(--blue-primary) 100%
+        );
+        background-size: 300% 100%;
+        background-position: 150% 0;
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        animation: textLightSweep 4s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
 
       /* ── Center nav links ── */
       .nav-links {
@@ -3546,35 +3532,53 @@
         font-weight: 600;
         color: inherit;
       }
-      /* Garis merah di bawah — default lebar 0, muncul saat animasi */
+      /* Garis merah di bawah — default lebar 0 */
       .highlight-word::after {
         content: "";
         position: absolute;
-        bottom: -1px;
+        bottom: -2px;
         left: 0;
-        height: 2px;
+        height: 2.5px;
         width: 0;
-        background: #c0392b;
-        border-radius: 1px;
+        background: linear-gradient(90deg, #c0392b 60%, #e74c3c 100%);
+        border-radius: 2px;
         transition: none;
+        box-shadow: none;
       }
-      /* State setelah terlihat di viewport */
+      /* Saat masuk viewport: garis tumbuh + kilap merah singkat */
       .highlight-word.hl-visible::after {
         width: 100%;
-        transition: width 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+        transition:
+          width 0.6s cubic-bezier(0.22, 1, 0.36, 1),
+          box-shadow 0.3s ease 0.55s;
+        box-shadow: 0 0 8px rgba(192, 57, 43, 0.7);
+      }
+      /* Kilap merah pudar setelah muncul */
+      @keyframes redGlow {
+        0%   { box-shadow: 0 0 0px rgba(192,57,43,0); }
+        60%  { box-shadow: 0 0 10px rgba(192,57,43,0.8); }
+        100% { box-shadow: 0 0 3px rgba(192,57,43,0.2); }
+      }
+      .highlight-word.hl-visible::after {
+        animation: redGlow 1s ease forwards;
+        animation-delay: 0.55s;
       }
       /* Delay bertahap antar highlight di paragraf yang sama */
       .highlight-word.hl-visible:nth-of-type(2)::after {
-        transition-delay: 0.08s;
+        transition-delay: 0.1s;
+        animation-delay: 0.65s;
       }
       .highlight-word.hl-visible:nth-of-type(3)::after {
-        transition-delay: 0.16s;
+        transition-delay: 0.2s;
+        animation-delay: 0.75s;
       }
       .highlight-word.hl-visible:nth-of-type(4)::after {
-        transition-delay: 0.24s;
+        transition-delay: 0.3s;
+        animation-delay: 0.85s;
       }
       .highlight-word.hl-visible:nth-of-type(5)::after {
-        transition-delay: 0.32s;
+        transition-delay: 0.4s;
+        animation-delay: 0.95s;
       }
 
       /* ===== DARK MODE — THEME TOGGLE ===== */
@@ -3588,7 +3592,7 @@
           box-shadow 0.35s ease !important;
       }
       /* Tapi jangan override transition animasi khusus */
-      .nav-brand-img-wrap::after,
+      .nav-logo-text strong,
       .logo-video-ring::before,
       .logo-orbit,
       .about-hero-bg,
