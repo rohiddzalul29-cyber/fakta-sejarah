@@ -3317,7 +3317,6 @@
         }
       }
       #personMobileCard {
-        display: none;
         position: fixed;
         bottom: 0;
         left: 0;
@@ -3326,34 +3325,49 @@
         background: #fff;
         border-radius: 14px 14px 0 0;
         max-width: 480px;
+        max-height: 82vh; /* lebih tinggi agar konten panjang tidak terpotong */
         margin: 0 auto;
         box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.14);
-        overflow: hidden;
+        display: flex;
+        flex-direction: column; /* header fixed, body scroll */
         transform: translateY(100%);
         transition: transform 0.28s cubic-bezier(0.34, 1.1, 0.64, 1);
+        /* visibility dikendalikan transform, bukan display */
+        visibility: hidden;
+        pointer-events: none;
       }
       #personMobileCard.visible {
-        display: block;
         transform: translateY(0);
+        visibility: visible;
+        pointer-events: auto;
       }
       .person-mobile-handle {
         width: 36px;
         height: 4px;
         border-radius: 2px;
         background: #dde3ea;
-        margin: 10px auto 0;
+        margin: 10px auto 6px;
+        flex-shrink: 0;
       }
       .person-mobile-header {
-        padding: 12px 16px 10px;
+        padding: 10px 16px 10px;
         border-bottom: 1px solid #eaecf0;
         position: relative;
         display: flex;
         align-items: center;
         gap: 12px;
+        flex-shrink: 0; /* header tidak ikut scroll */
+      }
+      @media (max-width: 480px) {
+        #personMobileCard {
+          max-width: 100%; /* full width di layar kecil */
+          border-radius: 16px 16px 0 0;
+          max-height: 85vh;
+        }
       }
       .person-mobile-photo-wrap {
-        width: 52px;
-        height: 52px;
+        width: 48px;
+        height: 48px;
         border-radius: 50%;
         overflow: hidden;
         background: #f0f4f8;
@@ -3369,7 +3383,7 @@
         object-position: top center;
       }
       .person-mobile-photo-placeholder {
-        font-size: 1.6rem;
+        font-size: 1.5rem;
         color: #aab8c8;
       }
       .person-mobile-close {
@@ -3390,17 +3404,19 @@
         line-height: 1;
       }
       .person-mobile-body {
-        padding: 12px 16px 20px;
+        padding: 14px 18px 32px;
+        padding-bottom: max(32px, env(safe-area-inset-bottom, 32px)); /* safe area untuk iPhone home bar */
+        overflow-y: auto; /* area scroll */
+        -webkit-overflow-scrolling: touch;
+        flex: 1; /* ambil sisa tinggi */
+        min-height: 0; /* penting agar flex + overflow-y bekerja */
       }
       .person-mobile-desc {
         font-family: "Source Serif 4", serif;
-        font-size: 0.87rem;
-        color: #54595d;
-        line-height: 1.7;
-        display: -webkit-box;
-        -webkit-line-clamp: 5;
-        -webkit-box-orient: vertical;
-        overflow: hidden;
+        font-size: 0.9rem;
+        color: #202122;
+        line-height: 1.75;
+        /* TIDAK ada line-clamp — tampil penuh */
       }
 
       @media (max-width: 900px) {
@@ -3493,10 +3509,18 @@
         transition: width 0.55s cubic-bezier(0.4, 0, 0.2, 1);
       }
       /* Delay bertahap antar highlight di paragraf yang sama */
-      .highlight-word.hl-visible:nth-of-type(2)::after { transition-delay: 0.08s; }
-      .highlight-word.hl-visible:nth-of-type(3)::after { transition-delay: 0.16s; }
-      .highlight-word.hl-visible:nth-of-type(4)::after { transition-delay: 0.24s; }
-      .highlight-word.hl-visible:nth-of-type(5)::after { transition-delay: 0.32s; }
+      .highlight-word.hl-visible:nth-of-type(2)::after {
+        transition-delay: 0.08s;
+      }
+      .highlight-word.hl-visible:nth-of-type(3)::after {
+        transition-delay: 0.16s;
+      }
+      .highlight-word.hl-visible:nth-of-type(4)::after {
+        transition-delay: 0.24s;
+      }
+      .highlight-word.hl-visible:nth-of-type(5)::after {
+        transition-delay: 0.32s;
+      }
     </style>
   </head>
   <body>
@@ -5128,7 +5152,7 @@
     <div id="personMobileOverlay"></div>
     <div id="personMobileCard" role="dialog" aria-modal="true">
       <div class="person-mobile-handle"></div>
-      <div id="personMobileContent">
+      <div id="personMobileContent" style="display:contents">
         <div class="person-popup-loading" style="padding: 32px">
           <div class="person-popup-loading-dot"></div>
           <div class="person-popup-loading-dot"></div>
@@ -5136,7 +5160,6 @@
         </div>
       </div>
     </div>
-
 
     <script>
       // ===== HIGHLIGHT KATA PENTING =====
@@ -5158,14 +5181,15 @@
                 }
               });
             },
-            { threshold: 0.2 }
+            { threshold: 0.2 },
           );
           return _hlObserver;
         }
 
         // Proses semua text node di dalam container
         window.processHighlightTags = function (container) {
-          if (!container) container = document.querySelector(".article-content");
+          if (!container)
+            container = document.querySelector(".article-content");
           if (!container) return;
 
           const walker = document.createTreeWalker(
@@ -5174,14 +5198,16 @@
             {
               acceptNode: (node) => {
                 // Skip teks di dalam elemen yang sudah di-proses
-                if (node.parentElement.closest(".highlight-word, .person-tag")) {
+                if (
+                  node.parentElement.closest(".highlight-word, .person-tag")
+                ) {
                   return NodeFilter.FILTER_REJECT;
                 }
                 return HIGHLIGHT_RE.test(node.textContent)
                   ? NodeFilter.FILTER_ACCEPT
                   : NodeFilter.FILTER_REJECT;
               },
-            }
+            },
           );
 
           const toReplace = [];
@@ -5195,7 +5221,9 @@
 
           toReplace.forEach((textNode) => {
             const frag = document.createDocumentFragment();
-            const parts = textNode.textContent.split(/(\[highlight\][\s\S]+?\[\/highlight\])/g);
+            const parts = textNode.textContent.split(
+              /(\[highlight\][\s\S]+?\[\/highlight\])/g,
+            );
             parts.forEach((part) => {
               const m = part.match(/^\[highlight\]([\s\S]+?)\[\/highlight\]$/);
               if (m) {
@@ -5519,7 +5547,7 @@
         async function showMobileCard(name) {
           mobileContent.innerHTML = `<div class="person-popup-loading" style="padding:32px"><div class="person-popup-loading-dot"></div><div class="person-popup-loading-dot"></div><div class="person-popup-loading-dot"></div></div>`;
           mobileOverlay.classList.add("visible");
-          mobileCard.style.display = "block";
+          // Gunakan visibility+transform, bukan display
           requestAnimationFrame(() => {
             mobileCard.classList.add("visible");
           });
@@ -5528,6 +5556,8 @@
           mobileContent.innerHTML = tokoh
             ? buildMobileContent(tokoh)
             : buildNotFound(name);
+          // Scroll body ke atas setiap kali konten baru dimuat
+          mobileContent.scrollTop = 0;
           // bind close button
           document
             .getElementById("closeMobilePersonCard")
@@ -5538,7 +5568,6 @@
         function closeMobileCard() {
           mobileCard.classList.remove("visible");
           setTimeout(() => {
-            mobileCard.style.display = "none";
             mobileOverlay.classList.remove("visible");
             document.body.style.overflow = "";
           }, 280);
