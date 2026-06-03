@@ -3202,7 +3202,7 @@
         will-change: transform, opacity;
         max-width: 380px;
         min-width: 300px;
-        filter: drop-shadow(0 4px 16px rgba(0,0,0,0.13));
+        filter: drop-shadow(0 4px 16px rgba(0, 0, 0, 0.13));
       }
       #personPopup.visible {
         opacity: 1;
@@ -3326,17 +3326,14 @@
         background: #fff;
         border-radius: 14px 14px 0 0;
         max-width: 480px;
-        max-height: 75vh;
         margin: 0 auto;
-        box-shadow: 0 -4px 24px rgba(0,0,0,0.14);
+        box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.14);
         overflow: hidden;
-        display: flex;
-        flex-direction: column;
         transform: translateY(100%);
         transition: transform 0.28s cubic-bezier(0.34, 1.1, 0.64, 1);
       }
       #personMobileCard.visible {
-        display: flex;
+        display: block;
         transform: translateY(0);
       }
       .person-mobile-handle {
@@ -3393,16 +3390,17 @@
         line-height: 1;
       }
       .person-mobile-body {
-        padding: 14px 18px 28px;
-        overflow-y: auto;
-        -webkit-overflow-scrolling: touch;
-        flex: 1;
+        padding: 12px 16px 20px;
       }
       .person-mobile-desc {
         font-family: "Source Serif 4", serif;
-        font-size: 0.9rem;
-        color: #202122;
-        line-height: 1.75;
+        font-size: 0.87rem;
+        color: #54595d;
+        line-height: 1.7;
+        display: -webkit-box;
+        -webkit-line-clamp: 5;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
       }
 
       @media (max-width: 900px) {
@@ -3469,6 +3467,36 @@
           font-size: 1.1rem;
         }
       }
+
+      /* ===== HIGHLIGHT KATA PENTING ===== */
+      .highlight-word {
+        position: relative;
+        display: inline;
+        font-weight: 600;
+        color: inherit;
+      }
+      /* Garis merah di bawah — default lebar 0, muncul saat animasi */
+      .highlight-word::after {
+        content: "";
+        position: absolute;
+        bottom: -1px;
+        left: 0;
+        height: 2px;
+        width: 0;
+        background: #c0392b;
+        border-radius: 1px;
+        transition: none;
+      }
+      /* State setelah terlihat di viewport */
+      .highlight-word.hl-visible::after {
+        width: 100%;
+        transition: width 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+      }
+      /* Delay bertahap antar highlight di paragraf yang sama */
+      .highlight-word.hl-visible:nth-of-type(2)::after { transition-delay: 0.08s; }
+      .highlight-word.hl-visible:nth-of-type(3)::after { transition-delay: 0.16s; }
+      .highlight-word.hl-visible:nth-of-type(4)::after { transition-delay: 0.24s; }
+      .highlight-word.hl-visible:nth-of-type(5)::after { transition-delay: 0.32s; }
     </style>
   </head>
   <body>
@@ -4437,14 +4465,16 @@
         </div>
       `;
         document.getElementById("appRoot").innerHTML = html;
-        // Proses [person] tags di konten artikel
+        // Proses [person] dan [highlight] tags di konten artikel
         requestAnimationFrame(() => {
           const articleContent = document.querySelector(".article-content");
-          if (
-            articleContent &&
-            typeof window.processPersonTags === "function"
-          ) {
-            window.processPersonTags(articleContent);
+          if (articleContent) {
+            if (typeof window.processPersonTags === "function") {
+              window.processPersonTags(articleContent);
+            }
+            if (typeof window.processHighlightTags === "function") {
+              window.processHighlightTags(articleContent);
+            }
           }
         });
         document
@@ -5106,6 +5136,85 @@
         </div>
       </div>
     </div>
+
+
+    <script>
+      // ===== HIGHLIGHT KATA PENTING =====
+      (function () {
+        // Regex untuk mendeteksi tag [highlight]...[/highlight]
+        const HIGHLIGHT_RE = /\[highlight\]([\s\S]+?)\[\/highlight\]/g;
+
+        // IntersectionObserver — animasikan garis saat elemen masuk viewport
+        let _hlObserver = null;
+
+        function getObserver() {
+          if (_hlObserver) return _hlObserver;
+          _hlObserver = new IntersectionObserver(
+            (entries) => {
+              entries.forEach((entry) => {
+                if (entry.isIntersecting) {
+                  entry.target.classList.add("hl-visible");
+                  _hlObserver.unobserve(entry.target); // hanya sekali
+                }
+              });
+            },
+            { threshold: 0.2 }
+          );
+          return _hlObserver;
+        }
+
+        // Proses semua text node di dalam container
+        window.processHighlightTags = function (container) {
+          if (!container) container = document.querySelector(".article-content");
+          if (!container) return;
+
+          const walker = document.createTreeWalker(
+            container,
+            NodeFilter.SHOW_TEXT,
+            {
+              acceptNode: (node) => {
+                // Skip teks di dalam elemen yang sudah di-proses
+                if (node.parentElement.closest(".highlight-word, .person-tag")) {
+                  return NodeFilter.FILTER_REJECT;
+                }
+                return HIGHLIGHT_RE.test(node.textContent)
+                  ? NodeFilter.FILTER_ACCEPT
+                  : NodeFilter.FILTER_REJECT;
+              },
+            }
+          );
+
+          const toReplace = [];
+          let node;
+          HIGHLIGHT_RE.lastIndex = 0;
+          while ((node = walker.nextNode())) {
+            toReplace.push(node);
+          }
+
+          const obs = getObserver();
+
+          toReplace.forEach((textNode) => {
+            const frag = document.createDocumentFragment();
+            const parts = textNode.textContent.split(/(\[highlight\][\s\S]+?\[\/highlight\])/g);
+            parts.forEach((part) => {
+              const m = part.match(/^\[highlight\]([\s\S]+?)\[\/highlight\]$/);
+              if (m) {
+                const mark = document.createElement("mark");
+                mark.className = "highlight-word";
+                mark.textContent = m[1];
+                // Background transparan — hanya garis bawah
+                mark.style.background = "none";
+                frag.appendChild(mark);
+                obs.observe(mark);
+              } else {
+                frag.appendChild(document.createTextNode(part));
+              }
+            });
+            textNode.parentNode.replaceChild(frag, textNode);
+          });
+        };
+      })();
+    </script>
 
     <script>
       // ===== PERSON TAG INTERACTIVE SYSTEM =====
