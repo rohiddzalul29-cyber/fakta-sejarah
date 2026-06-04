@@ -3597,6 +3597,231 @@
         animation-delay: 1.08s;
       }
 
+      /* ===== TAG SISTEM ===== */
+      /* Tag di halaman artikel */
+      .article-tags-wrap {
+        margin: 2rem 0 1rem;
+        padding: 1.25rem 0 0;
+        border-top: 1px solid var(--border);
+      }
+      .article-tags-label {
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 0.75rem;
+        display: block;
+      }
+      .article-tags-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+      }
+      .article-tag-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        background: var(--blue-light);
+        color: var(--blue-primary);
+        border: 1px solid var(--border);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.72rem;
+        font-weight: 500;
+        padding: 5px 12px;
+        border-radius: 999px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.2s, color 0.2s, border-color 0.2s;
+        white-space: nowrap;
+      }
+      .article-tag-chip:hover {
+        background: var(--blue-primary);
+        color: #fff;
+        border-color: var(--blue-primary);
+      }
+      .article-tag-chip::before {
+        content: "#";
+        opacity: 0.6;
+        font-size: 0.65rem;
+      }
+
+      /* ===== HALAMAN TAG ===== */
+      .tag-page-hero {
+        background: linear-gradient(135deg, var(--blue-primary) 0%, var(--blue-dark) 100%);
+        padding: 4rem 2rem 3rem;
+      }
+      .tag-page-hero-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+      }
+      .tag-page-breadcrumb {
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.72rem;
+        color: rgba(255,255,255,0.6);
+        margin-bottom: 1rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+      .tag-page-breadcrumb a {
+        color: rgba(255,255,255,0.7);
+        text-decoration: none;
+        cursor: pointer;
+      }
+      .tag-page-breadcrumb a:hover { color: #fff; }
+      .tag-page-breadcrumb .sep { opacity: 0.4; }
+      .tag-page-title {
+        font-family: "Playfair Display", serif;
+        font-size: 2.5rem;
+        font-weight: 900;
+        color: #fff;
+        margin-bottom: 0.75rem;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+      }
+      .tag-page-title-hash {
+        color: rgba(255,255,255,0.4);
+        font-weight: 400;
+      }
+      .tag-page-meta {
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.82rem;
+        color: rgba(255,255,255,0.7);
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+      .tag-page-count-badge {
+        background: rgba(255,255,255,0.15);
+        border: 1px solid rgba(255,255,255,0.25);
+        color: #fff;
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.7rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        padding: 3px 12px;
+        border-radius: 999px;
+      }
+      .tag-page-body {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 3rem 2rem;
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 3rem;
+      }
+      .tag-page-articles-header {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1.5rem;
+      }
+      .tag-page-articles-header::before {
+        content: "";
+        width: 4px;
+        height: 28px;
+        background: var(--blue-primary);
+        flex-shrink: 0;
+      }
+      .tag-page-articles-header h2 {
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+      }
+      .tag-page-empty {
+        text-align: center;
+        padding: 4rem 2rem;
+        color: var(--text-muted);
+        font-family: "DM Sans", sans-serif;
+      }
+      .tag-page-empty-icon { font-size: 3rem; margin-bottom: 1rem; }
+      .tag-page-empty h3 {
+        font-family: "Playfair Display", serif;
+        font-size: 1.4rem;
+        margin-bottom: 0.5rem;
+        color: var(--text);
+      }
+
+      /* Tag Populer widget di sidebar/beranda */
+      .popular-tags-wrap {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.5rem;
+        margin-top: 0.5rem;
+      }
+      .popular-tag-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 3px;
+        background: var(--blue-light);
+        color: var(--blue-primary);
+        border: 1px solid var(--border);
+        font-family: "DM Sans", sans-serif;
+        font-size: 0.72rem;
+        font-weight: 500;
+        padding: 5px 12px;
+        border-radius: 999px;
+        cursor: pointer;
+        text-decoration: none;
+        transition: background 0.2s, color 0.2s, border-color 0.2s;
+        white-space: nowrap;
+      }
+      .popular-tag-chip:hover {
+        background: var(--blue-primary);
+        color: #fff;
+        border-color: var(--blue-primary);
+      }
+      .popular-tag-chip::before {
+        content: "#";
+        opacity: 0.55;
+        font-size: 0.65rem;
+      }
+
+      /* Dark mode untuk tag */
+      body.dark .article-tag-chip {
+        background: #1a2540;
+        color: #6ab0e8;
+        border-color: #2a3142;
+      }
+      body.dark .article-tag-chip:hover {
+        background: #4d9de0;
+        color: #fff;
+        border-color: #4d9de0;
+      }
+      body.dark .popular-tag-chip {
+        background: #1a2540;
+        color: #6ab0e8;
+        border-color: #2a3142;
+      }
+      body.dark .popular-tag-chip:hover {
+        background: #4d9de0;
+        color: #fff;
+        border-color: #4d9de0;
+      }
+      body.dark .tag-page-hero {
+        background: linear-gradient(135deg, #1a3560 0%, #0f2545 100%);
+      }
+
+      @media (max-width: 900px) {
+        .tag-page-body {
+          grid-template-columns: 1fr;
+          padding: 1.5rem 1rem;
+          gap: 2rem;
+        }
+        .tag-page-title { font-size: 1.8rem; }
+        .tag-page-hero { padding: 2.5rem 1rem 2rem; }
+      }
+      @media (max-width: 600px) {
+        .tag-page-title { font-size: 1.4rem; }
+        .tag-page-hero { padding: 2rem 1rem 1.5rem; }
+      }
+
       /* ===== DARK MODE — THEME TOGGLE ===== */
       /* Smooth transition semua elemen saat ganti tema */
       body,
@@ -4525,12 +4750,21 @@
               <p>Ada saran, masukan, atau pertanyaan untuk kami? Sampaikan langsung — kami selalu terbuka untuk perbaikan.</p>
               <button class="feedback-widget-btn" id="openFeedbackSidebar">Kirim Masukan</button>
             </div>
+            <div class="sidebar-widget" style="border-radius:6px; border:1px solid var(--border);">
+              <h3 style="display:flex;align-items:center;gap:8px;font-size:0.72rem;letter-spacing:2px;border-bottom:1px solid var(--border);padding-bottom:0.8rem;margin-bottom:1rem;font-family:'DM Sans',sans-serif;font-weight:700;">
+                <span style="font-size:1.1rem;">🏷️</span> TAG POPULER
+              </h3>
+              <div class="popular-tags-wrap" id="popularTagsWidget">
+                <span style="font-family:'DM Sans',sans-serif;font-size:0.75rem;color:var(--text-muted);">Memuat tag...</span>
+              </div>
+            </div>
           </aside>
         </div>
       `;
         document.getElementById("appRoot").innerHTML = html;
         attachHomeEvents();
         loadTodayHistory();
+        loadPopularTags();
       }
 
       function attachHomeEvents() {
@@ -4845,6 +5079,13 @@
       // ── ROUTING BERDASARKAN SLUG DI URL ────────────────────
       async function routeFromUrl() {
         const path = window.location.pathname;
+        // Route: /tag/:slug
+        const tagMatch = path.match(/^\/tag\/(.+)$/);
+        if (tagMatch) {
+          const tagSlug = decodeURIComponent(tagMatch[1]);
+          await renderTagPage(tagSlug);
+          return;
+        }
         const match = path.match(/^\/artikel\/(.+)$/);
         if (match) {
           const slug = match[1];
@@ -4883,6 +5124,184 @@
       window.addEventListener("popstate", () => {
         routeFromUrl();
       });
+
+      // ── SEO META HELPERS ────────────────────────────────────
+      function setSeoMeta(title, description, url) {
+        document.title = title;
+        var metaDesc = document.querySelector('meta[name="description"]');
+        if (!metaDesc) {
+          metaDesc = document.createElement("meta");
+          metaDesc.name = "description";
+          document.head.appendChild(metaDesc);
+        }
+        metaDesc.content = description;
+        var ogTitle = document.querySelector('meta[property="og:title"]');
+        if (!ogTitle) { ogTitle = document.createElement("meta"); ogTitle.setAttribute("property","og:title"); document.head.appendChild(ogTitle); }
+        ogTitle.content = title;
+        var ogDesc = document.querySelector('meta[property="og:description"]');
+        if (!ogDesc) { ogDesc = document.createElement("meta"); ogDesc.setAttribute("property","og:description"); document.head.appendChild(ogDesc); }
+        ogDesc.content = description;
+        var ogUrl = document.querySelector('meta[property="og:url"]');
+        if (!ogUrl) { ogUrl = document.createElement("meta"); ogUrl.setAttribute("property","og:url"); document.head.appendChild(ogUrl); }
+        ogUrl.content = url || window.location.href;
+        var canonical = document.querySelector('link[rel="canonical"]');
+        if (!canonical) { canonical = document.createElement("link"); canonical.rel = "canonical"; document.head.appendChild(canonical); }
+        canonical.href = url || window.location.href;
+      }
+
+      // ── TAG NAVIGATION ──────────────────────────────────────
+      function navigateToTag(tagName) {
+        var tagSlug = tagName.toLowerCase()
+          .replace(/\s+/g, "-")
+          .replace(/[^a-z0-9\-]/g, "");
+        history.pushState({ tag: tagName }, "", "/tag/" + encodeURIComponent(tagSlug));
+        renderTagPage(tagName);
+      }
+
+      // ── RENDER TAG PAGE ─────────────────────────────────────
+      async function renderTagPage(tagSlug) {
+        document.querySelector("nav").classList.remove("article-page-nav");
+        cleanupArticlePage();
+        if (typeof cleanupAboutPage === "function") cleanupAboutPage();
+
+        // Normalise tag: decode URI, match case-insensitively against allArticles
+        var searchTag = decodeURIComponent(tagSlug).replace(/-/g, " ");
+
+        // Ensure articles loaded
+        if (!allArticles.length) {
+          try {
+            var resp = await db.from("articles").select("*").eq("published", true).order("created_at", { ascending: false });
+            if (resp.data) allArticles = resp.data;
+          } catch(e) {}
+        }
+
+        // Find matching tag name (case-insensitive)
+        var matchedTagName = searchTag;
+        var taggedArticles = allArticles.filter(function(a) {
+          var tags = Array.isArray(a.tags) ? a.tags : (typeof a.tags === "string" && a.tags ? a.tags.split(",").map(function(t){return t.trim();}).filter(Boolean) : []);
+          for (var i=0; i<tags.length; i++) {
+            if (tags[i].toLowerCase() === searchTag.toLowerCase() ||
+                tags[i].toLowerCase().replace(/\s+/g,"-") === tagSlug.toLowerCase()) {
+              matchedTagName = tags[i];
+              return true;
+            }
+          }
+          return false;
+        });
+
+        var count = taggedArticles.length;
+
+        setSeoMeta(
+          "Tag: " + matchedTagName + " — Fakta Sejarah",
+          "Kumpulan artikel sejarah bertag #" + matchedTagName + ". Temukan " + count + " artikel terkait di Fakta Sejarah.",
+          window.location.origin + "/tag/" + encodeURIComponent(tagSlug)
+        );
+
+        var articlesHtml = count === 0
+          ? '<div class="tag-page-empty"><div class="tag-page-empty-icon">🔍</div><h3>Belum Ada Artikel</h3><p>Belum ada artikel dengan tag ini.</p></div>'
+          : '<div class="articles-grid" id="articlesGrid">' + taggedArticles.map(function(a) {
+              var tags = Array.isArray(a.tags) ? a.tags : (typeof a.tags === "string" && a.tags ? a.tags.split(",").map(function(t){return t.trim();}) : []);
+              var tagsHtml = tags.length ? '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:5px;">' + tags.map(function(t){
+                var isActive = t.toLowerCase() === matchedTagName.toLowerCase();
+                return '<span class="article-tag-chip" data-tag="'+escapeHtml(t)+'" style="'+(isActive?'background:var(--blue-primary);color:#fff;border-color:var(--blue-primary);':'')+' font-size:0.65rem; padding:3px 9px;">'+escapeHtml(t)+'</span>';
+              }).join('') + '</div>' : '';
+              return '<div class="card" data-id="'+a.id+'">'
+                + '<div class="card-img"><img src="'+(a.image_url||'')+ '" onerror="this.style.display=\'none\'" alt=""></div>'
+                + '<div class="card-body">'
+                + (a.category ? '<span class="card-cat">'+escapeHtml(a.category)+'</span>' : '')
+                + '<h3>'+escapeHtml(a.title)+'</h3>'
+                + '<p>'+escapeHtml((a.excerpt||'').substring(0,120))+(a.excerpt&&a.excerpt.length>120?'…':'')+'</p>'
+                + '<div class="card-meta"><span>📅 '+formatDate(a.created_at)+'</span><span>👁 '+(a.views||0).toLocaleString("id-ID")+' dibaca</span></div>'
+                + tagsHtml
+                + '</div>'
+                + '</div>';
+            }).join('') + '</div>';
+
+        // Related tags sidebar
+        var allTagsMap = {};
+        allArticles.forEach(function(a) {
+          var tags = Array.isArray(a.tags) ? a.tags : (typeof a.tags === "string" && a.tags ? a.tags.split(",").map(function(t){return t.trim();}).filter(Boolean) : []);
+          tags.forEach(function(t) {
+            if (t.toLowerCase() !== matchedTagName.toLowerCase()) {
+              allTagsMap[t] = (allTagsMap[t]||0)+1;
+            }
+          });
+        });
+        var relatedTags = Object.keys(allTagsMap).sort(function(a,b){return allTagsMap[b]-allTagsMap[a];}).slice(0,12);
+
+        var html = '<div class="tag-page-hero">'
+          + '<div class="tag-page-hero-inner">'
+          + '<div class="tag-page-breadcrumb"><a id="tagBreadcrumbHome">Beranda</a><span class="sep">›</span><span>Tag</span><span class="sep">›</span><span>'+escapeHtml(matchedTagName)+'</span></div>'
+          + '<div class="tag-page-title"><span class="tag-page-title-hash">#</span>'+escapeHtml(matchedTagName)+'</div>'
+          + '<div class="tag-page-meta"><span class="tag-page-count-badge">'+count+' Artikel</span></div>'
+          + '</div></div>'
+          + '<div class="tag-page-body">'
+          + '<div>'
+          + '<div class="tag-page-articles-header"><h2>Artikel Dengan Tag Ini</h2></div>'
+          + articlesHtml
+          + '</div>'
+          + '<aside class="sidebar">'
+          + '<div class="sidebar-widget" style="border-radius:6px;border:1px solid var(--border);">'
+          + '<h3 style="display:flex;align-items:center;gap:8px;font-size:0.72rem;letter-spacing:2px;border-bottom:1px solid var(--border);padding-bottom:0.8rem;margin-bottom:1rem;font-family:\'DM Sans\',sans-serif;font-weight:700;"><span style="font-size:1.1rem;">🏷️</span> TAG TERKAIT</h3>'
+          + (relatedTags.length
+            ? '<div class="popular-tags-wrap">' + relatedTags.map(function(t){ return '<span class="popular-tag-chip" data-tag="'+escapeHtml(t)+'">'+escapeHtml(t)+'</span>'; }).join('') + '</div>'
+            : '<p style="font-family:\'DM Sans\',sans-serif;font-size:0.78rem;color:var(--text-muted);">Tidak ada tag lain.</p>')
+          + '</div>'
+          + '</aside>'
+          + '</div>';
+
+        document.getElementById("appRoot").innerHTML = html;
+
+        // Events
+        document.getElementById("tagBreadcrumbHome")?.addEventListener("click", function() {
+          history.pushState({}, "", "/");
+          currentFilter = "all"; currentPage = 1;
+          renderHomePage();
+        });
+        document.querySelectorAll(".card[data-id]").forEach(function(el) {
+          el.addEventListener("click", function() {
+            var id = el.getAttribute("data-id");
+            if (id) { lastFilter = currentFilter; lastPage = currentPage; navigateToArticle(id); }
+          });
+        });
+        document.querySelectorAll(".article-tag-chip, .popular-tag-chip").forEach(function(chip) {
+          chip.addEventListener("click", function(e) {
+            e.stopPropagation();
+            var tag = chip.getAttribute("data-tag");
+            if (tag) navigateToTag(tag);
+          });
+        });
+        window.scrollTo(0, 0);
+      }
+
+      // ── LOAD POPULAR TAGS FOR SIDEBAR ───────────────────────
+      async function loadPopularTags() {
+        var wrap = document.getElementById("popularTagsWidget");
+        if (!wrap) return;
+        var tagCount = {};
+        allArticles.forEach(function(a) {
+          var tags = Array.isArray(a.tags) ? a.tags : (typeof a.tags === "string" && a.tags ? a.tags.split(",").map(function(t){return t.trim();}).filter(Boolean) : []);
+          tags.forEach(function(t) {
+            if (t) tagCount[t] = (tagCount[t]||0)+1;
+          });
+        });
+        var sorted = Object.keys(tagCount).sort(function(a,b){return tagCount[b]-tagCount[a];}).slice(0,10);
+        if (!sorted.length) {
+          wrap.innerHTML = '<span style="font-family:\'DM Sans\',sans-serif;font-size:0.75rem;color:var(--text-muted);">Belum ada tag.</span>';
+          return;
+        }
+        wrap.innerHTML = sorted.map(function(t) {
+          return '<span class="popular-tag-chip" data-tag="'+escapeHtml(t)+'">'+escapeHtml(t)+'</span>';
+        }).join("");
+        wrap.querySelectorAll(".popular-tag-chip").forEach(function(chip) {
+          chip.addEventListener("click", function() {
+            var tag = chip.getAttribute("data-tag");
+            if (tag) navigateToTag(tag);
+          });
+        });
+      }
+
+
 
       function renderArticlePage(article) {
         document.querySelector("nav").classList.add("article-page-nav");
@@ -4927,6 +5346,11 @@
           <div>
             <div class="article-page">
               <div class="article-content">${article.content || "<p>Konten artikel sejarah tidak tersedia.</p>"}</div>
+              ${(function(){
+                var tags = Array.isArray(article.tags) ? article.tags : (typeof article.tags === 'string' && article.tags ? article.tags.split(',').map(function(t){return t.trim();}).filter(Boolean) : []);
+                if(!tags.length) return '';
+                return '<div class="article-tags-wrap"><span class="article-tags-label">🏷️ Tag Artikel</span><div class="article-tags-list">' + tags.map(function(tag){return '<span class="article-tag-chip" data-tag="'+escapeHtml(tag)+'">'+escapeHtml(tag)+'</span>';}).join('') + '</div></div>';
+              })()}
             </div>
           </div>
           <!-- SIDEBAR (desktop only) -->
@@ -5016,6 +5440,14 @@
             }
           }
         });
+        // Tag chip click → navigate to tag page
+        document.querySelectorAll(".article-tag-chip").forEach(function(chip){
+          chip.addEventListener("click", function(){
+            var tag = chip.getAttribute("data-tag");
+            if(tag) navigateToTag(tag);
+          });
+        });
+
         document
           .getElementById("backToHomeBtn")
           ?.addEventListener("click", (e) => {
