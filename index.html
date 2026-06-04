@@ -1493,7 +1493,7 @@
 
       /* Article header area (above the image) */
       .article-header-wrap {
-        max-width: 760px;
+        max-width: 1280px;
         margin: 2.5rem auto 0;
         padding: 0 2rem;
       }
@@ -1884,6 +1884,62 @@
       /* Mobile bottom hidden on desktop */
       .article-mobile-bottom {
         display: none;
+      }
+
+      /* ===== ARTICLE TOP: gambar + artikel populer berdampingan (desktop) ===== */
+      .article-top-wrap {
+        max-width: 1280px;
+        margin: 0 auto 2rem;
+        padding: 0 2rem;
+        display: grid;
+        grid-template-columns: 1fr 300px;
+        gap: 2rem;
+        align-items: flex-start;
+      }
+      .article-top-image {
+        width: 100%;
+      }
+      .article-top-image img {
+        width: 100%;
+        max-height: 460px;
+        object-fit: cover;
+        border-radius: 12px;
+        display: block;
+      }
+      .article-top-popular {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 1.4rem;
+      }
+      .article-top-popular h3 {
+        font-family: "Inter", sans-serif;
+        font-size: 0.68rem;
+        font-weight: 700;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: var(--blue-primary);
+        border-bottom: 1px solid var(--border);
+        padding-bottom: 0.7rem;
+        margin-bottom: 1rem;
+      }
+      body.dark .article-top-popular {
+        background: #13161f;
+        border-color: #252b3b;
+      }
+      body.dark .article-top-popular h3 {
+        color: #4d9de0;
+        border-bottom-color: #252b3b;
+      }
+      @media (max-width: 900px) {
+        .article-top-wrap {
+          grid-template-columns: 1fr;
+          padding: 0 1rem;
+          gap: 0;
+        }
+        .article-top-popular {
+          display: none; /* sembunyikan di mobile, sudah ada di article-mobile-bottom */
+        }
       }
       @media (max-width: 900px) {
         .article-body-wrap {
@@ -5633,8 +5689,29 @@
             </button>
           </div>
         </div>
-        <!-- HERO IMAGE -->
-        ${article.image_url ? `<div class="article-hero-image-wrap"><img src="${article.image_url}" onerror="this.style.display='none'" alt="${escapeHtml(article.title)}"></div>` : ""}
+        <!-- HERO IMAGE + ARTIKEL POPULER (desktop: berdampingan; mobile: hanya gambar) -->
+        <div class="article-top-wrap">
+          <div class="article-top-image">
+            ${article.image_url ? `<img src="${article.image_url}" onerror="this.style.display='none'" alt="${escapeHtml(article.title)}">` : ""}
+          </div>
+          <!-- Artikel Populer di samping gambar (desktop only) -->
+          <div class="article-top-popular">
+            <h3>Artikel Populer</h3>
+            ${popularForSidebar
+              .map(
+                (a) => `
+              <div class="article-popular-item" data-id="${a.id}">
+                <img class="article-popular-img" src="${a.image_url || ""}" onerror="this.style.display='none'" alt="">
+                <div>
+                  <div class="article-popular-title">${escapeHtml(a.title)}</div>
+                  <div class="article-popular-date">📅 ${formatDate(a.created_at)} <span style="opacity:.5">·</span> 👁 ${(a.views || 0).toLocaleString("id-ID")}</div>
+                </div>
+              </div>
+            `,
+              )
+              .join("")}
+          </div>
+        </div>
         <!-- BODY: two-column -->
         <div class="article-body-wrap">
           <div>
@@ -5672,9 +5749,8 @@
               })()}
             </div>
           </div>
-          <!-- SIDEBAR (desktop only) -->
+          <!-- SIDEBAR (desktop only) — author card + tag terpopuler -->
           <aside class="article-sidebar">
-            <!-- Author card -->
             <div class="article-sidebar-widget">
               <h3>Tentang Penulis</h3>
               <div class="article-author-card">
@@ -5694,22 +5770,27 @@
                 </div>
               </div>
             </div>
-            <!-- Popular articles -->
+            <!-- Tag Terpopuler -->
             <div class="article-sidebar-widget">
-              <h3>Artikel Populer</h3>
-              ${popularForSidebar
-                .map(
-                  (a) => `
-                <div class="article-popular-item" data-id="${a.id}">
-                  <img class="article-popular-img" src="${a.image_url || ""}" onerror="this.style.display='none'" alt="">
-                  <div>
-                    <div class="article-popular-title">${escapeHtml(a.title)}</div>
-                    <div class="article-popular-date">📅 ${formatDate(a.created_at)} <span style="opacity:.5">·</span> 👁 ${(a.views || 0).toLocaleString("id-ID")}</div>
-                  </div>
-                </div>
-              `,
-                )
-                .join("")}
+              <h3>Tag Terpopuler</h3>
+              <div class="popular-tags-wrap" id="articleSidebarTags">
+                ${(function() {
+                  var tagCount = {};
+                  allArticles.forEach(function(a) {
+                    var tags = Array.isArray(a.tags) ? a.tags
+                      : (typeof a.tags === "string" && a.tags ? a.tags.split(",").map(function(t){ return t.trim(); }).filter(Boolean) : []);
+                    tags.forEach(function(t) {
+                      var name = normalizeTag(t);
+                      if (name) tagCount[name] = (tagCount[name] || 0) + 1;
+                    });
+                  });
+                  var sorted = Object.keys(tagCount).sort(function(a,b){ return tagCount[b]-tagCount[a]; }).slice(0, 12);
+                  if (!sorted.length) return '<span style="font-family:\'Inter\',sans-serif;font-size:0.75rem;color:var(--text-muted);">Belum ada tag.</span>';
+                  return sorted.map(function(t) {
+                    return '<span class="popular-tag-chip article-sidebar-tag" data-tag="' + escapeHtml(t) + '">' + escapeHtml(t) + '</span>';
+                  }).join('');
+                })()}
+              </div>
             </div>
           </aside>
         </div>
@@ -5761,6 +5842,20 @@
         });
         // Tag chip click → navigate to tag page
         document.querySelectorAll(".article-tag-chip").forEach(function (chip) {
+          chip.addEventListener("click", function () {
+            var tag = chip.getAttribute("data-tag");
+            if (tag) navigateToTag(tag);
+          });
+        });
+        // Artikel Populer di samping gambar — klik navigasi
+        document.querySelectorAll(".article-top-popular .article-popular-item").forEach(function (el) {
+          el.addEventListener("click", function () {
+            var id = el.getAttribute("data-id");
+            if (id) navigateToArticle(id);
+          });
+        });
+        // Tag terpopuler di sidebar artikel — klik navigasi
+        document.querySelectorAll(".article-sidebar-tag").forEach(function (chip) {
           chip.addEventListener("click", function () {
             var tag = chip.getAttribute("data-tag");
             if (tag) navigateToTag(tag);
