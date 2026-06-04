@@ -5774,21 +5774,42 @@
             <div class="article-sidebar-widget">
               <h3>Tag Terpopuler</h3>
               <div class="popular-tags-wrap" id="articleSidebarTags">
-                ${(function() {
+                ${(function () {
                   var tagCount = {};
-                  allArticles.forEach(function(a) {
-                    var tags = Array.isArray(a.tags) ? a.tags
-                      : (typeof a.tags === "string" && a.tags ? a.tags.split(",").map(function(t){ return t.trim(); }).filter(Boolean) : []);
-                    tags.forEach(function(t) {
+                  allArticles.forEach(function (a) {
+                    var tags = Array.isArray(a.tags)
+                      ? a.tags
+                      : typeof a.tags === "string" && a.tags
+                        ? a.tags
+                            .split(",")
+                            .map(function (t) {
+                              return t.trim();
+                            })
+                            .filter(Boolean)
+                        : [];
+                    tags.forEach(function (t) {
                       var name = normalizeTag(t);
                       if (name) tagCount[name] = (tagCount[name] || 0) + 1;
                     });
                   });
-                  var sorted = Object.keys(tagCount).sort(function(a,b){ return tagCount[b]-tagCount[a]; }).slice(0, 12);
-                  if (!sorted.length) return '<span style="font-family:\'Inter\',sans-serif;font-size:0.75rem;color:var(--text-muted);">Belum ada tag.</span>';
-                  return sorted.map(function(t) {
-                    return '<span class="popular-tag-chip article-sidebar-tag" data-tag="' + escapeHtml(t) + '">' + escapeHtml(t) + '</span>';
-                  }).join('');
+                  var sorted = Object.keys(tagCount)
+                    .sort(function (a, b) {
+                      return tagCount[b] - tagCount[a];
+                    })
+                    .slice(0, 12);
+                  if (!sorted.length)
+                    return "<span style=\"font-family:'Inter',sans-serif;font-size:0.75rem;color:var(--text-muted);\">Belum ada tag.</span>";
+                  return sorted
+                    .map(function (t) {
+                      return (
+                        '<span class="popular-tag-chip article-sidebar-tag" data-tag="' +
+                        escapeHtml(t) +
+                        '">' +
+                        escapeHtml(t) +
+                        "</span>"
+                      );
+                    })
+                    .join("");
                 })()}
               </div>
             </div>
@@ -5848,19 +5869,23 @@
           });
         });
         // Artikel Populer di samping gambar — klik navigasi
-        document.querySelectorAll(".article-top-popular .article-popular-item").forEach(function (el) {
-          el.addEventListener("click", function () {
-            var id = el.getAttribute("data-id");
-            if (id) navigateToArticle(id);
+        document
+          .querySelectorAll(".article-top-popular .article-popular-item")
+          .forEach(function (el) {
+            el.addEventListener("click", function () {
+              var id = el.getAttribute("data-id");
+              if (id) navigateToArticle(id);
+            });
           });
-        });
         // Tag terpopuler di sidebar artikel — klik navigasi
-        document.querySelectorAll(".article-sidebar-tag").forEach(function (chip) {
-          chip.addEventListener("click", function () {
-            var tag = chip.getAttribute("data-tag");
-            if (tag) navigateToTag(tag);
+        document
+          .querySelectorAll(".article-sidebar-tag")
+          .forEach(function (chip) {
+            chip.addEventListener("click", function () {
+              var tag = chip.getAttribute("data-tag");
+              if (tag) navigateToTag(tag);
+            });
           });
-        });
 
         document
           .getElementById("backToHomeBtn")
