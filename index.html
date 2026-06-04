@@ -5739,27 +5739,15 @@
             </button>
           </div>
         </div>
-        <!-- HERO IMAGE + ARTIKEL POPULER (desktop: berdampingan; mobile: hanya gambar) -->
+        <!-- HERO IMAGE + DAFTAR ISI (desktop: berdampingan; mobile: hanya gambar) -->
         <div class="article-top-wrap">
           <div class="article-top-image">
             ${article.image_url ? `<img src="${article.image_url}" onerror="this.style.display='none'" alt="${escapeHtml(article.title)}">` : ""}
           </div>
-          <!-- Artikel Populer di samping gambar (desktop only) -->
-          <div class="article-top-popular">
-            <h3>Artikel Populer</h3>
-            ${popularForSidebar
-              .map(
-                (a) => `
-              <div class="article-popular-item" data-id="${a.id}">
-                <img class="article-popular-img" src="${a.image_url || ""}" onerror="this.style.display='none'" alt="">
-                <div>
-                  <div class="article-popular-title">${escapeHtml(a.title)}</div>
-                  <div class="article-popular-date">📅 ${formatDate(a.created_at)} <span style="opacity:.5">·</span> 👁 ${(a.views || 0).toLocaleString("id-ID")}</div>
-                </div>
-              </div>
-            `,
-              )
-              .join("")}
+          <!-- Daftar Isi di samping gambar (desktop only) — diisi JS -->
+          <div class="article-top-popular" id="articleTopTocBox" style="display:none;">
+            <h3>Daftar Isi</h3>
+            <ol class="article-toc-list" id="articleTopTocList"></ol>
           </div>
         </div>
         <!-- BODY: two-column -->
@@ -5799,12 +5787,20 @@
               })()}
             </div>
           </div>
-          <!-- SIDEBAR (desktop only) — daftar isi + author card + tag terpopuler -->
+          <!-- SIDEBAR (desktop only) — artikel populer + author card + tag terpopuler -->
           <aside class="article-sidebar">
-            <!-- Daftar Isi — diisi oleh JS setelah konten dimuat -->
-            <div class="article-sidebar-widget" id="articleTocWidget" style="display:none;">
-              <h3>Daftar Isi</h3>
-              <ol class="article-toc-list" id="articleTocList"></ol>
+            <!-- Artikel Populer -->
+            <div class="article-sidebar-widget">
+              <h3>Artikel Populer</h3>
+              ${popularForSidebar.map((a) => `
+              <div class="article-popular-item" data-id="${a.id}">
+                <img class="article-popular-img" src="${a.image_url || ""}" onerror="this.style.display='none'" alt="">
+                <div>
+                  <div class="article-popular-title">${escapeHtml(a.title)}</div>
+                  <div class="article-popular-date">📅 ${formatDate(a.created_at)} <span style="opacity:.5">·</span> 👁 ${(a.views || 0).toLocaleString("id-ID")}</div>
+                </div>
+              </div>
+              `).join("")}
             </div>
             <div class="article-sidebar-widget">
               <h3>Tentang Penulis</h3>
@@ -5940,8 +5936,8 @@
 
           // ── Bangun Daftar Isi ──
           // Ambil heading dari: h2, h3, dan <p> yang HANYA berisi <strong>
-          const tocWidget = document.getElementById("articleTocWidget");
-          const tocList = document.getElementById("articleTocList");
+          const tocWidget = document.getElementById("articleTopTocBox");
+          const tocList = document.getElementById("articleTopTocList");
           if (tocWidget && tocList && articleContent) {
             const entries = [];
             const children = articleContent.querySelectorAll("h2, h3, p");
@@ -6003,9 +5999,9 @@
             if (tag) navigateToTag(tag);
           });
         });
-        // Artikel Populer di samping gambar — klik navigasi
+        // Artikel Populer di sidebar — klik navigasi
         document
-          .querySelectorAll(".article-top-popular .article-popular-item")
+          .querySelectorAll(".article-sidebar .article-popular-item")
           .forEach(function (el) {
             el.addEventListener("click", function () {
               var id = el.getAttribute("data-id");
