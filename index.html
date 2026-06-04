@@ -6,8 +6,9 @@
     <title>Sejarah Setiap Hari | Arsip Nusantara & Dunia</title>
     <link rel="icon" type="image/x-icon" href="/merahlogo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700;900&family=Source+Serif+4:ital,wght@0,300;0,400;0,600;1,400&family=DM+Sans:wght@300;400;500&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,400;1,700&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;0,8..60,700;1,8..60,400;1,8..60,600&display=swap"
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
@@ -42,7 +43,7 @@
         outline: none;
       }
       body {
-        font-family: "Source Serif 4", serif;
+        font-family: "Inter", sans-serif;
         background: #ffffff;
         color: var(--text);
         min-height: 100vh;
@@ -148,15 +149,15 @@
       }
       .nav-logo-text strong {
         display: block;
-        font-family: "Playfair Display", serif;
-        font-size: 1.25rem;
-        font-weight: 700;
-        letter-spacing: 0.5px;
+        font-family: "Inter", sans-serif;
+        font-size: 1.2rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
         color: var(--blue-primary);
         line-height: 1.2;
       }
       .nav-logo-text small {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.65rem;
         letter-spacing: 2.5px;
         color: var(--blue-dark);
@@ -262,8 +263,8 @@
         list-style: none;
       }
       .nav-links a {
-        font-family: "DM Sans", sans-serif;
-        font-size: 0.82rem;
+        font-family: "Inter", sans-serif;
+        font-size: 0.8rem;
         font-weight: 500;
         color: #444;
         text-decoration: none;
@@ -312,7 +313,7 @@
       .nav-dropdown a {
         color: var(--blue-dark);
         text-decoration: none;
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.8rem;
         letter-spacing: 1px;
         text-transform: uppercase;
@@ -351,7 +352,7 @@
         border-radius: 999px;
         outline: none;
         color: var(--blue-dark);
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.82rem;
         padding: 7px 16px 7px 14px;
         width: 0;
@@ -420,31 +421,37 @@
         justify-content: flex-end;
       }
       .hero-eyebrow {
-        font-family: "DM Sans", sans-serif;
-        font-size: 0.7rem;
-        letter-spacing: 4px;
-        color: rgba(255, 255, 255, 0.8);
-        margin-bottom: 1.4rem;
+        font-family: "Inter", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 3.5px;
+        color: rgba(255, 255, 255, 0.75);
+        text-transform: uppercase;
+        margin-bottom: 1.2rem;
       }
       .hero h1 {
-        font-family: "Playfair Display", serif;
-        font-size: 3rem;
-        font-weight: 900;
+        font-family: "Inter", sans-serif;
+        font-size: clamp(2rem, 4.5vw, 3.2rem);
+        font-weight: 800;
         color: #fff;
-        max-width: 580px;
+        max-width: 620px;
         margin-bottom: 1.4rem;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
       }
       .hero p {
-        color: rgba(255, 255, 255, 0.7);
+        font-family: "Source Serif 4", serif;
+        font-size: 1rem;
+        color: rgba(255, 255, 255, 0.72);
         max-width: 420px;
-        line-height: 1.7;
+        line-height: 1.75;
         margin-bottom: 2.2rem;
       }
       .btn-hero {
         display: inline-block;
         background: var(--blue-primary);
         color: #fff;
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.72rem;
         font-weight: 700;
         letter-spacing: 2px;
@@ -474,11 +481,12 @@
         background: var(--blue-primary);
       }
       .section-header h2 {
-        font-family: "DM Sans", sans-serif;
-        font-size: 0.75rem;
+        font-family: "Inter", sans-serif;
+        font-size: 0.68rem;
         font-weight: 700;
-        letter-spacing: 3px;
+        letter-spacing: 2.5px;
         text-transform: uppercase;
+        color: var(--text);
       }
       .articles-grid {
         display: flex;
@@ -528,7 +536,7 @@
         display: inline-block;
         background: none;
         color: #e84118;
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.65rem;
         font-weight: 700;
         letter-spacing: 1px;
@@ -543,16 +551,19 @@
         min-width: 0;
       }
       .card-body h3 {
-        font-family: "Playfair Display", serif;
-        font-size: 1rem;
-        line-height: 1.4;
+        font-family: "Inter", sans-serif;
+        font-size: 0.97rem;
+        font-weight: 700;
+        line-height: 1.35;
+        letter-spacing: -0.015em;
         margin-bottom: 5px;
         color: var(--text);
       }
       .card-body p {
-        font-size: 0.78rem;
+        font-family: "Source Serif 4", serif;
+        font-size: 0.8rem;
         color: var(--text-muted);
-        line-height: 1.5;
+        line-height: 1.55;
         margin-bottom: 6px;
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -560,7 +571,7 @@
         overflow: hidden;
       }
       .card-meta {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.68rem;
         color: #888;
       }
@@ -576,7 +587,7 @@
       .page-btn {
         background: var(--white);
         border: 1px solid var(--border);
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.75rem;
         padding: 8px 14px;
         cursor: pointer;
@@ -644,7 +655,7 @@
       .featured-card-cat {
         display: inline-block;
         color: #e84118;
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.65rem;
         font-weight: 700;
         letter-spacing: 1px;
@@ -652,17 +663,20 @@
         margin-bottom: 6px;
       }
       .featured-card-body h3 {
-        font-family: "Playfair Display", serif;
-        font-size: 0.95rem;
-        line-height: 1.4;
+        font-family: "Inter", sans-serif;
+        font-size: 0.93rem;
+        font-weight: 700;
+        line-height: 1.32;
+        letter-spacing: -0.015em;
         margin-bottom: 6px;
         color: var(--text);
         flex: 1;
       }
       .featured-card-body p {
-        font-size: 0.75rem;
+        font-family: "Source Serif 4", serif;
+        font-size: 0.77rem;
         color: var(--text-muted);
-        line-height: 1.5;
+        line-height: 1.52;
         margin-bottom: 6px;
         display: -webkit-box;
         -webkit-line-clamp: 2;
@@ -670,7 +684,7 @@
         overflow: hidden;
       }
       .featured-card-meta {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.68rem;
         color: #888;
       }
@@ -732,7 +746,7 @@
         height: 28px;
         background: var(--blue-primary);
         color: #fff;
-        font-family: "Playfair Display", serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.9rem;
         display: flex;
         align-items: center;
@@ -746,13 +760,13 @@
         flex-shrink: 0;
       }
       .pop-text h4 {
-        font-family: "Playfair Display", serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.88rem;
         line-height: 1.4;
         margin-bottom: 4px;
       }
       .pop-text .date {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.68rem;
         color: var(--text-muted);
       }
@@ -763,7 +777,7 @@
         margin-bottom: 1.5rem;
       }
       .sidebar-widget h3 {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.72rem;
         font-weight: 700;
         letter-spacing: 3px;
@@ -794,14 +808,14 @@
         padding: 1.5rem;
       }
       .today-widget .tw-header {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.7rem;
         letter-spacing: 3px;
         color: rgba(255, 255, 255, 0.75);
         margin-bottom: 1rem;
       }
       .today-widget .tw-date {
-        font-family: "Playfair Display", serif;
+        font-family: "Inter", sans-serif;
         font-size: 1.8rem;
         font-weight: 700;
         color: #fff;
@@ -816,7 +830,7 @@
         display: inline-flex;
         gap: 6px;
         color: rgba(255, 255, 255, 0.9);
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.75rem;
         margin-top: 1rem;
         cursor: pointer;
@@ -829,7 +843,7 @@
         border-bottom: 1px solid var(--border);
       }
       .filter-btn {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.78rem;
         font-weight: 500;
         letter-spacing: 0.3px;
@@ -901,7 +915,7 @@
       }
       .page-info {
         text-align: center;
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.75rem;
         color: var(--text-muted);
         margin-top: 1rem;
@@ -920,13 +934,13 @@
         gap: 3rem;
       }
       .footer-brand p {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.82rem;
         color: rgba(255, 255, 255, 0.7);
         margin-top: 1rem;
       }
       .footer-col h4 {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.65rem;
         letter-spacing: 3px;
         color: rgba(255, 255, 255, 0.85);
@@ -937,7 +951,7 @@
         margin-bottom: 0.6rem;
       }
       .footer-col ul li a {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.8rem;
         color: rgba(255, 255, 255, 0.6);
         text-decoration: none;
@@ -950,7 +964,7 @@
         margin: 0 auto;
         padding: 1.5rem 2rem;
         text-align: center;
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.72rem;
         color: rgba(255, 255, 255, 0.3);
         border-top: 1px solid rgba(255, 255, 255, 0.07);
@@ -1363,7 +1377,7 @@
           margin-bottom: 2rem;
         }
         .article-mobile-section-title {
-          font-family: "DM Sans", sans-serif;
+          font-family: "Inter", sans-serif;
           font-size: 0.68rem;
           font-weight: 700;
           letter-spacing: 2.5px;
@@ -1400,7 +1414,7 @@
           object-fit: cover;
         }
         .article-mobile-author-name {
-          font-family: "DM Sans", sans-serif;
+          font-family: "Inter", sans-serif;
           font-size: 0.85rem;
           font-weight: 700;
           color: var(--text);
@@ -1410,13 +1424,13 @@
           margin-bottom: 2px;
         }
         .article-mobile-author-label {
-          font-family: "DM Sans", sans-serif;
+          font-family: "Inter", sans-serif;
           font-size: 0.7rem;
           color: var(--blue-primary);
           margin-bottom: 4px;
         }
         .article-mobile-author-bio {
-          font-family: "DM Sans", sans-serif;
+          font-family: "Inter", sans-serif;
           font-size: 0.73rem;
           color: var(--text-muted);
           line-height: 1.5;
@@ -1440,14 +1454,14 @@
           flex-shrink: 0;
         }
         .article-mobile-popular-title {
-          font-family: "Playfair Display", serif;
+          font-family: "Inter", sans-serif;
           font-size: 0.85rem;
           line-height: 1.4;
           color: var(--text);
           flex: 1;
         }
         .article-mobile-popular-date {
-          font-family: "DM Sans", sans-serif;
+          font-family: "Inter", sans-serif;
           font-size: 0.62rem;
           color: var(--text-muted);
           margin-top: 3px;
@@ -1504,7 +1518,7 @@
         width: fit-content;
         background: var(--blue-primary);
         color: #fff;
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.58rem;
         font-weight: 700;
         letter-spacing: 1.5px;
@@ -1515,19 +1529,20 @@
         white-space: nowrap;
       }
       .article-hero h1 {
-        font-family: "Playfair Display", serif;
-        font-size: clamp(1.6rem, 3.5vw, 2.8rem);
-        font-weight: 900;
+        font-family: "Inter", sans-serif;
+        font-size: clamp(1.6rem, 3.5vw, 2.9rem);
+        font-weight: 800;
         color: #fff;
-        max-width: 760px;
-        line-height: 1.25;
+        max-width: 780px;
+        line-height: 1.15;
+        letter-spacing: -0.025em;
         margin-bottom: 1.1rem;
       }
       .article-hero-meta {
         display: flex;
         align-items: center;
         gap: 1.4rem;
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.75rem;
         color: rgba(255, 255, 255, 0.72);
         flex-wrap: wrap;
@@ -1570,9 +1585,11 @@
         border-radius: 4px;
       }
       .article-page h1 {
-        font-family: "Playfair Display", serif;
+        font-family: "Inter", sans-serif;
         font-size: clamp(1.2rem, 4vw, 2.4rem);
-        line-height: 1.3;
+        font-weight: 800;
+        line-height: 1.2;
+        letter-spacing: -0.025em;
         margin-bottom: 0.5rem;
       }
       .article-meta {
@@ -1580,7 +1597,7 @@
         align-items: center;
         flex-wrap: wrap;
         gap: 0.5rem 1.2rem;
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.75rem;
         color: var(--text-muted);
         border-bottom: 1px solid var(--border);
@@ -1595,8 +1612,9 @@
         min-width: 0;
       }
       .article-content {
-        font-size: 1rem;
-        line-height: 1.85;
+        font-family: "Source Serif 4", serif;
+        font-size: 1.05rem;
+        line-height: 1.9;
         color: var(--text);
         overflow-wrap: break-word;
         word-break: break-word;
@@ -1604,13 +1622,13 @@
       }
       /* Drop cap — first letter of first paragraph */
       .article-content > p:first-of-type::first-letter {
-        font-family: "Playfair Display", serif;
-        font-size: 4.2em;
+        font-family: "Inter", sans-serif;
+        font-size: 3.8em;
         font-weight: 900;
         float: left;
-        line-height: 0.78;
-        margin-right: 0.1em;
-        margin-top: 0.08em;
+        line-height: 0.82;
+        margin-right: 0.12em;
+        margin-top: 0.1em;
         color: var(--blue-primary);
         padding-right: 2px;
       }
@@ -1627,39 +1645,44 @@
         position: absolute;
         top: -0.1rem;
         left: 0.8rem;
-        font-family: "Playfair Display", serif;
-        font-size: 3rem;
+        font-family: "Georgia", serif;
+        font-size: 3.5rem;
         color: var(--blue-primary);
-        opacity: 0.25;
+        opacity: 0.2;
         line-height: 1;
         pointer-events: none;
       }
       .article-content blockquote p,
       .article-content blockquote {
         font-family: "Source Serif 4", serif;
-        font-size: 1rem;
+        font-size: 1.05rem;
         font-style: italic;
         color: var(--blue-dark);
         line-height: 1.75;
         margin: 0;
       }
       .article-content h2 {
-        font-family: "Playfair Display", serif;
-        font-size: 1.45rem;
-        font-weight: 700;
+        font-family: "Inter", sans-serif;
+        font-size: 1.4rem;
+        font-weight: 800;
         color: var(--text);
-        margin: 2.2rem 0 0.8rem;
-        line-height: 1.3;
+        margin: 2.4rem 0 0.8rem;
+        line-height: 1.25;
+        letter-spacing: -0.02em;
       }
       .article-content h3 {
-        font-family: "Playfair Display", serif;
-        font-size: 1.15rem;
+        font-family: "Inter", sans-serif;
+        font-size: 1.1rem;
         font-weight: 700;
         color: var(--text);
         margin: 1.8rem 0 0.6rem;
+        letter-spacing: -0.015em;
       }
       .article-content p {
-        margin-bottom: 1.2rem;
+        font-family: "Source Serif 4", serif;
+        font-size: 1.05rem;
+        line-height: 1.9;
+        margin-bottom: 1.3rem;
       }
       .article-content ul,
       .article-content ol {
@@ -1672,7 +1695,7 @@
       .back-btn {
         display: inline-block;
         margin-bottom: 1.2rem;
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         background: var(--blue-primary);
         color: #fff;
         padding: 6px 16px;
@@ -1695,7 +1718,7 @@
         margin-bottom: 1.4rem;
       }
       .article-sidebar-widget h3 {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.68rem;
         font-weight: 700;
         letter-spacing: 2.5px;
@@ -1729,7 +1752,7 @@
         border-radius: 50% !important;
       }
       .article-author-name {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.85rem;
         font-weight: 700;
         color: var(--text);
@@ -1743,7 +1766,7 @@
         font-size: 0.7rem;
       }
       .article-author-bio {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.75rem;
         color: var(--text-muted);
         line-height: 1.5;
@@ -1800,7 +1823,7 @@
         margin: 0 !important;
       }
       .article-popular-title {
-        font-family: "Playfair Display", serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.82rem;
         line-height: 1.4;
         color: var(--text);
@@ -1808,7 +1831,7 @@
         min-width: 0;
       }
       .article-popular-date {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.65rem;
         color: var(--text-muted);
         margin-top: 3px;
@@ -1881,7 +1904,7 @@
         width: 100%;
       }
       .about-hero-badge {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.65rem;
         letter-spacing: 5px;
         text-transform: uppercase;
@@ -1893,9 +1916,10 @@
         display: inline-block;
       }
       .about-hero h1 {
-        font-family: "Playfair Display", serif;
-        font-size: clamp(2.5rem, 6vw, 4.5rem);
-        font-weight: 900;
+        font-family: "Inter", sans-serif;
+        font-size: clamp(2.2rem, 5.5vw, 4rem);
+        font-weight: 800;
+        letter-spacing: -0.035em;
         color: #fff;
         line-height: 1.1;
         max-width: 700px;
@@ -1907,7 +1931,7 @@
       }
       .about-hero-desc {
         font-family: "Source Serif 4", serif;
-        font-size: 1.1rem;
+        font-size: 1.05rem;
         color: rgba(255, 255, 255, 0.65);
         max-width: 560px;
         line-height: 1.8;
@@ -1917,7 +1941,7 @@
         display: flex;
         align-items: center;
         gap: 12px;
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.7rem;
         letter-spacing: 3px;
         text-transform: uppercase;
@@ -1944,7 +1968,7 @@
       .about-mission-text {
       }
       .about-mission-label {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.65rem;
         letter-spacing: 5px;
         text-transform: uppercase;
@@ -1953,9 +1977,10 @@
         display: block;
       }
       .about-mission h2 {
-        font-family: "Playfair Display", serif;
-        font-size: clamp(1.8rem, 3vw, 2.8rem);
-        font-weight: 700;
+        font-family: "Inter", sans-serif;
+        font-size: clamp(1.6rem, 3vw, 2.5rem);
+        font-weight: 800;
+        letter-spacing: -0.025em;
         line-height: 1.25;
         margin-bottom: 1.5rem;
         color: var(--blue-primary);
@@ -2120,7 +2145,7 @@
         right: -8px;
         background: var(--gold);
         color: var(--dark);
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.6rem;
         font-weight: 700;
         letter-spacing: 2px;
@@ -2151,7 +2176,7 @@
         border-top: 2px solid var(--blue-dark);
       }
       .about-mission-img-caption span {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.7rem;
         letter-spacing: 2px;
         text-transform: uppercase;
@@ -2300,7 +2325,7 @@
         border-right: none;
       }
       .about-stat-number {
-        font-family: "Playfair Display", serif;
+        font-family: "Inter", sans-serif;
         font-size: 3.5rem;
         font-weight: 900;
         color: #fff;
@@ -2309,7 +2334,7 @@
         display: block;
       }
       .about-stat-label {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.7rem;
         letter-spacing: 3px;
         text-transform: uppercase;
@@ -2327,7 +2352,7 @@
         margin-bottom: 4rem;
       }
       .about-values-header .label {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.65rem;
         letter-spacing: 5px;
         text-transform: uppercase;
@@ -2336,7 +2361,7 @@
         display: block;
       }
       .about-values-header h2 {
-        font-family: "Playfair Display", serif;
+        font-family: "Inter", sans-serif;
         font-size: clamp(1.8rem, 3vw, 2.5rem);
         font-weight: 700;
         color: var(--blue-primary);
@@ -2381,14 +2406,14 @@
         display: block;
       }
       .about-value-card h3 {
-        font-family: "Playfair Display", serif;
+        font-family: "Inter", sans-serif;
         font-size: 1.25rem;
         font-weight: 700;
         margin-bottom: 1rem;
         color: var(--blue-primary);
       }
       .about-value-card p {
-        font-family: "Source Serif 4", serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.9rem;
         color: var(--text-muted);
         line-height: 1.8;
@@ -2429,7 +2454,7 @@
         height: 180px;
       }
       .about-visual-text .label {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.65rem;
         letter-spacing: 5px;
         text-transform: uppercase;
@@ -2438,7 +2463,7 @@
         display: block;
       }
       .about-visual-text h2 {
-        font-family: "Playfair Display", serif;
+        font-family: "Inter", sans-serif;
         font-size: clamp(1.8rem, 3vw, 2.5rem);
         font-weight: 700;
         color: var(--blue-primary);
@@ -2446,7 +2471,7 @@
         line-height: 1.25;
       }
       .about-visual-text p {
-        font-family: "Source Serif 4", serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.95rem;
         color: var(--text-muted);
         line-height: 1.9;
@@ -2456,7 +2481,7 @@
         display: inline-block;
         background: var(--blue-primary);
         color: #fff;
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.72rem;
         font-weight: 700;
         letter-spacing: 2px;
@@ -2482,7 +2507,7 @@
         text-align: center;
       }
       .about-quote-mark {
-        font-family: "Playfair Display", serif;
+        font-family: "Inter", sans-serif;
         font-size: 6rem;
         color: rgba(255, 255, 255, 0.5);
         line-height: 0.5;
@@ -2491,7 +2516,7 @@
         margin-bottom: 2rem;
       }
       .about-quote blockquote {
-        font-family: "Playfair Display", serif;
+        font-family: "Inter", sans-serif;
         font-size: clamp(1.3rem, 2.5vw, 1.8rem);
         font-style: italic;
         color: #fff;
@@ -2499,7 +2524,7 @@
         margin-bottom: 2rem;
       }
       .about-quote-author {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.7rem;
         letter-spacing: 4px;
         text-transform: uppercase;
@@ -2521,7 +2546,7 @@
         align-items: center;
       }
       .about-feedback-label {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.65rem;
         letter-spacing: 5px;
         text-transform: uppercase;
@@ -2530,7 +2555,7 @@
         display: block;
       }
       .about-feedback-text h2 {
-        font-family: "Playfair Display", serif;
+        font-family: "Inter", sans-serif;
         font-size: clamp(1.8rem, 3vw, 2.8rem);
         font-weight: 700;
         line-height: 1.25;
@@ -2538,7 +2563,7 @@
         color: var(--blue-primary);
       }
       .about-feedback-text p {
-        font-family: "Source Serif 4", serif;
+        font-family: "Inter", sans-serif;
         font-size: 1rem;
         color: var(--text-muted);
         line-height: 1.9;
@@ -2548,7 +2573,7 @@
         display: inline-block;
         background: var(--blue-primary);
         color: #fff;
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.72rem;
         font-weight: 700;
         letter-spacing: 2px;
@@ -2595,7 +2620,7 @@
         display: flex;
         align-items: center;
         gap: 0.8rem;
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.85rem;
         color: var(--text-muted);
         background: var(--white);
@@ -2760,7 +2785,7 @@
         margin-bottom: 1.5rem;
       }
       .feedback-widget h3 {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.72rem;
         font-weight: 700;
         letter-spacing: 3px;
@@ -2771,7 +2796,7 @@
         margin-bottom: 1rem;
       }
       .feedback-widget p {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.8rem;
         color: rgba(255, 255, 255, 0.75);
         line-height: 1.6;
@@ -2782,7 +2807,7 @@
         width: 100%;
         background: #fff;
         color: var(--blue-primary);
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.7rem;
         font-weight: 700;
         letter-spacing: 2px;
@@ -2859,7 +2884,7 @@
         border-bottom: 2px solid var(--blue-dark);
       }
       .feedback-modal-header h2 {
-        font-family: "Playfair Display", serif;
+        font-family: "Inter", sans-serif;
         font-size: 1.15rem;
         color: #fff;
         display: flex;
@@ -2886,7 +2911,7 @@
         padding: 1.8rem;
       }
       .feedback-modal-body p.modal-intro {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.82rem;
         color: var(--text-muted);
         margin-bottom: 1.5rem;
@@ -2897,7 +2922,7 @@
       }
       .feedback-field label {
         display: block;
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.68rem;
         font-weight: 700;
         letter-spacing: 2px;
@@ -2910,7 +2935,7 @@
         width: 100%;
         border: 1.5px solid var(--border);
         background: var(--white);
-        font-family: "Source Serif 4", serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.9rem;
         color: var(--text);
         padding: 10px 14px;
@@ -2934,7 +2959,7 @@
         flex: 1;
         background: var(--blue-primary);
         color: #fff;
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.72rem;
         font-weight: 700;
         letter-spacing: 2px;
@@ -2955,7 +2980,7 @@
         background: none;
         border: 1.5px solid var(--border);
         color: var(--text-muted);
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.72rem;
         font-weight: 700;
         letter-spacing: 2px;
@@ -2979,13 +3004,13 @@
         margin-bottom: 1rem;
       }
       .feedback-success-msg h3 {
-        font-family: "Playfair Display", serif;
+        font-family: "Inter", sans-serif;
         font-size: 1.4rem;
         color: var(--blue-primary);
         margin-bottom: 0.8rem;
       }
       .feedback-success-msg p {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.85rem;
         color: var(--text-muted);
         line-height: 1.7;
@@ -3031,7 +3056,7 @@
       }
       .privacy-hero-badge {
         display: inline-block;
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.65rem;
         letter-spacing: 4px;
         text-transform: uppercase;
@@ -3041,7 +3066,7 @@
         margin-bottom: 1.5rem;
       }
       .privacy-hero h1 {
-        font-family: "Playfair Display", serif;
+        font-family: "Inter", sans-serif;
         font-size: clamp(1.8rem, 4vw, 3rem);
         font-weight: 900;
         color: #fff;
@@ -3049,7 +3074,7 @@
         line-height: 1.2;
       }
       .privacy-hero-desc {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.88rem;
         color: rgba(255, 255, 255, 0.55);
         max-width: 520px;
@@ -3059,7 +3084,7 @@
       .privacy-updated {
         display: inline-block;
         margin-top: 1.5rem;
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.72rem;
         color: rgba(255, 255, 255, 0.75);
         letter-spacing: 1px;
@@ -3078,7 +3103,7 @@
         margin-bottom: 3rem;
       }
       .privacy-toc h3 {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.68rem;
         letter-spacing: 3px;
         text-transform: uppercase;
@@ -3089,7 +3114,7 @@
         padding-left: 1.2rem;
       }
       .privacy-toc li {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.82rem;
         color: var(--blue-primary);
         margin-bottom: 0.4rem;
@@ -3117,7 +3142,7 @@
         height: 32px;
         background: var(--blue-primary);
         color: #fff;
-        font-family: "Playfair Display", serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.9rem;
         font-weight: 700;
         display: flex;
@@ -3126,14 +3151,14 @@
         flex-shrink: 0;
       }
       .privacy-section h2 {
-        font-family: "Playfair Display", serif;
+        font-family: "Inter", sans-serif;
         font-size: 1.25rem;
         font-weight: 700;
         color: var(--blue-primary);
         line-height: 1.3;
       }
       .privacy-section p {
-        font-family: "Source Serif 4", serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.95rem;
         color: var(--text);
         line-height: 1.9;
@@ -3144,7 +3169,7 @@
         margin-bottom: 1rem;
       }
       .privacy-section ul li {
-        font-family: "Source Serif 4", serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.92rem;
         color: var(--text);
         line-height: 1.8;
@@ -3155,7 +3180,7 @@
         border-left: 3px solid var(--blue-primary);
         padding: 1rem 1.4rem;
         margin: 1.2rem 0;
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.85rem;
         color: var(--text-muted);
         line-height: 1.7;
@@ -3164,7 +3189,7 @@
         display: inline-block;
         background: var(--blue-primary);
         color: #fff;
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.65rem;
         letter-spacing: 1px;
         padding: 3px 10px;
@@ -3179,13 +3204,13 @@
         text-align: center;
       }
       .privacy-contact-box h3 {
-        font-family: "Playfair Display", serif;
+        font-family: "Inter", sans-serif;
         font-size: 1.3rem;
         color: #fff;
         margin-bottom: 0.7rem;
       }
       .privacy-contact-box p {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.82rem;
         color: rgba(255, 255, 255, 0.75);
         margin-bottom: 1.2rem;
@@ -3196,7 +3221,7 @@
         background: none;
         border: 1px solid var(--blue-primary);
         color: var(--blue-primary);
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.72rem;
         font-weight: 700;
         letter-spacing: 2px;
@@ -3303,14 +3328,14 @@
         display: block;
       }
       .person-popup-name {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.88rem;
         font-weight: 700;
         color: #202122;
         display: inline;
       }
       .person-popup-desc {
-        font-family: "Source Serif 4", serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.82rem;
         color: #202122;
         line-height: 1.65;
@@ -3470,7 +3495,7 @@
         min-height: 0; /* penting agar flex + overflow-y bekerja */
       }
       .person-mobile-desc {
-        font-family: "Source Serif 4", serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.9rem;
         color: #202122;
         line-height: 1.75;
@@ -3605,7 +3630,7 @@
         border-top: 1px solid var(--border);
       }
       .article-tags-label {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.65rem;
         font-weight: 700;
         letter-spacing: 3px;
@@ -3626,7 +3651,7 @@
         background: var(--blue-light);
         color: var(--blue-primary);
         border: 1px solid var(--border);
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.72rem;
         font-weight: 500;
         padding: 5px 12px;
@@ -3664,7 +3689,7 @@
         margin: 0 auto;
       }
       .tag-page-breadcrumb {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.72rem;
         color: rgba(255, 255, 255, 0.6);
         margin-bottom: 1rem;
@@ -3684,8 +3709,10 @@
         opacity: 0.4;
       }
       .tag-page-title {
-        font-family: "Playfair Display", serif;
-        font-size: 2.5rem;
+        font-family: "Inter", sans-serif;
+        font-size: 2.4rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
         font-weight: 900;
         color: #fff;
         margin-bottom: 0.75rem;
@@ -3699,7 +3726,7 @@
         font-weight: 400;
       }
       .tag-page-meta {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.82rem;
         color: rgba(255, 255, 255, 0.7);
         display: flex;
@@ -3710,7 +3737,7 @@
         background: rgba(255, 255, 255, 0.15);
         border: 1px solid rgba(255, 255, 255, 0.25);
         color: #fff;
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.7rem;
         font-weight: 700;
         letter-spacing: 1px;
@@ -3739,7 +3766,7 @@
         flex-shrink: 0;
       }
       .tag-page-articles-header h2 {
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.75rem;
         font-weight: 700;
         letter-spacing: 3px;
@@ -3749,14 +3776,14 @@
         text-align: center;
         padding: 4rem 2rem;
         color: var(--text-muted);
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
       }
       .tag-page-empty-icon {
         font-size: 3rem;
         margin-bottom: 1rem;
       }
       .tag-page-empty h3 {
-        font-family: "Playfair Display", serif;
+        font-family: "Inter", sans-serif;
         font-size: 1.4rem;
         margin-bottom: 0.5rem;
         color: var(--text);
@@ -3776,7 +3803,7 @@
         background: var(--blue-light);
         color: var(--blue-primary);
         border: 1px solid var(--border);
-        font-family: "DM Sans", sans-serif;
+        font-family: "Inter", sans-serif;
         font-size: 0.72rem;
         font-weight: 500;
         padding: 5px 12px;
@@ -4668,7 +4695,7 @@
             }
             <div class="section-header">
               <h2>${currentPage === 1 ? "Artikel" : "Artikel"}</h2>
-              <a href="#" style="margin-left:auto; font-family:'DM Sans',sans-serif; font-size:0.78rem; color:var(--blue-primary); text-decoration:none; display:flex; align-items:center; gap:4px;" id="lihatSemua"></a>
+              <a href="#" style="margin-left:auto; font-family:'Inter',sans-serif; font-size:0.78rem; color:var(--blue-primary); text-decoration:none; display:flex; align-items:center; gap:4px;" id="lihatSemua"></a>
             </div>
             <div class="articles-grid" id="articlesGrid">
               ${
@@ -4728,7 +4755,7 @@
           </div>
           <aside class="sidebar">
             <div class="sidebar-widget" style="border-radius:6px; border:1px solid var(--border);">
-              <h3 style="display:flex;align-items:center;gap:8px;font-size:0.72rem;letter-spacing:2px;border-bottom:1px solid var(--border);padding-bottom:0.8rem;margin-bottom:1rem;font-family:'DM Sans',sans-serif;font-weight:700;">
+              <h3 style="display:flex;align-items:center;gap:8px;font-size:0.72rem;letter-spacing:2px;border-bottom:1px solid var(--border);padding-bottom:0.8rem;margin-bottom:1rem;font-family:'Inter',sans-serif;font-weight:700;">
                 <img src="/kalender-icon.png" alt="kalender" style="width:26px;height:26px;object-fit:contain;filter:invert(27%) sepia(90%) saturate(600%) hue-rotate(195deg) brightness(0.85);"> PERISTIWA HARI INI
               </h3>
               <div id="todayWidget" style="padding:0;">
@@ -4738,15 +4765,15 @@
                     <div style="width:2px;flex:1;background:var(--border);margin-top:4px;min-height:40px;"></div>
                   </div>
                   <div>
-                    <div style="font-family:'DM Sans',sans-serif; font-size:0.82rem; font-weight:700; color:var(--text); margin-bottom:0.3rem;" id="todayDate">—</div>
+                    <div style="font-family:'Inter',sans-serif; font-size:0.82rem; font-weight:700; color:var(--text); margin-bottom:0.3rem;" id="todayDate">—</div>
                     <div style="font-size:0.8rem; color:var(--text-muted); line-height:1.55;" id="todayText">Memuat kisah...</div>
                   </div>
                 </div>
-                <div class="tw-link" id="todayLink" style="display:none; margin-top:1rem; color:var(--blue-primary); font-family:'DM Sans',sans-serif; font-size:0.78rem; font-weight:500;">Lihat peristiwa lainnya →</div>
+                <div class="tw-link" id="todayLink" style="display:none; margin-top:1rem; color:var(--blue-primary); font-family:'Inter',sans-serif; font-size:0.78rem; font-weight:500;">Lihat peristiwa lainnya →</div>
               </div>
             </div>
             <div class="sidebar-widget" style="border-radius:6px; border:1px solid var(--border);">
-              <h3 style="display:flex;align-items:center;gap:8px;font-size:0.72rem;letter-spacing:2px;border-bottom:1px solid var(--border);padding-bottom:0.8rem;margin-bottom:1rem;font-family:'DM Sans',sans-serif;font-weight:700;">
+              <h3 style="display:flex;align-items:center;gap:8px;font-size:0.72rem;letter-spacing:2px;border-bottom:1px solid var(--border);padding-bottom:0.8rem;margin-bottom:1rem;font-family:'Inter',sans-serif;font-weight:700;">
                 <span style="font-size:1.1rem;">🔥</span> POPULER MINGGU INI
               </h3>
               <div style="display:flex;flex-direction:column;gap:0.7rem;">
@@ -4754,14 +4781,14 @@
                   .map(
                     (a, i) => `
                   <div class="pop-item" data-id="${a.id}" style="display:flex;gap:10px;align-items:flex-start;cursor:pointer;">
-                    <div style="width:24px;height:24px;background:var(--blue-primary);color:#fff;font-family:'DM Sans',sans-serif;font-size:0.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0;margin-top:1px;">${i + 1}</div>
-                    <div style="flex:1;min-width:0;font-family:'DM Sans',sans-serif;font-size:0.82rem;line-height:1.4;color:var(--text);">${escapeHtml(a.title)}</div>
+                    <div style="width:24px;height:24px;background:var(--blue-primary);color:#fff;font-family:'Inter',sans-serif;font-size:0.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0;margin-top:1px;">${i + 1}</div>
+                    <div style="flex:1;min-width:0;font-family:'Inter',sans-serif;font-size:0.82rem;line-height:1.4;color:var(--text);">${escapeHtml(a.title)}</div>
                   </div>
                 `,
                   )
                   .join("")}
               </div>
-              <div style="margin-top:1rem;"><a href="#" style="font-family:'DM Sans',sans-serif;font-size:0.78rem;color:var(--blue-primary);text-decoration:none;font-weight:500;">Lihat semua populer →</a></div>
+              <div style="margin-top:1rem;"><a href="#" style="font-family:'Inter',sans-serif;font-size:0.78rem;color:var(--blue-primary);text-decoration:none;font-weight:500;">Lihat semua populer →</a></div>
             </div>
             <div class="feedback-widget">
               <h3> Saran &amp; Masukan</h3>
@@ -4769,11 +4796,11 @@
               <button class="feedback-widget-btn" id="openFeedbackSidebar">Kirim Masukan</button>
             </div>
             <div class="sidebar-widget" style="border-radius:6px; border:1px solid var(--border);">
-              <h3 style="display:flex;align-items:center;gap:8px;font-size:0.72rem;letter-spacing:2px;border-bottom:1px solid var(--border);padding-bottom:0.8rem;margin-bottom:1rem;font-family:'DM Sans',sans-serif;font-weight:700;">
+              <h3 style="display:flex;align-items:center;gap:8px;font-size:0.72rem;letter-spacing:2px;border-bottom:1px solid var(--border);padding-bottom:0.8rem;margin-bottom:1rem;font-family:'Inter',sans-serif;font-weight:700;">
                 <span style="font-size:1.1rem;"></span> TAG POPULER
               </h3>
               <div class="popular-tags-wrap" id="popularTagsWidget">
-                <span style="font-family:'DM Sans',sans-serif;font-size:0.75rem;color:var(--text-muted);">Memuat tag...</span>
+                <span style="font-family:'Inter',sans-serif;font-size:0.75rem;color:var(--text-muted);">Memuat tag...</span>
               </div>
             </div>
           </aside>
@@ -5409,7 +5436,7 @@
           "</div>" +
           '<aside class="sidebar">' +
           '<div class="sidebar-widget" style="border-radius:6px;border:1px solid var(--border);">' +
-          '<h3 style="display:flex;align-items:center;gap:8px;font-size:0.72rem;letter-spacing:2px;border-bottom:1px solid var(--border);padding-bottom:0.8rem;margin-bottom:1rem;font-family:\'DM Sans\',sans-serif;font-weight:700;"><span style="font-size:1.1rem;">🏷️</span> TAG TERKAIT</h3>' +
+          '<h3 style="display:flex;align-items:center;gap:8px;font-size:0.72rem;letter-spacing:2px;border-bottom:1px solid var(--border);padding-bottom:0.8rem;margin-bottom:1rem;font-family:\'Inter\',sans-serif;font-weight:700;"><span style="font-size:1.1rem;">🏷️</span> TAG TERKAIT</h3>' +
           (relatedTags.length
             ? '<div class="popular-tags-wrap">' +
               relatedTags
@@ -5424,7 +5451,7 @@
                 })
                 .join("") +
               "</div>"
-            : "<p style=\"font-family:'DM Sans',sans-serif;font-size:0.78rem;color:var(--text-muted);\">Tidak ada tag lain.</p>") +
+            : "<p style=\"font-family:'Inter',sans-serif;font-size:0.78rem;color:var(--text-muted);\">Tidak ada tag lain.</p>") +
           "</div>" +
           "</aside>" +
           "</div>";
@@ -5490,7 +5517,7 @@
           .slice(0, 10);
         if (!sorted.length) {
           wrap.innerHTML =
-            "<span style=\"font-family:'DM Sans',sans-serif;font-size:0.75rem;color:var(--text-muted);\">Belum ada tag.</span>";
+            "<span style=\"font-family:'Inter',sans-serif;font-size:0.75rem;color:var(--text-muted);\">Belum ada tag.</span>";
           return;
         }
         wrap.innerHTML = sorted
@@ -5736,7 +5763,7 @@
         const progressLabel = document.createElement("div");
         progressLabel.id = "articleReadLabel";
         progressLabel.style.cssText =
-          "position:fixed;top:0;left:50%;transform:translateX(-50%);font-family:'DM Sans',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:2px;color:var(--blue-primary);padding-top:6px;z-index:9998;pointer-events:none;white-space:nowrap;";
+          "position:fixed;top:0;left:50%;transform:translateX(-50%);font-family:'Inter',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:2px;color:var(--blue-primary);padding-top:6px;z-index:9998;pointer-events:none;white-space:nowrap;";
         progressLabel.textContent = "PROGRESS MEMBACA 0%";
         document.body.appendChild(progressLabel);
         function updateArticleProgress() {
