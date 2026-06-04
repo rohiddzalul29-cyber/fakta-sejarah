@@ -4770,7 +4770,7 @@
             </div>
             <div class="sidebar-widget" style="border-radius:6px; border:1px solid var(--border);">
               <h3 style="display:flex;align-items:center;gap:8px;font-size:0.72rem;letter-spacing:2px;border-bottom:1px solid var(--border);padding-bottom:0.8rem;margin-bottom:1rem;font-family:'DM Sans',sans-serif;font-weight:700;">
-                <span style="font-size:1.1rem;">🏷️</span> TAG POPULER
+                <span style="font-size:1.1rem;"></span> TAG POPULER
               </h3>
               <div class="popular-tags-wrap" id="popularTagsWidget">
                 <span style="font-family:'DM Sans',sans-serif;font-size:0.75rem;color:var(--text-muted);">Memuat tag...</span>
@@ -5002,6 +5002,13 @@
           if (m === ">") return "&gt;";
           return m;
         });
+      }
+
+      // Normalise satu item tag: object {name,slug,...} → string nama tag
+      function normalizeTag(t) {
+        if (!t) return "";
+        if (typeof t === "object") return t.name || t.slug || "";
+        return String(t).trim();
       }
 
       let todayHistoryItem = null;
@@ -5263,12 +5270,12 @@
                   .filter(Boolean)
               : [];
           for (var i = 0; i < tags.length; i++) {
+            var name = normalizeTag(tags[i]);
             if (
-              tags[i].toLowerCase() === searchTag.toLowerCase() ||
-              tags[i].toLowerCase().replace(/\s+/g, "-") ===
-                tagSlug.toLowerCase()
+              name.toLowerCase() === searchTag.toLowerCase() ||
+              name.toLowerCase().replace(/\s+/g, "-") === tagSlug.toLowerCase()
             ) {
-              matchedTagName = tags[i];
+              matchedTagName = name;
               return true;
             }
           }
@@ -5304,17 +5311,19 @@
                     ? '<div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:5px;">' +
                       tags
                         .map(function (t) {
+                          var name = normalizeTag(t);
+                          if (!name) return "";
                           var isActive =
-                            t.toLowerCase() === matchedTagName.toLowerCase();
+                            name.toLowerCase() === matchedTagName.toLowerCase();
                           return (
                             '<span class="article-tag-chip" data-tag="' +
-                            escapeHtml(t) +
+                            escapeHtml(name) +
                             '" style="' +
                             (isActive
                               ? "background:var(--blue-primary);color:#fff;border-color:var(--blue-primary);"
                               : "") +
                             ' font-size:0.65rem; padding:3px 9px;">' +
-                            escapeHtml(t) +
+                            escapeHtml(name) +
                             "</span>"
                           );
                         })
@@ -5368,8 +5377,9 @@
                   .filter(Boolean)
               : [];
           tags.forEach(function (t) {
-            if (t.toLowerCase() !== matchedTagName.toLowerCase()) {
-              allTagsMap[t] = (allTagsMap[t] || 0) + 1;
+            var name = normalizeTag(t);
+            if (name && name.toLowerCase() !== matchedTagName.toLowerCase()) {
+              allTagsMap[name] = (allTagsMap[name] || 0) + 1;
             }
           });
         });
@@ -5469,7 +5479,8 @@
                   .filter(Boolean)
               : [];
           tags.forEach(function (t) {
-            if (t) tagCount[t] = (tagCount[t] || 0) + 1;
+            var name = normalizeTag(t);
+            if (name) tagCount[name] = (tagCount[name] || 0) + 1;
           });
         });
         var sorted = Object.keys(tagCount)
@@ -5520,9 +5531,10 @@
         const heroImg = article.image_url
           ? `<img class="article-hero-img" src="${article.image_url}" onerror="this.style.display='none'" alt="">`
           : `<div class="article-hero-img" style="background: linear-gradient(135deg, #0f3d72 0%, #1a5fa8 100%);"></div>`;
-        const categoryBadge = (getFirstTagName(article) || article.category)
-          ? `<span class="article-hero-cat">${escapeHtml(getFirstTagName(article) || article.category)}</span>`
-          : "";
+        const categoryBadge =
+          getFirstTagName(article) || article.category
+            ? `<span class="article-hero-cat">${escapeHtml(getFirstTagName(article) || article.category)}</span>`
+            : "";
         const html = `
         <!-- HERO -->
         <div class="article-hero">
@@ -5560,11 +5572,13 @@
                   '<div class="article-tags-wrap"><span class="article-tags-label">🏷️ Tag Artikel</span><div class="article-tags-list">' +
                   tags
                     .map(function (tag) {
+                      var name = normalizeTag(tag);
+                      if (!name) return "";
                       return (
                         '<span class="article-tag-chip" data-tag="' +
-                        escapeHtml(tag) +
+                        escapeHtml(name) +
                         '">' +
-                        escapeHtml(tag) +
+                        escapeHtml(name) +
                         "</span>"
                       );
                     })
