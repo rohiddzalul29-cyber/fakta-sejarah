@@ -1359,20 +1359,11 @@
           word-break: break-word;
           overflow-wrap: break-word;
         }
-        .article-top-wrap {
-          grid-template-columns: 1fr;
-          padding: 0 0.9rem;
-          gap: 1rem;
-          margin-bottom: 1rem;
-        }
         .article-hero-image-wrap {
-          padding: 0;
+          padding: 0 0.9rem;
         }
         .article-hero-image-wrap img {
           border-radius: 8px;
-        }
-        .article-top-popular {
-          display: none;
         }
         .article-content {
           font-size: 18px;
@@ -1502,8 +1493,8 @@
 
       /* Article header area (above the image) */
       .article-header-wrap {
-        max-width: 1280px;
-        margin: 2.5rem auto 1.5rem;
+        max-width: 760px;
+        margin: 2.5rem auto 0;
         padding: 0 2rem;
       }
       .article-category-label {
@@ -1524,7 +1515,6 @@
         letter-spacing: -0.02em;
         color: var(--text);
         margin-bottom: 1rem;
-        max-width: 760px;
       }
       .article-meta-bar {
         display: flex;
@@ -1608,19 +1598,11 @@
         background: var(--blue-primary);
         color: #fff;
       }
-      /* Desktop: gambar + artikel populer berdampingan */
-      .article-top-wrap {
-        max-width: 1280px;
+      /* Hero image below header */
+      .article-hero-image-wrap {
+        max-width: 760px;
         margin: 0 auto 2rem;
         padding: 0 2rem;
-        display: grid;
-        grid-template-columns: 1fr 300px;
-        gap: 2.5rem;
-        align-items: flex-start;
-      }
-      /* Hero image — sekarang di dalam article-top-wrap */
-      .article-hero-image-wrap {
-        /* tidak perlu max-width/margin sendiri karena diatur oleh grid */
       }
       .article-hero-image-wrap img {
         width: 100%;
@@ -1628,23 +1610,6 @@
         object-fit: cover;
         border-radius: 12px;
         display: block;
-      }
-      /* Kolom popular di samping gambar */
-      .article-top-popular {
-        /* sticky mengikuti scroll */
-        position: sticky;
-        top: 90px;
-      }
-      .article-top-popular-title {
-        font-family: "Inter", sans-serif;
-        font-size: 0.68rem;
-        font-weight: 700;
-        letter-spacing: 2.5px;
-        text-transform: uppercase;
-        color: var(--blue-primary);
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 0.7rem;
-        margin-bottom: 1rem;
       }
       /* Two-column layout below image */
       .article-body-wrap {
@@ -1929,17 +1894,8 @@
         .article-header-wrap {
           padding: 0 1rem;
         }
-        .article-top-wrap {
-          grid-template-columns: 1fr;
-          padding: 0 1rem;
-          gap: 0;
-          margin-bottom: 1rem;
-        }
         .article-hero-image-wrap {
-          padding: 0;
-        }
-        .article-top-popular {
-          display: none;
+          padding: 0 1rem;
         }
         .article-sidebar {
           position: static;
@@ -5677,27 +5633,8 @@
             </button>
           </div>
         </div>
-        <!-- HERO IMAGE + ARTIKEL POPULER (desktop: berdampingan) -->
-        <div class="article-top-wrap">
-          ${article.image_url ? `<div class="article-hero-image-wrap"><img src="${article.image_url}" onerror="this.style.display='none'" alt="${escapeHtml(article.title)}"></div>` : "<div></div>"}
-          <!-- Artikel Populer di samping gambar (desktop only) -->
-          <div class="article-top-popular">
-            <div class="article-top-popular-title">Artikel Populer</div>
-            ${popularForSidebar
-              .map(
-                (a) => `
-              <div class="article-popular-item" data-id="${a.id}">
-                <img class="article-popular-img" src="${a.image_url || ""}" onerror="this.style.display='none'" alt="">
-                <div>
-                  <div class="article-popular-title">${escapeHtml(a.title)}</div>
-                  <div class="article-popular-date">📅 ${formatDate(a.created_at)} <span style="opacity:.5">·</span> 👁 ${(a.views || 0).toLocaleString("id-ID")}</div>
-                </div>
-              </div>
-            `,
-              )
-              .join("")}
-          </div>
-        </div>
+        <!-- HERO IMAGE -->
+        ${article.image_url ? `<div class="article-hero-image-wrap"><img src="${article.image_url}" onerror="this.style.display='none'" alt="${escapeHtml(article.title)}"></div>` : ""}
         <!-- BODY: two-column -->
         <div class="article-body-wrap">
           <div>
@@ -5756,6 +5693,23 @@
                   </div>
                 </div>
               </div>
+            </div>
+            <!-- Popular articles -->
+            <div class="article-sidebar-widget">
+              <h3>Artikel Populer</h3>
+              ${popularForSidebar
+                .map(
+                  (a) => `
+                <div class="article-popular-item" data-id="${a.id}">
+                  <img class="article-popular-img" src="${a.image_url || ""}" onerror="this.style.display='none'" alt="">
+                  <div>
+                    <div class="article-popular-title">${escapeHtml(a.title)}</div>
+                    <div class="article-popular-date">📅 ${formatDate(a.created_at)} <span style="opacity:.5">·</span> 👁 ${(a.views || 0).toLocaleString("id-ID")}</div>
+                  </div>
+                </div>
+              `,
+                )
+                .join("")}
             </div>
           </aside>
         </div>
@@ -5844,58 +5798,116 @@
           });
         // ── Share buttons ──
         const _shareUrl = window.location.href;
-        const _shareTitle = encodeURIComponent(article.title || "");
+        const _shareTitle = article.title || "";
 
+        // Helper: salin teks ke clipboard dengan fallback
+        function _copyToClipboard(text, onSuccess, onFail) {
+          if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard
+              .writeText(text)
+              .then(onSuccess)
+              .catch(function () {
+                _fallbackCopy(text, onSuccess, onFail);
+              });
+          } else {
+            _fallbackCopy(text, onSuccess, onFail);
+          }
+        }
+        function _fallbackCopy(text, onSuccess, onFail) {
+          try {
+            const ta = document.createElement("textarea");
+            ta.value = text;
+            ta.style.cssText =
+              "position:fixed;top:-9999px;left:-9999px;opacity:0;";
+            document.body.appendChild(ta);
+            ta.focus();
+            ta.select();
+            const ok = document.execCommand("copy");
+            document.body.removeChild(ta);
+            if (ok) {
+              onSuccess && onSuccess();
+            } else {
+              onFail && onFail();
+            }
+          } catch (e) {
+            onFail && onFail();
+          }
+        }
+
+        // Helper: tampilkan toast notifikasi
+        function _showToast(msg) {
+          const note = document.createElement("div");
+          note.style.cssText =
+            "position:fixed;bottom:28px;left:50%;transform:translateX(-50%);background:#1a1a2e;color:#fff;" +
+            "font-family:'Inter',sans-serif;font-size:0.8rem;font-weight:500;padding:11px 22px;" +
+            "border-radius:8px;z-index:9999;white-space:nowrap;box-shadow:0 4px 20px rgba(0,0,0,0.3);" +
+            "pointer-events:none;opacity:0;transition:opacity 0.2s ease;";
+          note.textContent = msg;
+          document.body.appendChild(note);
+          requestAnimationFrame(() => {
+            note.style.opacity = "1";
+          });
+          setTimeout(() => {
+            note.style.opacity = "0";
+            setTimeout(() => note.remove(), 300);
+          }, 3200);
+        }
+
+        // 1. WhatsApp — buka wa.me/?text= langsung
         document
           .getElementById("shareWa")
           ?.addEventListener("click", function (e) {
             e.preventDefault();
-            const waUrl =
-              "https://api.whatsapp.com/send?text=" +
-              _shareTitle +
-              "%20" +
-              encodeURIComponent(_shareUrl);
-            window.open(waUrl, "_blank");
+            const waText = encodeURIComponent(_shareTitle + "\n" + _shareUrl);
+            window.open("https://wa.me/?text=" + waText, "_blank");
           });
 
+        // 2. Instagram — tidak ada API share, cukup salin link + notifikasi khusus
         document
           .getElementById("shareIg")
           ?.addEventListener("click", function () {
-            navigator.clipboard
-              .writeText(_shareUrl)
-              .then(function () {
-                const btn = document.getElementById("shareIg");
-                const orig = btn.innerHTML;
+            const btn = this;
+            const orig = btn.innerHTML;
+            _copyToClipboard(
+              _shareUrl,
+              function () {
                 btn.textContent = "✔ Link disalin!";
                 setTimeout(() => {
                   btn.innerHTML = orig;
                 }, 2500);
-                // Show notification
-                const note = document.createElement("div");
-                note.style.cssText =
-                  "position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#333;color:#fff;font-family:'Inter',sans-serif;font-size:0.78rem;padding:10px 20px;border-radius:8px;z-index:9999;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,0.25);";
-                note.textContent =
-                  "Link artikel disalin. Tempel di Instagram Story atau Bio.";
-                document.body.appendChild(note);
-                setTimeout(() => note.remove(), 3500);
-              })
-              .catch(() => {});
+                _showToast(
+                  "Link artikel disalin. Tempel di Instagram Story, DM, atau Bio.",
+                );
+              },
+              function () {
+                _showToast(
+                  "Gagal menyalin link. Salin manual dari address bar.",
+                );
+              },
+            );
           });
 
+        // 3. Salin Link — salin + notifikasi singkat
         document
           .getElementById("shareCopy")
           ?.addEventListener("click", function () {
-            navigator.clipboard
-              .writeText(_shareUrl)
-              .then(function () {
-                const btn = document.getElementById("shareCopy");
-                const orig = btn.innerHTML;
+            const btn = this;
+            const orig = btn.innerHTML;
+            _copyToClipboard(
+              _shareUrl,
+              function () {
                 btn.textContent = "✔ Tersalin!";
                 setTimeout(() => {
                   btn.innerHTML = orig;
                 }, 2000);
-              })
-              .catch(() => {});
+                _showToast("Link berhasil disalin.");
+              },
+              function () {
+                _showToast(
+                  "Gagal menyalin link. Salin manual dari address bar.",
+                );
+              },
+            );
           });
         document
           .querySelectorAll(
