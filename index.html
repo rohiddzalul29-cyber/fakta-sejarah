@@ -4638,14 +4638,7 @@
         </div>
         <div class="main">
           <div>
-            <div class="filter-bar" id="filterBar">
-              <button class="filter-btn ${currentFilter === "all" ? "active" : ""}" data-filter="all"><img src="/globe-icon.png" class="fi-img" alt="">Semua</button>
-              <button class="filter-btn ${currentFilter === "Sejarah Dunia" ? "active" : ""}" data-filter="Sejarah Dunia"><img src="/eart-icon.png" class="fi-img" alt="">Sejarah Dunia</button>
-              <button class="filter-btn ${currentFilter === "Sejarah Indonesia" ? "active" : ""}" data-filter="Sejarah Indonesia"><img src="/indo-icon.png" class="fi-img fi-indo" alt="">Indonesia</button>
-              <button class="filter-btn ${currentFilter === "Tokoh" ? "active" : ""}" data-filter="Tokoh"><img src="/person-icon.png" class="fi-img" alt="">Tokoh</button>
-              <button class="filter-btn ${currentFilter === "Perang" ? "active" : ""}" data-filter="Perang"><img src="/pedang-icon.png" class="fi-img" alt="">Perang</button>
-              <button class="filter-btn ${currentFilter === "Fakta Sejarah" ? "active" : ""}" data-filter="Fakta Sejarah"><img src="/dokumen-icon.png" class="fi-img fi-dokumen" alt="">Fakta Sejarah</button>
-            </div>
+
             ${
               currentPage === 1
                 ? `
@@ -5527,10 +5520,9 @@
         const heroImg = article.image_url
           ? `<img class="article-hero-img" src="${article.image_url}" onerror="this.style.display='none'" alt="">`
           : `<div class="article-hero-img" style="background: linear-gradient(135deg, #0f3d72 0%, #1a5fa8 100%);"></div>`;
-        const categoryBadge =
-          getFirstTagName(article) || article.category
-            ? `<span class="article-hero-cat">${escapeHtml(getFirstTagName(article) || article.category)}</span>`
-            : "";
+        const categoryBadge = (getFirstTagName(article) || article.category)
+          ? `<span class="article-hero-cat">${escapeHtml(getFirstTagName(article) || article.category)}</span>`
+          : "";
         const html = `
         <!-- HERO -->
         <div class="article-hero">
