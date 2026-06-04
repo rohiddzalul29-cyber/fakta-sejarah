@@ -5613,7 +5613,7 @@
           ${getFirstTagName(article) || article.category ? `<span class="article-category-label">${escapeHtml(getFirstTagName(article) || article.category)}</span>` : ""}
           <h1>${escapeHtml(article.title)}</h1>
           <div class="article-meta-bar">
-            ${dateStr ? `<span>📅 ${dateStr}</span>` : ""}
+            ${dateStr ? `<span> ${dateStr}</span>` : ""}
             ${dateStr ? `<span class="sep">•</span>` : ""}
             <span> ${(article.views || 0).toLocaleString("id-ID")} kali Dibaca</span>
           </div>
