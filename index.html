@@ -1744,6 +1744,59 @@
         border: none;
         border-radius: 2px;
       }
+      /* Daftar Isi */
+      .article-toc-list {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+      }
+      .article-toc-list li {
+        border-bottom: 1px solid var(--border);
+      }
+      .article-toc-list li:last-child {
+        border-bottom: none;
+      }
+      .article-toc-list a {
+        display: block;
+        padding: 7px 0 7px 0;
+        font-family: "Inter", sans-serif;
+        font-size: 0.78rem;
+        line-height: 1.45;
+        color: var(--text);
+        text-decoration: none;
+        transition: color 0.15s, padding-left 0.15s;
+      }
+      .article-toc-list a:hover {
+        color: var(--blue-primary);
+        padding-left: 4px;
+      }
+      .article-toc-list li.toc-h3 a,
+      .article-toc-list li.toc-p-strong a {
+        padding-left: 14px;
+        font-size: 0.74rem;
+        color: var(--text-muted);
+      }
+      .article-toc-list li.toc-h3 a:hover,
+      .article-toc-list li.toc-p-strong a:hover {
+        color: var(--blue-primary);
+        padding-left: 18px;
+      }
+      .article-toc-list li.toc-h2 a {
+        font-weight: 600;
+      }
+      body.dark .article-toc-list a {
+        color: #c5cee0;
+      }
+      body.dark .article-toc-list li.toc-h3 a,
+      body.dark .article-toc-list li.toc-p-strong a {
+        color: #8899b0;
+      }
+      body.dark .article-toc-list a:hover,
+      body.dark .article-toc-list li.toc-h3 a:hover,
+      body.dark .article-toc-list li.toc-p-strong a:hover {
+        color: var(--blue-primary);
+      }
+
       /* Article sidebar */
       .article-sidebar {
         position: sticky;
@@ -5746,8 +5799,13 @@
               })()}
             </div>
           </div>
-          <!-- SIDEBAR (desktop only) — author card + tag terpopuler -->
+          <!-- SIDEBAR (desktop only) — daftar isi + author card + tag terpopuler -->
           <aside class="article-sidebar">
+            <!-- Daftar Isi — diisi oleh JS setelah konten dimuat -->
+            <div class="article-sidebar-widget" id="articleTocWidget" style="display:none;">
+              <h3>Daftar Isi</h3>
+              <ol class="article-toc-list" id="articleTocList"></ol>
+            </div>
             <div class="article-sidebar-widget">
               <h3>Tentang Penulis</h3>
               <div class="article-author-card">
@@ -5810,6 +5868,28 @@
                 })()}
               </div>
             </div>
+            <!-- Artikel Lainnya -->
+            <div class="article-sidebar-widget">
+              <h3>Artikel Lainnya</h3>
+              ${(function () {
+                var others = allArticles
+                  .filter(function (a) { return a.id !== article.id; })
+                  .sort(function () { return Math.random() - 0.5; })
+                  .slice(0, 7);
+                if (!others.length) return "<span style=\"font-family:'Inter',sans-serif;font-size:0.75rem;color:var(--text-muted);\">Belum ada artikel lain.</span>";
+                return others.map(function (a) {
+                  return (
+                    '<div class="article-popular-item article-sidebar-other" data-id="' + a.id + '">' +
+                    (a.image_url ? '<img class="article-popular-img" src="' + a.image_url + '" onerror="this.style.display=\'none\'" alt="">' : '') +
+                    '<div>' +
+                    '<div class="article-popular-title">' + escapeHtml(a.title) + '</div>' +
+                    '<div class="article-popular-date">📅 ' + formatDate(a.created_at) + '</div>' +
+                    '</div>' +
+                    '</div>'
+                  );
+                }).join("");
+              })()}
+            </div>
           </aside>
         </div>
         <!-- MOBILE BOTTOM: author + artikel lainnya (hidden on desktop via CSS) -->
@@ -5857,6 +5937,64 @@
               window.processHighlightTags(articleContent);
             }
           }
+
+          // ── Bangun Daftar Isi ──
+          // Ambil heading dari: h2, h3, dan <p> yang HANYA berisi <strong>
+          const tocWidget = document.getElementById("articleTocWidget");
+          const tocList = document.getElementById("articleTocList");
+          if (tocWidget && tocList && articleContent) {
+            const entries = [];
+            const children = articleContent.querySelectorAll("h2, h3, p");
+            children.forEach(function (el) {
+              let level = null;
+              let text = "";
+              if (el.tagName === "H2") {
+                level = "h2";
+                text = el.textContent.trim();
+              } else if (el.tagName === "H3") {
+                level = "h3";
+                text = el.textContent.trim();
+              } else if (el.tagName === "P") {
+                // Paragraf yang semua teksnya berasal dari <strong>
+                const strongs = el.querySelectorAll("strong");
+                const totalStrongText = Array.from(strongs).map(s => s.textContent).join("").trim();
+                const paraText = el.textContent.trim();
+                if (strongs.length > 0 && totalStrongText === paraText && paraText.length > 0 && paraText.length < 120) {
+                  level = "p-strong";
+                  text = paraText;
+                }
+              }
+              if (level && text) {
+                // Beri id unik ke elemen agar bisa di-scroll
+                const slug = "toc-" + text.toLowerCase()
+                  .replace(/[^a-z0-9\s]/g, "")
+                  .trim()
+                  .replace(/\s+/g, "-")
+                  .substring(0, 60) + "-" + entries.length;
+                el.id = slug;
+                entries.push({ level, text, id: slug });
+              }
+            });
+
+            if (entries.length >= 2) {
+              tocList.innerHTML = entries.map(function (e) {
+                return (
+                  '<li class="toc-' + e.level + '">' +
+                  '<a href="#' + e.id + '" class="toc-link">' + e.text + '</a>' +
+                  '</li>'
+                );
+              }).join("");
+              tocWidget.style.display = "";
+              // Smooth scroll saat klik
+              tocList.querySelectorAll(".toc-link").forEach(function (a) {
+                a.addEventListener("click", function (e) {
+                  e.preventDefault();
+                  const target = document.getElementById(a.getAttribute("href").slice(1));
+                  if (target) target.scrollIntoView({ behavior: "smooth", block: "start" });
+                });
+              });
+            }
+          }
         });
         // Tag chip click → navigate to tag page
         document.querySelectorAll(".article-tag-chip").forEach(function (chip) {
@@ -5881,6 +6019,15 @@
             chip.addEventListener("click", function () {
               var tag = chip.getAttribute("data-tag");
               if (tag) navigateToTag(tag);
+            });
+          });
+        // Artikel Lainnya di sidebar — klik navigasi
+        document
+          .querySelectorAll(".article-sidebar-other")
+          .forEach(function (el) {
+            el.addEventListener("click", function () {
+              var id = el.getAttribute("data-id");
+              if (id) navigateToArticle(id);
             });
           });
 
