@@ -616,20 +616,17 @@
         margin-bottom: 2rem;
       }
       .featured-card {
-        background: var(--white);
-        border: 1px solid var(--border);
-        border-radius: 6px;
+        background: transparent;
+        border: none;
+        border-radius: 0;
         overflow: hidden;
         cursor: pointer;
-        transition:
-          box-shadow 0.2s,
-          transform 0.2s;
         display: flex;
         flex-direction: column;
       }
       .featured-card:hover {
-        box-shadow: 0 4px 20px rgba(26, 95, 168, 0.15);
-        transform: translateY(-2px);
+        box-shadow: none;
+        transform: none;
       }
       .featured-card-img {
         width: 100%;
@@ -3970,8 +3967,8 @@
         border-bottom-color: #252b3b;
       }
       body.dark .featured-card {
-        background: #13161f;
-        border-color: #252b3b;
+        background: transparent;
+        border-color: transparent;
       }
       body.dark .pop-text h4 {
         color: #e8ecf0;
