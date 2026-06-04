@@ -1349,18 +1349,33 @@
           display: block;
           word-break: normal;
         }
-        .article-page h1 {
-          font-size: 1.2rem;
-          line-height: 1.35;
+        .article-header-wrap {
+          padding: 0 0.9rem;
+          margin-top: 1.5rem;
+        }
+        .article-header-wrap h1 {
+          font-size: 1.3rem;
+          line-height: 1.3;
           word-break: break-word;
           overflow-wrap: break-word;
         }
-        .article-meta {
-          flex-wrap: wrap;
-          gap: 0.4rem 0.6rem;
-          font-size: 0.63rem;
-          align-items: center;
-          display: none;
+        .article-hero-image-wrap {
+          padding: 0 0.9rem;
+        }
+        .article-hero-image-wrap img {
+          border-radius: 8px;
+        }
+        .article-content {
+          font-size: 18px;
+        }
+        .article-content p {
+          font-size: 18px;
+        }
+        .article-meta-bar {
+          font-size: 0.72rem;
+        }
+        .article-share-bar {
+          gap: 0.4rem;
         }
         .back-btn {
           display: none !important;
@@ -1474,89 +1489,132 @@
           padding: 1rem;
         }
       }
-      /* ===== ARTICLE PAGE — DESKTOP HERO LAYOUT ===== */
-      .article-hero {
-        position: relative;
-        height: 480px;
-        overflow: hidden;
+      /* ===== ARTICLE PAGE — CNN-STYLE PROFESSIONAL LAYOUT ===== */
+
+      /* Article header area (above the image) */
+      .article-header-wrap {
+        max-width: 760px;
+        margin: 2.5rem auto 0;
+        padding: 0 2rem;
       }
-      .article-hero-img {
-        position: absolute;
-        inset: 0;
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        margin: 0 !important;
-        border-radius: 0 !important;
-      }
-      .article-hero-overlay {
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(
-          to top,
-          rgba(5, 10, 20, 0.92) 0%,
-          rgba(5, 10, 20, 0.55) 55%,
-          rgba(5, 10, 20, 0.18) 100%
-        );
-      }
-      .article-hero-content {
-        position: relative;
-        z-index: 2;
-        max-width: 1280px;
-        margin: 0 auto;
-        padding: 0 2.5rem 2.8rem;
-        height: 100%;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-end;
-      }
-      .article-hero-cat {
+      .article-category-label {
         display: inline-block;
-        width: fit-content;
-        background: var(--blue-primary);
-        color: #fff;
-        font-family: "Inter", sans-serif;
-        font-size: 0.58rem;
-        font-weight: 700;
-        letter-spacing: 1.5px;
+        font-family: "Inter", "Segoe UI", Arial, sans-serif;
+        font-size: 0.7rem;
+        font-weight: 600;
+        letter-spacing: 2px;
         text-transform: uppercase;
-        padding: 3px 10px;
+        color: #d32f2f;
+        margin-bottom: 0.9rem;
+      }
+      .article-header-wrap h1 {
+        font-family: "Inter", "Segoe UI", Arial, sans-serif;
+        font-size: clamp(1.6rem, 3.5vw, 2.5rem);
+        font-weight: 700;
+        line-height: 1.25;
+        letter-spacing: -0.02em;
+        color: var(--text);
         margin-bottom: 1rem;
-        border-radius: 2px;
-        white-space: nowrap;
       }
-      .article-hero h1 {
-        font-family: "Inter", sans-serif;
-        font-size: clamp(1.6rem, 3.5vw, 2.9rem);
-        font-weight: 800;
-        color: #fff;
-        max-width: 780px;
-        line-height: 1.15;
-        letter-spacing: -0.025em;
-        margin-bottom: 1.1rem;
-      }
-      .article-hero-meta {
+      .article-meta-bar {
         display: flex;
         align-items: center;
-        gap: 1.4rem;
-        font-family: "Inter", sans-serif;
-        font-size: 0.75rem;
-        color: rgba(255, 255, 255, 0.72);
+        gap: 0.5rem;
+        font-family: "Inter", "Segoe UI", Arial, sans-serif;
+        font-size: 0.78rem;
+        color: #666;
+        margin-bottom: 1.2rem;
         flex-wrap: wrap;
       }
-      .article-hero-meta span {
+      .article-meta-bar .sep {
+        opacity: 0.4;
+      }
+      /* Share buttons */
+      .article-share-bar {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        flex-wrap: wrap;
+        margin-bottom: 1.6rem;
+        padding-bottom: 1.4rem;
+        border-bottom: 1px solid var(--border);
+      }
+      .article-share-label {
+        font-family: "Inter", "Segoe UI", Arial, sans-serif;
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: var(--text-muted);
+        letter-spacing: 0.5px;
+        margin-right: 0.2rem;
+        flex-shrink: 0;
+      }
+      .share-btn {
         display: inline-flex;
         align-items: center;
         gap: 5px;
+        font-family: "Inter", "Segoe UI", Arial, sans-serif;
+        font-size: 0.72rem;
+        font-weight: 600;
+        padding: 6px 14px;
+        border-radius: 4px;
+        border: none;
+        cursor: pointer;
+        transition:
+          opacity 0.2s,
+          transform 0.1s;
+        text-decoration: none;
         white-space: nowrap;
       }
-      .article-hero-meta .sep {
-        opacity: 0.35;
+      .share-btn:active {
+        transform: scale(0.97);
       }
-      /* Two-column layout below hero */
+      .share-btn-wa {
+        background: #25d366;
+        color: #fff;
+      }
+      .share-btn-wa:hover {
+        opacity: 0.9;
+      }
+      .share-btn-ig {
+        background: linear-gradient(
+          135deg,
+          #f09433 0%,
+          #e6683c 25%,
+          #dc2743 50%,
+          #cc2366 75%,
+          #bc1888 100%
+        );
+        color: #fff;
+      }
+      .share-btn-ig:hover {
+        opacity: 0.9;
+      }
+      .share-btn-copy {
+        background: var(--blue-light);
+        color: var(--blue-primary);
+        border: 1px solid var(--border);
+      }
+      .share-btn-copy:hover {
+        background: var(--blue-primary);
+        color: #fff;
+      }
+      /* Hero image below header */
+      .article-hero-image-wrap {
+        max-width: 760px;
+        margin: 0 auto 2rem;
+        padding: 0 2rem;
+      }
+      .article-hero-image-wrap img {
+        width: 100%;
+        max-height: 460px;
+        object-fit: cover;
+        border-radius: 12px;
+        display: block;
+      }
+      /* Two-column layout below image */
       .article-body-wrap {
         max-width: 1280px;
-        margin: 2.5rem auto;
+        margin: 0 auto 3rem;
         padding: 0 2rem;
         display: grid;
         grid-template-columns: 1fr 300px;
@@ -1573,44 +1631,31 @@
         overflow-x: hidden;
         word-break: break-word;
         overflow-wrap: break-word;
+        max-width: 760px;
       }
       .article-page img {
         width: 100%;
         max-height: 420px;
         object-fit: cover;
         margin: 1.5rem 0;
-        border-radius: 4px;
+        border-radius: 8px;
       }
+      /* Legacy h1 (not used in new layout but keep safe) */
       .article-page h1 {
-        font-family: "Inter", sans-serif;
+        font-family: "Inter", "Segoe UI", Arial, sans-serif;
         font-size: clamp(1.2rem, 4vw, 2.4rem);
-        font-weight: 800;
-        line-height: 1.2;
-        letter-spacing: -0.025em;
+        font-weight: 700;
+        line-height: 1.25;
+        letter-spacing: -0.02em;
         margin-bottom: 0.5rem;
       }
+      /* Legacy .article-meta hidden — replaced by .article-meta-bar */
       .article-meta {
-        display: flex;
-        align-items: center;
-        flex-wrap: wrap;
-        gap: 0.5rem 1.2rem;
-        font-family: "Inter", sans-serif;
-        font-size: 0.75rem;
-        color: var(--text-muted);
-        border-bottom: 1px solid var(--border);
-        padding-bottom: 1rem;
-        margin-bottom: 1.5rem;
-      }
-      .article-meta span {
-        display: inline-flex;
-        align-items: center;
-        white-space: nowrap;
-        flex-shrink: 1;
-        min-width: 0;
+        display: none !important;
       }
       .article-content {
         font-family: "Source Serif 4", serif;
-        font-size: 1.05rem;
+        font-size: 19px;
         line-height: 1.9;
         color: var(--text);
         overflow-wrap: break-word;
@@ -1677,7 +1722,7 @@
       }
       .article-content p {
         font-family: "Source Serif 4", serif;
-        font-size: 1.05rem;
+        font-size: 19px;
         line-height: 1.9;
         margin-bottom: 1.3rem;
       }
@@ -1846,8 +1891,11 @@
           gap: 2rem;
           padding: 0 1rem;
         }
-        .article-hero {
-          height: 380px;
+        .article-header-wrap {
+          padding: 0 1rem;
+        }
+        .article-hero-image-wrap {
+          padding: 0 1rem;
         }
         .article-sidebar {
           position: static;
@@ -5560,21 +5608,33 @@
             ? `<span class="article-hero-cat">${escapeHtml(getFirstTagName(article) || article.category)}</span>`
             : "";
         const html = `
-        <!-- HERO -->
-        <div class="article-hero">
-          ${heroImg}
-          <div class="article-hero-overlay"></div>
-          <div class="article-hero-content">
-            ${categoryBadge}
-            <h1>${escapeHtml(article.title)}</h1>
-            <div class="article-hero-meta">
-              ${dateStr ? `<span>📅 ${dateStr}</span><span class="sep">|</span>` : ""}
-              <span>⏱ ${readMins} menit baca</span>
-              <span class="sep">|</span>
-              <span>👁 ${(article.views || 0).toLocaleString("id-ID")} dibaca</span>
-            </div>
+        <!-- ARTICLE HEADER: category, title, meta, share buttons -->
+        <div class="article-header-wrap">
+          ${getFirstTagName(article) || article.category ? `<span class="article-category-label">${escapeHtml(getFirstTagName(article) || article.category)}</span>` : ""}
+          <h1>${escapeHtml(article.title)}</h1>
+          <div class="article-meta-bar">
+            ${dateStr ? `<span>📅 ${dateStr}</span>` : ""}
+            ${dateStr ? `<span class="sep">•</span>` : ""}
+            <span>👁 ${(article.views || 0).toLocaleString("id-ID")} Dibaca</span>
+          </div>
+          <div class="article-share-bar">
+            <span class="article-share-label">Bagikan:</span>
+            <a class="share-btn share-btn-wa" id="shareWa" href="#" title="Bagikan ke WhatsApp">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.104.549 4.075 1.504 5.793L.058 23.948l6.304-1.654A11.937 11.937 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.907a9.9 9.9 0 01-5.048-1.376l-.362-.214-3.742.981.999-3.648-.235-.374A9.861 9.861 0 012.093 12C2.093 6.58 6.58 2.093 12 2.093S21.907 6.58 21.907 12 17.42 21.907 12 21.907z"/></svg>
+              WhatsApp
+            </a>
+            <button class="share-btn share-btn-ig" id="shareIg" title="Bagikan ke Instagram">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+              Instagram
+            </button>
+            <button class="share-btn share-btn-copy" id="shareCopy" title="Salin Link">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"></path></svg>
+              Salin Link
+            </button>
           </div>
         </div>
+        <!-- HERO IMAGE -->
+        ${article.image_url ? `<div class="article-hero-image-wrap"><img src="${article.image_url}" onerror="this.style.display='none'" alt="${escapeHtml(article.title)}"></div>` : ""}
         <!-- BODY: two-column -->
         <div class="article-body-wrap">
           <div>
@@ -5736,7 +5796,61 @@
                 mainSection.scrollIntoView({ behavior: "smooth" });
             }, 100);
           });
-        // Sidebar + mobile popular items
+        // ── Share buttons ──
+        const _shareUrl = window.location.href;
+        const _shareTitle = encodeURIComponent(article.title || "");
+
+        document
+          .getElementById("shareWa")
+          ?.addEventListener("click", function (e) {
+            e.preventDefault();
+            const waUrl =
+              "https://api.whatsapp.com/send?text=" +
+              _shareTitle +
+              "%20" +
+              encodeURIComponent(_shareUrl);
+            window.open(waUrl, "_blank");
+          });
+
+        document
+          .getElementById("shareIg")
+          ?.addEventListener("click", function () {
+            navigator.clipboard
+              .writeText(_shareUrl)
+              .then(function () {
+                const btn = document.getElementById("shareIg");
+                const orig = btn.innerHTML;
+                btn.textContent = "✔ Link disalin!";
+                setTimeout(() => {
+                  btn.innerHTML = orig;
+                }, 2500);
+                // Show notification
+                const note = document.createElement("div");
+                note.style.cssText =
+                  "position:fixed;bottom:24px;left:50%;transform:translateX(-50%);background:#333;color:#fff;font-family:'Inter',sans-serif;font-size:0.78rem;padding:10px 20px;border-radius:8px;z-index:9999;white-space:nowrap;box-shadow:0 4px 16px rgba(0,0,0,0.25);";
+                note.textContent =
+                  "Link artikel disalin. Tempel di Instagram Story atau Bio.";
+                document.body.appendChild(note);
+                setTimeout(() => note.remove(), 3500);
+              })
+              .catch(() => {});
+          });
+
+        document
+          .getElementById("shareCopy")
+          ?.addEventListener("click", function () {
+            navigator.clipboard
+              .writeText(_shareUrl)
+              .then(function () {
+                const btn = document.getElementById("shareCopy");
+                const orig = btn.innerHTML;
+                btn.textContent = "✔ Tersalin!";
+                setTimeout(() => {
+                  btn.innerHTML = orig;
+                }, 2000);
+              })
+              .catch(() => {});
+          });
         document
           .querySelectorAll(
             ".article-popular-item, .article-mobile-popular-item",
