@@ -4976,12 +4976,17 @@
       function getFirstTagName(a) {
         var tags = Array.isArray(a.tags)
           ? a.tags
-          : (typeof a.tags === "string" && a.tags
-              ? a.tags.split(",").map(function(t){ return t.trim(); }).filter(Boolean)
-              : []);
+          : typeof a.tags === "string" && a.tags
+            ? a.tags
+                .split(",")
+                .map(function (t) {
+                  return t.trim();
+                })
+                .filter(Boolean)
+            : [];
         if (tags.length > 0) {
           var t = tags[0];
-          return typeof t === "object" ? (t.name || "") : String(t);
+          return typeof t === "object" ? t.name || "" : String(t);
         }
         return "";
       }
@@ -5100,7 +5105,7 @@
           });
           return;
         }
-        const article = allArticles.find((a) => a.id === articleId);
+        const article = allArticles.find((a) => String(a.id) === String(articleId));
         if (!article) return;
         // Gunakan slug artikel; fallback generate dari judul jika belum ada
         const slug = article.slug || generateSlug(article.title);
@@ -5235,11 +5240,16 @@
               .select("*, article_tags(tag_id, tags(id, name, slug))")
               .eq("published", true)
               .order("created_at", { ascending: false });
-            if (resp.data) allArticles = resp.data.map(function(a) {
-              return Object.assign({}, a, {
-                tags: (a.article_tags || []).map(function(at) { return at.tags; }).filter(Boolean),
+            if (resp.data)
+              allArticles = resp.data.map(function (a) {
+                return Object.assign({}, a, {
+                  tags: (a.article_tags || [])
+                    .map(function (at) {
+                      return at.tags;
+                    })
+                    .filter(Boolean),
+                });
               });
-            });
           } catch (e) {}
         }
 
