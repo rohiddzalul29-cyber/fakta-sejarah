@@ -5527,9 +5527,10 @@
         const heroImg = article.image_url
           ? `<img class="article-hero-img" src="${article.image_url}" onerror="this.style.display='none'" alt="">`
           : `<div class="article-hero-img" style="background: linear-gradient(135deg, #0f3d72 0%, #1a5fa8 100%);"></div>`;
-        const categoryBadge = article.category
-          ? `<span class="article-hero-cat">${escapeHtml(article.category)}</span>`
-          : "";
+        const categoryBadge =
+          getFirstTagName(article) || article.category
+            ? `<span class="article-hero-cat">${escapeHtml(getFirstTagName(article) || article.category)}</span>`
+            : "";
         const html = `
         <!-- HERO -->
         <div class="article-hero">
