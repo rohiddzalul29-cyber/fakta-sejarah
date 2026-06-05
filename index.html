@@ -1174,29 +1174,25 @@
           position: static;
           left: auto;
           transform: none;
-          gap: 10px;
+          gap: 0;
           align-items: center;
-          margin-left: 10px;
+          margin-left: 6px;
         }
-        .nav-logo > img:first-child {
-          width: 46px !important;
-          height: 46px !important;
-          display: block !important;
-        }
+        /* Sembunyikan icon logo, hanya tampilkan brand image */
+        .nav-logo > img.nav-logo-main-img,
+        .nav-logo > img:first-child,
         .nav-logo-icon {
-          width: 46px !important;
-          height: 46px !important;
-          font-size: 22px !important;
+          display: none !important;
         }
         /* brand image (faktaa.png) */
         .nav-brand-img-wrap {
-          height: 44px;
-          max-height: 44px;
+          height: 48px;
+          max-height: 48px;
         }
         .nav-brand-img {
-          height: 78px !important;
-          max-width: 240px !important;
-          margin-left: -6px;
+          height: 86px !important;
+          max-width: 260px !important;
+          margin-left: 0;
         }
         /* fallback teks logo */
         .nav-logo-text strong {
@@ -1212,7 +1208,7 @@
 
         /* ── Artikel page ── */
         nav.article-page-nav .nav-logo {
-          margin-left: 10px;
+          margin-left: 6px;
         }
         nav.article-page-nav .nav-brand-img {
           margin-left: 0;
