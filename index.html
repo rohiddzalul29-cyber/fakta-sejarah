@@ -83,44 +83,75 @@
  gap: 0;
  }
  /* Hamburger beside logo */
+ /* ── HAMBURGER → X ANIMATION ── */
+ /* Fase 1: garis dulu lurus sejajar → Fase 2: baru rotate jadi X */
+ @keyframes ham-top-open {
+   0%   { transform: translateY(0) rotate(0); }
+   40%  { transform: translateY(7px) rotate(0); }
+   100% { transform: translateY(7px) rotate(45deg); }
+ }
+ @keyframes ham-top-close {
+   0%   { transform: translateY(7px) rotate(45deg); }
+   40%  { transform: translateY(7px) rotate(0); }
+   100% { transform: translateY(0) rotate(0); }
+ }
+ @keyframes ham-mid-open {
+   0%   { opacity: 1; transform: scaleX(1); }
+   30%  { opacity: 0; transform: scaleX(0); }
+   100% { opacity: 0; transform: scaleX(0); }
+ }
+ @keyframes ham-mid-close {
+   0%   { opacity: 0; transform: scaleX(0); }
+   60%  { opacity: 0; transform: scaleX(0); }
+   100% { opacity: 1; transform: scaleX(1); }
+ }
+ @keyframes ham-bot-open {
+   0%   { transform: translateY(0) rotate(0); }
+   40%  { transform: translateY(-7px) rotate(0); }
+   100% { transform: translateY(-7px) rotate(-45deg); }
+ }
+ @keyframes ham-bot-close {
+   0%   { transform: translateY(-7px) rotate(-45deg); }
+   40%  { transform: translateY(-7px) rotate(0); }
+   100% { transform: translateY(0) rotate(0); }
+ }
+
  .nav-hamburger-side {
- background: none;
- border: none;
- cursor: pointer;
- padding: 8px 12px 8px 0;
- display: flex;
- flex-direction: column;
- gap: 5px;
- align-items: center;
- justify-content: center;
- flex-shrink: 0;
- margin-right: 10px;
- align-self: center;
+   background: none;
+   border: none;
+   cursor: pointer;
+   padding: 8px 12px 8px 0;
+   display: flex;
+   flex-direction: column;
+   gap: 5px;
+   align-items: center;
+   justify-content: center;
+   flex-shrink: 0;
+   margin-right: 10px;
+   align-self: center;
  }
  .nav-hamburger-side span {
- display: block;
- width: 22px;
- height: 2px;
- background: var(--blue-primary);
- border-radius: 2px;
- transform-origin: center;
- transition:
- transform 0.3s cubic-bezier(0.4, 0, 0.2, 1),
- opacity 0.3s ease;
+   display: block;
+   width: 22px;
+   height: 2px;
+   background: var(--blue-primary);
+   border-radius: 2px;
+   transform-origin: center;
  }
  .nav-hamburger-side:hover span {
- background: var(--blue-dark);
+   background: var(--blue-dark);
  }
- .nav-hamburger-side.is-open span:nth-child(1) {
- transform: translateY(7px) rotate(45deg);
- }
- .nav-hamburger-side.is-open span:nth-child(2) {
- opacity: 0;
- transform: scaleX(0);
- }
- .nav-hamburger-side.is-open span:nth-child(3) {
- transform: translateY(-7px) rotate(-45deg);
- }
+
+ /* State: menutup (default) */
+ .nav-hamburger-side span:nth-child(1) { animation: ham-top-close 0.4s cubic-bezier(0.4,0,0.2,1) both; }
+ .nav-hamburger-side span:nth-child(2) { animation: ham-mid-close 0.4s cubic-bezier(0.4,0,0.2,1) both; }
+ .nav-hamburger-side span:nth-child(3) { animation: ham-bot-close 0.4s cubic-bezier(0.4,0,0.2,1) both; }
+
+ /* State: terbuka → jalankan animasi buka */
+ .nav-hamburger-side.is-open span:nth-child(1) { animation: ham-top-open 0.4s cubic-bezier(0.4,0,0.2,1) forwards; }
+ .nav-hamburger-side.is-open span:nth-child(2) { animation: ham-mid-open 0.4s cubic-bezier(0.4,0,0.2,1) forwards; }
+ .nav-hamburger-side.is-open span:nth-child(3) { animation: ham-bot-open 0.4s cubic-bezier(0.4,0,0.2,1) forwards; }
+
 
  .nav-logo {
  display: flex;
@@ -192,66 +223,21 @@
  }
 
  /* Efek cahaya pada logo teks (faktaa.png) 
- drop-shadow beranimasi → kilap biru melintas pada gambar logo.
+ Cahaya statis — menyala terus tanpa kedap-kedip.
  Light mode: glow biru halus. Dark mode: lebih terang.
  */
- @keyframes imgLightSweep {
- 0%,
- 20% {
- filter: brightness(1) drop-shadow(0 0 0px rgba(26, 95, 168, 0));
- }
- 45% {
- filter: brightness(1.18)
- drop-shadow(0 0 10px rgba(80, 160, 255, 0.75));
- }
- 65%,
- 100% {
- filter: brightness(1) drop-shadow(0 0 0px rgba(26, 95, 168, 0));
- }
- }
  .nav-brand-img {
- animation: imgLightSweep 4s ease-in-out infinite;
+ filter: brightness(1.12) drop-shadow(0 0 8px rgba(80, 160, 255, 0.6));
  will-change: filter;
  }
- /* Dark mode: logo ikon (editlogo.png) glow biru */
- @keyframes iconGlowDark {
- 0%,
- 20% {
- filter: brightness(0) saturate(100%) invert(27%) sepia(90%)
- saturate(600%) hue-rotate(195deg) brightness(0.85)
- drop-shadow(0 0 0px rgba(77, 157, 224, 0));
- }
- 45% {
- filter: brightness(0) saturate(100%) invert(40%) sepia(90%)
- saturate(500%) hue-rotate(185deg) brightness(1.4)
- drop-shadow(0 0 12px rgba(77, 157, 224, 0.9));
- }
- 65%,
- 100% {
- filter: brightness(0) saturate(100%) invert(27%) sepia(90%)
- saturate(600%) hue-rotate(195deg) brightness(0.85)
- drop-shadow(0 0 0px rgba(77, 157, 224, 0));
- }
- }
- @keyframes imgLightSweepDark {
- 0%,
- 20% {
- filter: brightness(1) drop-shadow(0 0 0px rgba(77, 157, 224, 0));
- }
- 45% {
- filter: brightness(1.25)
- drop-shadow(0 0 14px rgba(100, 180, 255, 0.9));
- }
- 65%,
- 100% {
- filter: brightness(1) drop-shadow(0 0 0px rgba(77, 157, 224, 0));
- }
- }
+ /* Dark mode: logo ikon (editlogo.png) glow biru statis */
  body.dark .nav-brand-img {
- animation: imgLightSweepDark 4s ease-in-out infinite;
+ filter: brightness(1.2) drop-shadow(0 0 12px rgba(100, 180, 255, 0.85));
  }
  body.dark .nav-logo-main-img {
- animation: iconGlowDark 4s ease-in-out infinite !important;
+ filter: brightness(0) saturate(100%) invert(40%) sepia(90%)
+ saturate(500%) hue-rotate(185deg) brightness(1.4)
+ drop-shadow(0 0 10px rgba(77, 157, 224, 0.85)) !important;
  }
 
  /* Center nav links */
@@ -1013,6 +999,12 @@
  .nav-hamburger-side span {
  width: 24px !important;
  height: 2.5px !important;
+ }
+ .nav-hamburger-side.is-open span:nth-child(1) {
+ transform: translateY(7.5px) rotate(45deg);
+ }
+ .nav-hamburger-side.is-open span:nth-child(3) {
+ transform: translateY(-7.5px) rotate(-45deg);
  }
  /* logo kiri */
  .nav-logo {
