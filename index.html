@@ -605,6 +605,60 @@
         grid-template-columns: 1fr 320px;
         gap: 3rem;
       }
+      /* ===== AD SLIDER ===== */
+      .ad-slider-wrapper {
+        margin: 2rem 0;
+        border-radius: 12px;
+        overflow: hidden;
+        position: relative;
+        box-shadow: 0 4px 18px rgba(26, 95, 168, 0.1);
+      }
+      .ad-slider-container {
+        position: relative;
+        width: 100%;
+        aspect-ratio: 1200 / 500;
+        background: #111;
+      }
+      .ad-slide {
+        position: absolute;
+        inset: 0;
+        opacity: 0;
+        transition: opacity 0.7s ease;
+      }
+      .ad-slide.ad-slide-active {
+        opacity: 1;
+      }
+      .ad-slide img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        display: block;
+      }
+      .ad-slider-dots {
+        position: absolute;
+        bottom: 12px;
+        left: 50%;
+        transform: translateX(-50%);
+        display: flex;
+        gap: 8px;
+        z-index: 5;
+      }
+      .ad-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.45);
+        cursor: pointer;
+        border: 2px solid rgba(255, 255, 255, 0.6);
+        transition:
+          background 0.3s,
+          transform 0.3s;
+      }
+      .ad-dot.ad-dot-active {
+        background: #fff;
+        transform: scale(1.2);
+      }
+      /* ===== END AD SLIDER ===== */
       .section-header {
         display: flex;
         align-items: center;
@@ -5062,6 +5116,26 @@
  `
      : ""
  }
+ ${
+   currentPage === 1
+     ? `
+ <div class="ad-slider-wrapper">
+   <div class="ad-slider-container" id="adSliderContainer">
+     <div class="ad-slide ad-slide-active">
+       <img src="/1.png" alt="TikTok & Instagram - Fakta Sejarah" />
+     </div>
+     <div class="ad-slide">
+       <img src="/2.png" alt="Biasakan Membaca Setiap Hari" />
+     </div>
+   </div>
+   <div class="ad-slider-dots" id="adSliderDots">
+     <span class="ad-dot ad-dot-active" data-index="0"></span>
+     <span class="ad-dot" data-index="1"></span>
+   </div>
+ </div>
+ `
+     : ""
+ }
  <div class="section-header">
  <h2>${currentPage === 1 ? "Artikel" : "Artikel"}</h2>
  <a href="#" style="margin-left:auto; font-family:'Public Sans',sans-serif; font-size:0.78rem; color:var(--blue-primary); text-decoration:none; display:flex; align-items:center; gap:4px;" id="lihatSemua"></a>
@@ -7627,7 +7701,46 @@
         track.innerHTML = track.innerHTML + track.innerHTML;
       })();
 
-      // ===== FEEDBACK MODAL LOGIC =====
+      // ===== AD SLIDER AUTO-PLAY =====
+      (function initAdSlider() {
+        let current = 0;
+        const INTERVAL = 3000;
+        let timer = null;
+
+        function go(index) {
+          const slides = document.querySelectorAll(".ad-slide");
+          const dots = document.querySelectorAll(".ad-dot");
+          if (!slides.length) return;
+          slides[current].classList.remove("ad-slide-active");
+          dots[current].classList.remove("ad-dot-active");
+          current = (index + slides.length) % slides.length;
+          slides[current].classList.add("ad-slide-active");
+          dots[current].classList.add("ad-dot-active");
+        }
+
+        function startAuto() {
+          timer = setInterval(() => go(current + 1), INTERVAL);
+        }
+
+        // Wait for DOM to have the slider (it's rendered dynamically)
+        const observer = new MutationObserver(() => {
+          const container = document.getElementById("adSliderContainer");
+          if (container) {
+            observer.disconnect();
+            // Dot click
+            document.querySelectorAll(".ad-dot").forEach((dot) => {
+              dot.addEventListener("click", function () {
+                clearInterval(timer);
+                go(parseInt(this.dataset.index));
+                startAuto();
+              });
+            });
+            startAuto();
+          }
+        });
+        observer.observe(document.body, { childList: true, subtree: true });
+      })();
+      // ===== END AD SLIDER =====
       function openFeedbackModal() {
         document.getElementById("feedbackModalOverlay").classList.add("open");
         document.body.style.overflow = "hidden";
