@@ -6224,12 +6224,6 @@
  rbar.style.cssText =
  "position:fixed;top:0;left:0;height:3px;background:var(--blue-primary);z-index:9999;width:0%;transition:width 0.1s linear;";
  document.body.appendChild(rbar);
- const progressLabel = document.createElement("div");
- progressLabel.id = "articleReadLabel";
- progressLabel.style.cssText =
- "position:fixed;top:0;left:50%;transform:translateX(-50%);font-family:'Public Sans',sans-serif;font-size:0.6rem;font-weight:700;letter-spacing:2px;color:var(--blue-primary);padding-top:6px;z-index:9998;pointer-events:none;white-space:nowrap;";
- progressLabel.textContent = "PROGRESS MEMBACA 0%";
- document.body.appendChild(progressLabel);
  function updateArticleProgress() {
  const docH =
  document.documentElement.scrollHeight - window.innerHeight;
@@ -6238,7 +6232,6 @@
  ? Math.min(Math.round((window.scrollY / docH) * 100), 100)
  : 0;
  rbar.style.width = pct + "%";
- progressLabel.textContent = "PROGRESS MEMBACA " + pct + "%";
  }
  window._articleScrollHandler = updateArticleProgress;
  window.addEventListener("scroll", updateArticleProgress);
