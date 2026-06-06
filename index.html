@@ -392,7 +392,9 @@
         align-items: center;
         justify-content: center;
         border-radius: 50%;
-        transition: background 0.2s, color 0.2s;
+        transition:
+          background 0.2s,
+          color 0.2s;
       }
       nav.article-page-nav .article-nav-search-btn {
         display: flex;
@@ -2394,7 +2396,9 @@
         flex-direction: column;
         opacity: 0;
         transform: translateY(-8px);
-        transition: opacity 0.22s ease, transform 0.22s ease;
+        transition:
+          opacity 0.22s ease,
+          transform 0.22s ease;
         overflow: hidden;
         pointer-events: none;
       }
@@ -2428,7 +2432,9 @@
         flex-shrink: 0;
         transition: background 0.15s;
       }
-      .sov-back:hover { background: var(--blue-light, #e8f0fb); }
+      .sov-back:hover {
+        background: var(--blue-light, #e8f0fb);
+      }
       .sov-input-wrap {
         flex: 1;
         position: relative;
@@ -2448,7 +2454,7 @@
         transition: box-shadow 0.2s;
       }
       .sov-input:focus {
-        box-shadow: 0 0 0 3px rgba(26,95,168,0.15);
+        box-shadow: 0 0 0 3px rgba(26, 95, 168, 0.15);
       }
       body.dark .sov-input {
         background: #1a2540;
@@ -2469,7 +2475,9 @@
         border-radius: 50%;
         transition: background 0.15s;
       }
-      .sov-clear:hover { background: var(--border, #ddd); }
+      .sov-clear:hover {
+        background: var(--border, #ddd);
+      }
       .sov-body {
         flex: 1;
         overflow-y: auto;
@@ -2497,9 +2505,16 @@
         border-bottom: 1px solid var(--border, #eee);
         transition: background 0.12s;
       }
-      .sov-trend-item:hover { background: var(--blue-light, #eef4fd); }
-      body.dark .sov-trend-item { color: #d0dced; border-color: #1e2d45; }
-      body.dark .sov-trend-item:hover { background: #1a2540; }
+      .sov-trend-item:hover {
+        background: var(--blue-light, #eef4fd);
+      }
+      body.dark .sov-trend-item {
+        color: #d0dced;
+        border-color: #1e2d45;
+      }
+      body.dark .sov-trend-item:hover {
+        background: #1a2540;
+      }
       /* Results */
       .sov-result-item {
         display: flex;
@@ -2510,9 +2525,15 @@
         border-bottom: 1px solid var(--border, #eee);
         transition: background 0.12s;
       }
-      .sov-result-item:hover { background: var(--blue-light, #eef4fd); }
-      body.dark .sov-result-item { border-color: #1e2d45; }
-      body.dark .sov-result-item:hover { background: #1a2540; }
+      .sov-result-item:hover {
+        background: var(--blue-light, #eef4fd);
+      }
+      body.dark .sov-result-item {
+        border-color: #1e2d45;
+      }
+      body.dark .sov-result-item:hover {
+        background: #1a2540;
+      }
       .sov-result-img {
         width: 80px;
         height: 58px;
@@ -2521,8 +2542,13 @@
         flex-shrink: 0;
         background: var(--parchment, #e8e0d0);
       }
-      .sov-result-img-empty { background: var(--border, #ddd); }
-      .sov-result-text { flex: 1; min-width: 0; }
+      .sov-result-img-empty {
+        background: var(--border, #ddd);
+      }
+      .sov-result-text {
+        flex: 1;
+        min-width: 0;
+      }
       .sov-result-cat {
         font-family: "Public Sans", sans-serif;
         font-size: 0.6rem;
@@ -2540,15 +2566,17 @@
         color: var(--text, #1a1a2e);
         line-height: 1.35;
       }
-      body.dark .sov-result-title { color: #dde6f5; }
+      body.dark .sov-result-title {
+        color: #dde6f5;
+      }
       .sov-result-title mark {
-        background: rgba(26,95,168,0.18);
+        background: rgba(26, 95, 168, 0.18);
         color: var(--blue-primary, #1a5fa8);
         border-radius: 2px;
         padding: 0 1px;
       }
       body.dark .sov-result-title mark {
-        background: rgba(100,180,255,0.2);
+        background: rgba(100, 180, 255, 0.2);
         color: #7ac0ff;
       }
       .sov-result-date {
@@ -5030,9 +5058,19 @@
             aria-label="Cari artikel"
             title="Cari"
           >
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="10.5" cy="10.5" r="7.5"/>
-              <line x1="16.5" y1="16.5" x2="22" y2="22"/>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2.5"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <circle cx="10.5" cy="10.5" r="7.5" />
+              <line x1="16.5" y1="16.5" x2="22" y2="22" />
             </svg>
           </button>
           <!-- Dark / Light mode toggle -->
@@ -5200,7 +5238,11 @@
           }
         });
         document.addEventListener("click", function (e) {
-          if (_searchForm && !_searchForm.contains(e.target) && e.target !== _articleSearchBtn) {
+          if (
+            _searchForm &&
+            !_searchForm.contains(e.target) &&
+            e.target !== _articleSearchBtn
+          ) {
             _searchForm.classList.remove("search-open");
             _searchForm.style.display = "";
           }
@@ -5778,25 +5820,34 @@
           .sort((a, b) => new Date(b.created_at) - new Date(a.created_at))
           .slice(0, 6);
         const trendingList = document.getElementById("sovTrendingList");
-        trendingList.innerHTML = recent.map(a => `
+        trendingList.innerHTML = recent
+          .map(
+            (a) => `
           <div class="sov-trend-item" data-id="${a.id}">
             <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;opacity:.45"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
             <span>${escapeHtml(a.title)}</span>
           </div>
-        `).join('');
+        `,
+          )
+          .join("");
 
         // Focus input
         const sovInput = document.getElementById("sovInput");
         setTimeout(() => sovInput && sovInput.focus(), 80);
-        if (initialQuery) { sovInput.value = initialQuery; doSearch(initialQuery); }
+        if (initialQuery) {
+          sovInput.value = initialQuery;
+          doSearch(initialQuery);
+        }
 
         // === EVENT DELEGATION ===
         function onItemPick(e) {
-          const target = e.target.closest(".sov-result-item") || e.target.closest(".sov-trend-item");
+          const target =
+            e.target.closest(".sov-result-item") ||
+            e.target.closest(".sov-trend-item");
           if (!target) return;
           e.preventDefault();
           const id = target.dataset.id;
-          const found = allArticles.find(a => String(a.id) === String(id));
+          const found = allArticles.find((a) => String(a.id) === String(id));
           if (!found) return;
           overlay.remove();
           document.querySelector("nav").classList.add("article-page-nav");
@@ -5811,7 +5862,9 @@
         sovInput.addEventListener("input", function () {
           clearTimeout(searchTimer);
           const q = this.value.trim();
-          document.getElementById("sovClear").style.display = q ? "flex" : "none";
+          document.getElementById("sovClear").style.display = q
+            ? "flex"
+            : "none";
           if (!q) {
             document.getElementById("sovTrending").style.display = "";
             document.getElementById("sovResults").style.display = "none";
@@ -5830,10 +5883,14 @@
         });
 
         // Back button
-        document.getElementById("sovBack").addEventListener("click", () => closeSearchOverlay());
+        document
+          .getElementById("sovBack")
+          .addEventListener("click", () => closeSearchOverlay());
 
         // ESC key
-        overlay.addEventListener("keydown", e => { if (e.key === "Escape") closeSearchOverlay(); });
+        overlay.addEventListener("keydown", (e) => {
+          if (e.key === "Escape") closeSearchOverlay();
+        });
 
         // Animate in
         requestAnimationFrame(() => overlay.classList.add("sov-visible"));
@@ -5841,10 +5898,18 @@
 
       function doSearch(q) {
         const words = q.toLowerCase().split(/\s+/).filter(Boolean);
-        const results = allArticles.filter(a => {
-          const haystack = (a.title + " " + (a.excerpt || "") + " " + (a.content || "")).toLowerCase();
-          return words.every(w => haystack.includes(w));
-        }).slice(0, 20);
+        const results = allArticles
+          .filter((a) => {
+            const haystack = (
+              a.title +
+              " " +
+              (a.excerpt || "") +
+              " " +
+              (a.content || "")
+            ).toLowerCase();
+            return words.every((w) => haystack.includes(w));
+          })
+          .slice(0, 20);
 
         const sovResults = document.getElementById("sovResults");
         const sovTrending = document.getElementById("sovTrending");
@@ -5858,26 +5923,34 @@
 
         sovResults.innerHTML = `
           <div class="sov-section-title">${results.length} artikel ditemukan</div>
-          ${results.map(a => {
-            const cat = getFirstTagName(a) || a.category || '';
-            const imgTag = a.image_url
-              ? `<img class="sov-result-img" src="${a.image_url}" onerror="this.style.display='none'" alt="">`
-              : `<div class="sov-result-img sov-result-img-empty"></div>`;
-            let titleHtml = escapeHtml(a.title);
-            words.forEach(w => {
-              titleHtml = titleHtml.replace(new RegExp(`(${w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi'), '<mark>$1</mark>');
-            });
-            return `
+          ${results
+            .map((a) => {
+              const cat = getFirstTagName(a) || a.category || "";
+              const imgTag = a.image_url
+                ? `<img class="sov-result-img" src="${a.image_url}" onerror="this.style.display='none'" alt="">`
+                : `<div class="sov-result-img sov-result-img-empty"></div>`;
+              let titleHtml = escapeHtml(a.title);
+              words.forEach((w) => {
+                titleHtml = titleHtml.replace(
+                  new RegExp(
+                    `(${w.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")})`,
+                    "gi",
+                  ),
+                  "<mark>$1</mark>",
+                );
+              });
+              return `
               <div class="sov-result-item" data-id="${a.id}">
                 ${imgTag}
                 <div class="sov-result-text">
-                  ${cat ? `<span class="sov-result-cat">${escapeHtml(cat)}</span>` : ''}
+                  ${cat ? `<span class="sov-result-cat">${escapeHtml(cat)}</span>` : ""}
                   <div class="sov-result-title">${titleHtml}</div>
                   <div class="sov-result-date">${formatDate(a.created_at)}</div>
                 </div>
               </div>
             `;
-          }).join('')}
+            })
+            .join("")}
         `;
       }
 
@@ -6706,29 +6779,46 @@
               var insertAfter = paragraphs[2]; // after 3rd paragraph (index 2)
               // Pick 1 random article (exclude current)
               var others = allArticles
-                .filter(function (a) { return a.id !== article.id; })
-                .sort(function () { return Math.random() - 0.5; })
+                .filter(function (a) {
+                  return a.id !== article.id;
+                })
+                .sort(function () {
+                  return Math.random() - 0.5;
+                })
                 .slice(0, 1);
               if (!others.length) return;
               var a = others[0];
-              var catLabel = getFirstTagName(a) || a.category || '';
+              var catLabel = getFirstTagName(a) || a.category || "";
               var catHtml = catLabel
-                ? '<span class="article-lihat-lainnya-category">' + escapeHtml(catLabel) + '</span>'
-                : '';
-              var block = document.createElement('div');
-              block.className = 'article-lihat-lainnya';
+                ? '<span class="article-lihat-lainnya-category">' +
+                  escapeHtml(catLabel) +
+                  "</span>"
+                : "";
+              var block = document.createElement("div");
+              block.className = "article-lihat-lainnya";
               block.innerHTML =
                 '<span class="article-lihat-lainnya-label">Lihat Juga :</span>' +
-                '<div class="article-lihat-lainnya-item article-lihat-lainnya-link" data-id="' + a.id + '">' +
+                '<div class="article-lihat-lainnya-item article-lihat-lainnya-link" data-id="' +
+                a.id +
+                '">' +
                 catHtml +
-                '<div class="article-lihat-lainnya-title">' + escapeHtml(a.title) + '</div>' +
-                '</div>';
-              insertAfter.parentNode.insertBefore(block, insertAfter.nextSibling);
-              block.querySelector('.article-lihat-lainnya-link').addEventListener('click', function () {
-                var id = parseInt(this.getAttribute('data-id'));
-                var found = allArticles.find(function (x) { return x.id === id; });
-                if (found) renderArticlePage(found);
-              });
+                '<div class="article-lihat-lainnya-title">' +
+                escapeHtml(a.title) +
+                "</div>" +
+                "</div>";
+              insertAfter.parentNode.insertBefore(
+                block,
+                insertAfter.nextSibling,
+              );
+              block
+                .querySelector(".article-lihat-lainnya-link")
+                .addEventListener("click", function () {
+                  var id = parseInt(this.getAttribute("data-id"));
+                  var found = allArticles.find(function (x) {
+                    return x.id === id;
+                  });
+                  if (found) renderArticlePage(found);
+                });
             })();
             // ===== END INJECT =====
           }
@@ -7538,10 +7628,10 @@
  <div class="privacy-contact-box">
  <h3>Ada Pertanyaan?</h3>
  <p>Kami terbuka terhadap pertanyaan seputar privasi dan transparansi website ini. Gunakan formulir masukan kami untuk menghubungi tim Fakta Sejarah.</p>
- <button class="about-feedback-open-btn" id="privacyFeedbackBtn" style="margin-top:0">Kirim Pertanyaan →</button>
+ <button class="about-feedback-open-btn" id="privacyFeedbackBtn" style="margin-top:0">Kirim Pertanyaan </button>
  </div>
 
- <button class="privacy-back-btn" id="privacyBackBtn">← Kembali ke Beranda</button>
+ <button class="privacy-back-btn" id="privacyBackBtn"> Kembali ke Beranda</button>
  </div>
  `;
         document.getElementById("appRoot").innerHTML = html;
