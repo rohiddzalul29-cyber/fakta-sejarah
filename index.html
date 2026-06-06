@@ -373,6 +373,41 @@
       nav.article-page-nav .nav-search-form {
         display: none !important;
       }
+      /* ── Article page: kecilkan brand image ── */
+      nav.article-page-nav .nav-brand-img-wrap {
+        height: 44px;
+        max-height: 44px;
+      }
+      nav.article-page-nav .nav-brand-img {
+        height: 76px;
+      }
+      /* ── Article page: search icon button ── */
+      .article-nav-search-btn {
+        display: none;
+        background: none;
+        border: none;
+        color: var(--blue-primary);
+        cursor: pointer;
+        padding: 8px;
+        align-items: center;
+        justify-content: center;
+        border-radius: 50%;
+        transition: background 0.2s, color 0.2s;
+      }
+      nav.article-page-nav .article-nav-search-btn {
+        display: flex;
+      }
+      .article-nav-search-btn:hover {
+        background: var(--blue-light);
+        color: var(--blue-dark);
+      }
+      body.dark .article-nav-search-btn {
+        color: #a8c8f0;
+      }
+      body.dark .article-nav-search-btn:hover {
+        background: rgba(26, 95, 168, 0.2);
+        color: #d0e8ff;
+      }
 
       .nav-right {
         display: flex;
@@ -1266,6 +1301,11 @@
         }
         nav.article-page-nav .nav-brand-img {
           margin-left: 0;
+          height: 58px;
+        }
+        nav.article-page-nav .nav-brand-img-wrap {
+          height: 36px;
+          max-height: 36px;
         }
 
         /* ── Kanan: search + theme toggle ── */
@@ -4798,6 +4838,18 @@
               </svg>
             </button>
           </div>
+          <!-- Search icon (article page only) -->
+          <button
+            class="article-nav-search-btn"
+            id="articleNavSearchBtn"
+            aria-label="Cari artikel"
+            title="Cari"
+          >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="10.5" cy="10.5" r="7.5"/>
+              <line x1="16.5" y1="16.5" x2="22" y2="22"/>
+            </svg>
+          </button>
           <!-- Dark / Light mode toggle -->
           <button
             class="theme-toggle-btn"
@@ -4941,6 +4993,24 @@
       const _searchForm = document.getElementById("navSearchForm");
       const _searchBtn = document.getElementById("searchBtnMobile");
       const _searchInput = document.getElementById("navSearchInput");
+      // Article page search button — reuse same search form
+      const _articleSearchBtn = document.getElementById("articleNavSearchBtn");
+      if (_articleSearchBtn && _searchForm) {
+        _articleSearchBtn.addEventListener("click", function (e) {
+          e.stopPropagation();
+          // Temporarily show search form so it can expand
+          _searchForm.style.display = "flex";
+          const isOpen = _searchForm.classList.toggle("search-open");
+          if (isOpen) {
+            setTimeout(() => _searchInput && _searchInput.focus(), 50);
+          } else {
+            _searchForm.style.display = "";
+            if (_searchInput && _searchInput.value.trim()) {
+              if (typeof performSearch === "function") performSearch();
+            }
+          }
+        });
+      }
       if (_searchBtn && _searchForm) {
         _searchBtn.addEventListener("click", function (e) {
           e.stopPropagation();
@@ -4955,8 +5025,9 @@
           }
         });
         document.addEventListener("click", function (e) {
-          if (_searchForm && !_searchForm.contains(e.target)) {
+          if (_searchForm && !_searchForm.contains(e.target) && e.target !== _articleSearchBtn) {
             _searchForm.classList.remove("search-open");
+            _searchForm.style.display = "";
           }
         });
         if (_searchInput) {
