@@ -2388,7 +2388,7 @@
       #searchOverlay {
         position: fixed;
         inset: 0;
-        z-index: 9999;
+        z-index: 99999;
         background: var(--bg, #f7f4ef);
         display: flex;
         flex-direction: column;
@@ -2396,13 +2396,15 @@
         transform: translateY(-8px);
         transition: opacity 0.22s ease, transform 0.22s ease;
         overflow: hidden;
-      }
-      body.dark #searchOverlay {
-        background: #0f1520;
+        pointer-events: none;
       }
       #searchOverlay.sov-visible {
         opacity: 1;
         transform: translateY(0);
+        pointer-events: auto;
+      }
+      body.dark #searchOverlay {
+        background: #0f1520;
       }
       .sov-bar {
         display: flex;
@@ -5788,6 +5790,22 @@
         setTimeout(() => sovInput && sovInput.focus(), 80);
         if (initialQuery) { sovInput.value = initialQuery; doSearch(initialQuery); }
 
+        // === EVENT DELEGATION ===
+        function onItemPick(e) {
+          const target = e.target.closest(".sov-result-item") || e.target.closest(".sov-trend-item");
+          if (!target) return;
+          e.preventDefault();
+          const id = target.dataset.id;
+          const found = allArticles.find(a => String(a.id) === String(id));
+          if (!found) return;
+          overlay.remove();
+          document.querySelector("nav").classList.add("article-page-nav");
+          renderArticlePage(found);
+          window.scrollTo(0, 0);
+        }
+        overlay.addEventListener("mousedown", onItemPick);
+        overlay.addEventListener("touchstart", onItemPick, { passive: false });
+
         // Live search
         let searchTimer;
         sovInput.addEventListener("input", function () {
@@ -5811,17 +5829,8 @@
           document.getElementById("sovResults").style.display = "none";
         });
 
-        // Trending item click
-        trendingList.addEventListener("click", e => {
-          const item = e.target.closest(".sov-trend-item");
-          if (!item) return;
-          const id = parseInt(item.dataset.id);
-          const found = allArticles.find(a => a.id === id);
-          if (found) { closeSearchOverlay(() => renderArticlePage(found)); }
-        });
-
         // Back button
-        document.getElementById("sovBack").addEventListener("click", closeSearchOverlay);
+        document.getElementById("sovBack").addEventListener("click", () => closeSearchOverlay());
 
         // ESC key
         overlay.addEventListener("keydown", e => { if (e.key === "Escape") closeSearchOverlay(); });
@@ -5854,7 +5863,6 @@
             const imgTag = a.image_url
               ? `<img class="sov-result-img" src="${a.image_url}" onerror="this.style.display='none'" alt="">`
               : `<div class="sov-result-img sov-result-img-empty"></div>`;
-            // Highlight matched words in title
             let titleHtml = escapeHtml(a.title);
             words.forEach(w => {
               titleHtml = titleHtml.replace(new RegExp(`(${w.replace(/[.*+?^${}()|[\]\\]/g,'\\$&')})`, 'gi'), '<mark>$1</mark>');
@@ -5871,25 +5879,12 @@
             `;
           }).join('')}
         `;
-
-        // Click handler
-        sovResults.querySelectorAll(".sov-result-item").forEach(el => {
-          el.addEventListener("click", () => {
-            const id = parseInt(el.dataset.id);
-            const found = allArticles.find(a => a.id === id);
-            if (found) { closeSearchOverlay(() => renderArticlePage(found)); }
-          });
-        });
       }
 
       function closeSearchOverlay(callback) {
         const overlay = document.getElementById("searchOverlay");
-        if (!overlay) { if (callback) callback(); return; }
-        overlay.classList.remove("sov-visible");
-        setTimeout(() => {
-          overlay && overlay.remove();
-          if (callback) callback();
-        }, 260);
+        if (overlay) overlay.remove();
+        if (callback) callback();
       }
       // ===== END SEARCH OVERLAY =====
 
