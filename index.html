@@ -5817,7 +5817,7 @@
           if (!item) return;
           const id = parseInt(item.dataset.id);
           const found = allArticles.find(a => a.id === id);
-          if (found) { closeSearchOverlay(); renderArticlePage(found); }
+          if (found) { closeSearchOverlay(() => renderArticlePage(found)); }
         });
 
         // Back button
@@ -5877,16 +5877,19 @@
           el.addEventListener("click", () => {
             const id = parseInt(el.dataset.id);
             const found = allArticles.find(a => a.id === id);
-            if (found) { closeSearchOverlay(); renderArticlePage(found); }
+            if (found) { closeSearchOverlay(() => renderArticlePage(found)); }
           });
         });
       }
 
-      function closeSearchOverlay() {
+      function closeSearchOverlay(callback) {
         const overlay = document.getElementById("searchOverlay");
-        if (!overlay) return;
+        if (!overlay) { if (callback) callback(); return; }
         overlay.classList.remove("sov-visible");
-        setTimeout(() => overlay && overlay.remove(), 260);
+        setTimeout(() => {
+          overlay && overlay.remove();
+          if (callback) callback();
+        }, 260);
       }
       // ===== END SEARCH OVERLAY =====
 
