@@ -1905,7 +1905,7 @@
       .article-content {
         font-family: "Source Serif 4", serif;
         font-size: 19px;
-        line-height: 1.9;
+        line-height: 1.95;
         color: var(--text);
         overflow-wrap: break-word;
         word-break: break-word;
@@ -1972,8 +1972,8 @@
       .article-content p {
         font-family: "Source Serif 4", serif;
         font-size: 19px;
-        line-height: 1.9;
-        margin-bottom: 1.3rem;
+        line-height: 1.95;
+        margin-bottom: 1.4rem;
       }
       .article-content ul,
       .article-content ol {
@@ -1982,6 +1982,61 @@
       }
       .article-content li {
         margin-bottom: 0.4rem;
+      }
+      /* ===== LIHAT LAINNYA — CNN Indonesia "Lihat Juga" style ===== */
+      .article-lihat-lainnya {
+        margin: 1.8rem 0;
+        border: 1px solid #d8e4f0;
+        border-radius: 2px;
+        padding: 0.85rem 1rem 1rem;
+        background: #fff;
+      }
+      body.dark .article-lihat-lainnya {
+        background: #181e2a;
+        border-color: #2a3a52;
+      }
+      .article-lihat-lainnya-label {
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.82rem;
+        font-weight: 800;
+        font-style: italic;
+        color: #d0210f;
+        margin-bottom: 0.55rem;
+        display: block;
+        letter-spacing: 0;
+      }
+      .article-lihat-lainnya-item {
+        cursor: pointer;
+        text-decoration: none;
+        display: block;
+      }
+      .article-lihat-lainnya-category {
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 0.3rem;
+        display: block;
+      }
+      .article-lihat-lainnya-title {
+        font-family: "Public Sans", sans-serif;
+        font-size: 1.05rem;
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1.35;
+        letter-spacing: -0.01em;
+        transition: color 0.15s;
+      }
+      .article-lihat-lainnya-item:hover .article-lihat-lainnya-title {
+        color: var(--blue-primary);
+      }
+      body.dark .article-lihat-lainnya-title {
+        color: #e8edf5;
+      }
+      body.dark .article-lihat-lainnya-item:hover .article-lihat-lainnya-title {
+        color: #6ab0f5;
       }
       .back-btn {
         display: inline-block;
@@ -6245,6 +6300,39 @@
             if (typeof window.processHighlightTags === "function") {
               window.processHighlightTags(articleContent);
             }
+
+            // ===== INJECT "LIHAT LAINNYA" after 3rd paragraph =====
+            (function injectLihatLainnya() {
+              var paragraphs = articleContent.querySelectorAll("p");
+              if (paragraphs.length < 3) return;
+              var insertAfter = paragraphs[2]; // after 3rd paragraph (index 2)
+              // Pick 1 random article (exclude current)
+              var others = allArticles
+                .filter(function (a) { return a.id !== article.id; })
+                .sort(function () { return Math.random() - 0.5; })
+                .slice(0, 1);
+              if (!others.length) return;
+              var a = others[0];
+              var catLabel = getFirstTagName(a) || a.category || '';
+              var catHtml = catLabel
+                ? '<span class="article-lihat-lainnya-category">' + escapeHtml(catLabel) + '</span>'
+                : '';
+              var block = document.createElement('div');
+              block.className = 'article-lihat-lainnya';
+              block.innerHTML =
+                '<span class="article-lihat-lainnya-label">Lihat Juga :</span>' +
+                '<div class="article-lihat-lainnya-item article-lihat-lainnya-link" data-id="' + a.id + '">' +
+                catHtml +
+                '<div class="article-lihat-lainnya-title">' + escapeHtml(a.title) + '</div>' +
+                '</div>';
+              insertAfter.parentNode.insertBefore(block, insertAfter.nextSibling);
+              block.querySelector('.article-lihat-lainnya-link').addEventListener('click', function () {
+                var id = parseInt(this.getAttribute('data-id'));
+                var found = allArticles.find(function (x) { return x.id === id; });
+                if (found) renderArticlePage(found);
+              });
+            })();
+            // ===== END INJECT =====
           }
 
           // Bangun Daftar Isi
