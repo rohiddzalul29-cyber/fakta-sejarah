@@ -64,7 +64,7 @@
       /* Nonaktifkan efek hover spesifik di perangkat touch */
       @media (hover: none) {
         .card:hover {
-          box-shadow: 0 2px 8px rgba(0,0,0,0.06) !important;
+          box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06) !important;
           transform: none !important;
         }
         .card:hover .card-img img {
@@ -806,10 +806,12 @@
         background: var(--white);
         border: 1px solid var(--border);
         border-radius: 12px;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.06);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
         overflow: hidden;
         cursor: pointer;
-        transition: box-shadow 0.2s, transform 0.2s;
+        transition:
+          box-shadow 0.2s,
+          transform 0.2s;
         display: flex;
         gap: 1.2rem;
         align-items: flex-start;
@@ -1734,7 +1736,7 @@
           padding: 0 0.9rem;
         }
         .article-hero-image-wrap img {
-          border-radius: 6px;
+          border-radius: 0;
           aspect-ratio: 16 / 9;
           max-height: 240px;
         }
@@ -1985,7 +1987,7 @@
         aspect-ratio: 16 / 9;
         max-height: 420px;
         object-fit: cover;
-        border-radius: 8px;
+        border-radius: 0;
         display: block;
       }
       /* Two-column layout below image */
@@ -2015,7 +2017,34 @@
         max-height: 420px;
         object-fit: cover;
         margin: 1.5rem 0;
-        border-radius: 8px;
+        border-radius: 0;
+      }
+      /* ── Inline article image with caption ── */
+      .article-inline-figure {
+        margin: 1.8rem 0;
+        display: block;
+      }
+      .article-inline-figure img {
+        width: 100%;
+        max-height: 420px;
+        object-fit: cover;
+        display: block;
+        margin: 0;
+        border-radius: 0;
+      }
+      .article-inline-caption {
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+        padding: 5px 8px 0;
+        border-left: 2px solid var(--border);
+        margin-top: 6px;
+        font-style: italic;
+      }
+      body.dark .article-inline-caption {
+        color: #6a7a8e;
+        border-left-color: #2a3a52;
       }
       /* Legacy h1 (not used in new layout but keep safe) */
       .article-page h1 {
@@ -2391,7 +2420,7 @@
         width: 100%;
         max-height: 460px;
         object-fit: cover;
-        border-radius: 12px;
+        border-radius: 0;
         display: block;
       }
       .article-top-popular {
@@ -2781,7 +2810,9 @@
         border: none;
         cursor: pointer;
         text-decoration: none;
-        transition: transform 0.15s, opacity 0.15s;
+        transition:
+          transform 0.15s,
+          opacity 0.15s;
         font-family: "Public Sans", sans-serif;
         font-size: 0.78rem;
         font-weight: 600;
@@ -2807,7 +2838,7 @@
       body.dark .tih-share-copy {
         background: #1e2330;
         color: #a8c8f0;
-        border-color: rgba(100,160,220,0.2);
+        border-color: rgba(100, 160, 220, 0.2);
       }
       @media (max-width: 768px) {
         .tih-page-wrap {
@@ -2821,24 +2852,40 @@
         .tih-page-left {
           position: static;
         }
-        .tih-page-brand { flex-direction: row; align-items: center; gap: 8px; flex-wrap: wrap; }
-        .tih-page-today, .tih-page-history { font-size: 2rem; }
+        .tih-page-brand {
+          flex-direction: row;
+          align-items: center;
+          gap: 8px;
+          flex-wrap: wrap;
+        }
+        .tih-page-today,
+        .tih-page-history {
+          font-size: 2rem;
+        }
         .tih-page-right {
           border-left: none;
           border-top: 1px solid var(--border);
           padding-left: 0;
           padding-top: 1.5rem;
         }
-        .tih-page-year { font-size: 2.8rem; }
+        .tih-page-year {
+          font-size: 2.8rem;
+        }
       }
       /* dark mode */
       body.dark .tih-page-today,
       body.dark .tih-page-history,
       body.dark .tih-page-year,
-      body.dark .tih-page-title { color: #e0e8f0; }
+      body.dark .tih-page-title {
+        color: #e0e8f0;
+      }
       body.dark .tih-page-date,
-      body.dark .tih-page-excerpt { color: #7a90a8; }
-      body.dark .tih-page-right { border-color: rgba(100,160,220,0.15); }
+      body.dark .tih-page-excerpt {
+        color: #7a90a8;
+      }
+      body.dark .tih-page-right {
+        border-color: rgba(100, 160, 220, 0.15);
+      }
 
       /* ===== END TODAY IN HISTORY PAGE ===== */
 
@@ -5697,11 +5744,11 @@
       body.dark .card {
         background: #13161f;
         border-color: #252b3b;
-        box-shadow: 0 2px 10px rgba(0,0,0,0.25);
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
       }
       body.dark .card:hover {
         background: #1a2540;
-        box-shadow: 0 6px 24px rgba(0,0,0,0.35);
+        box-shadow: 0 6px 24px rgba(0, 0, 0, 0.35);
       }
       body.dark .card-body h3 {
         color: #e8ecf0;
@@ -7568,7 +7615,11 @@
                     escapeHtml(a.title) +
                     '"></div>' +
                     '<div class="home-more-card-body">' +
-                    (cat ? '<span class="home-more-card-cat">' + escapeHtml(cat) + "</span>" : "") +
+                    (cat
+                      ? '<span class="home-more-card-cat">' +
+                        escapeHtml(cat) +
+                        "</span>"
+                      : "") +
                     '<h3 class="home-more-card-title">' +
                     escapeHtml(a.title) +
                     "</h3>" +
@@ -7660,16 +7711,18 @@
             currentPage = 1;
             renderHomePage();
           });
-        document.querySelectorAll(".card[data-id], .home-more-card[data-id]").forEach(function (el) {
-          el.addEventListener("click", function () {
-            var id = el.getAttribute("data-id");
-            if (id) {
-              lastFilter = currentFilter;
-              lastPage = currentPage;
-              navigateToArticle(id);
-            }
+        document
+          .querySelectorAll(".card[data-id], .home-more-card[data-id]")
+          .forEach(function (el) {
+            el.addEventListener("click", function () {
+              var id = el.getAttribute("data-id");
+              if (id) {
+                lastFilter = currentFilter;
+                lastPage = currentPage;
+                navigateToArticle(id);
+              }
+            });
           });
-        });
         document
           .querySelectorAll(".article-tag-chip, .popular-tag-chip")
           .forEach(function (chip) {
@@ -7737,7 +7790,8 @@
         cleanupArticlePage();
 
         // Extract year from hist_date or title
-        const year = (item.hist_date || item.title || "").match(/\d{4}/)?.[0] || "";
+        const year =
+          (item.hist_date || item.title || "").match(/\d{4}/)?.[0] || "";
         const dateLabel = item.hist_date || "";
         const title = item.title || "";
         const excerpt = item.excerpt || item.content || "";
@@ -7780,38 +7834,87 @@
         document.getElementById("appRoot").innerHTML = html;
 
         // Share: WA
-        document.getElementById("tihShareWa")?.addEventListener("click", function(e) {
-          e.preventDefault();
-          window.open("https://wa.me/?text=" + shareTitle, "_blank");
-        });
+        document
+          .getElementById("tihShareWa")
+          ?.addEventListener("click", function (e) {
+            e.preventDefault();
+            window.open("https://wa.me/?text=" + shareTitle, "_blank");
+          });
         // Share: FB
-        document.getElementById("tihShareFb")?.addEventListener("click", function() {
-          window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(url), "_blank", "width=600,height=400");
-        });
+        document
+          .getElementById("tihShareFb")
+          ?.addEventListener("click", function () {
+            window.open(
+              "https://www.facebook.com/sharer/sharer.php?u=" +
+                encodeURIComponent(url),
+              "_blank",
+              "width=600,height=400",
+            );
+          });
         // Share: Salin link
-        document.getElementById("tihShareCopy")?.addEventListener("click", function() {
-          const btn = this;
-          const orig = btn.innerHTML;
-          const copy = (txt) => {
-            if (navigator.clipboard?.writeText) {
-              navigator.clipboard.writeText(txt).catch(() => fallback(txt));
-            } else fallback(txt);
-          };
-          const fallback = (txt) => {
-            const ta = document.createElement("textarea");
-            ta.value = txt;
-            ta.style.cssText = "position:fixed;top:-9999px;opacity:0;";
-            document.body.appendChild(ta);
-            ta.select();
-            document.execCommand("copy");
-            ta.remove();
-          };
-          copy(url);
-          btn.textContent = "✓ Tersalin!";
-          setTimeout(() => { btn.innerHTML = orig; }, 2000);
-        });
+        document
+          .getElementById("tihShareCopy")
+          ?.addEventListener("click", function () {
+            const btn = this;
+            const orig = btn.innerHTML;
+            const copy = (txt) => {
+              if (navigator.clipboard?.writeText) {
+                navigator.clipboard.writeText(txt).catch(() => fallback(txt));
+              } else fallback(txt);
+            };
+            const fallback = (txt) => {
+              const ta = document.createElement("textarea");
+              ta.value = txt;
+              ta.style.cssText = "position:fixed;top:-9999px;opacity:0;";
+              document.body.appendChild(ta);
+              ta.select();
+              document.execCommand("copy");
+              ta.remove();
+            };
+            copy(url);
+            btn.textContent = "✓ Tersalin!";
+            setTimeout(() => {
+              btn.innerHTML = orig;
+            }, 2000);
+          });
 
         window.scrollTo(0, 0);
+      }
+
+      // ── RENDER KONTEN ARTIKEL: ganti [image1], [image2], dst. ───────
+      function renderArticleContent(article) {
+        // Bangun map gambar: index 0 → [image1], dst.
+        let images = [];
+        if (Array.isArray(article.images) && article.images.length) {
+          images = article.images.map(function (img) {
+            return typeof img === "string"
+              ? { url: img, caption: "" }
+              : { url: img.url || "", caption: img.caption || "" };
+          });
+        } else if (article.image_url) {
+          images = [{ url: article.image_url, caption: "" }];
+        }
+
+        let content =
+          article.content || "<p>Konten artikel sejarah tidak tersedia.</p>";
+
+        // Ganti setiap token [imageN] dengan figure HTML
+        content = content.replace(/\[image(\d+)\]/gi, function (match, num) {
+          const idx = parseInt(num, 10) - 1;
+          if (idx < 0 || idx >= images.length) return ""; // token tidak ada gambarnya → hilangkan
+          const img = images[idx];
+          const caption = img.caption
+            ? `<span class="article-inline-caption">${escapeHtml(img.caption)}</span>`
+            : "";
+          return (
+            `<span class="article-inline-figure">` +
+            `<img src="${escapeHtml(img.url)}" alt="${caption ? escapeHtml(img.caption) : "Gambar " + num}" loading="lazy" onerror="this.parentElement.style.display='none'" />` +
+            caption +
+            `</span>`
+          );
+        });
+
+        return content;
       }
 
       function renderArticlePage(article) {
@@ -7924,7 +8027,7 @@
  <div class="article-body-wrap">
  <div>
  <div class="article-page">
- <div class="article-content">${article.content || "<p>Konten artikel sejarah tidak tersedia.</p>"}</div>
+ <div class="article-content">${renderArticleContent(article)}</div>
  ${(function () {
    var tags = Array.isArray(article.tags)
      ? article.tags
