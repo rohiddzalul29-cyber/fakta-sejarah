@@ -725,6 +725,20 @@
         aspect-ratio: 1200 / 500;
         background: #111;
       }
+      @media (max-width: 768px) {
+        .ad-slider-wrapper {
+          margin: 1rem 0;
+          border-radius: 8px;
+        }
+        .ad-slider-container {
+          aspect-ratio: 4 / 3;
+        }
+      }
+      @media (max-width: 480px) {
+        .ad-slider-container {
+          aspect-ratio: 1 / 1;
+        }
+      }
       .ad-slide {
         position: absolute;
         inset: 0;
