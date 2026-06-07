@@ -2681,6 +2681,173 @@
         gap: 4px;
       }
       /* ===== END SEARCH OVERLAY ===== */
+      /* ===== TODAY IN HISTORY PAGE ===== */
+      .tih-page-wrap {
+        max-width: 1100px;
+        margin: 0 auto;
+        padding: 5rem 2rem 6rem;
+        min-height: 70vh;
+        display: flex;
+        align-items: center;
+      }
+      .tih-page-inner {
+        display: grid;
+        grid-template-columns: 260px 1fr;
+        gap: 5rem;
+        align-items: start;
+        width: 100%;
+      }
+      .tih-page-left {
+        position: sticky;
+        top: 130px;
+      }
+      .tih-page-brand {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+        line-height: 1;
+      }
+      .tih-page-today {
+        font-family: "Public Sans", sans-serif;
+        font-size: 3rem;
+        font-weight: 900;
+        font-style: italic;
+        color: var(--text);
+        letter-spacing: -0.04em;
+      }
+      .tih-page-in {
+        display: inline-block;
+        background: #e03010;
+        color: #fff;
+        font-family: "Public Sans", sans-serif;
+        font-size: 1rem;
+        font-weight: 800;
+        padding: 2px 10px;
+        border-radius: 3px;
+        width: fit-content;
+        margin: 4px 0;
+      }
+      .tih-page-history {
+        font-family: "Public Sans", sans-serif;
+        font-size: 3rem;
+        font-weight: 900;
+        font-style: italic;
+        color: var(--text);
+        letter-spacing: -0.04em;
+      }
+      .tih-page-right {
+        border-left: 1px solid var(--border);
+        padding-left: 4rem;
+      }
+      .tih-page-date {
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        margin-bottom: 0.5rem;
+      }
+      .tih-page-year {
+        font-family: "Public Sans", sans-serif;
+        font-size: 4rem;
+        font-weight: 900;
+        color: var(--text);
+        line-height: 1;
+        letter-spacing: -0.04em;
+        margin-bottom: 1rem;
+      }
+      .tih-page-title {
+        font-family: "Source Serif 4", serif;
+        font-size: 1.3rem;
+        font-weight: 600;
+        color: var(--text);
+        line-height: 1.5;
+        margin-bottom: 1.2rem;
+      }
+      .tih-page-excerpt {
+        font-family: "Source Serif 4", serif;
+        font-size: 1rem;
+        color: var(--text-muted);
+        line-height: 1.85;
+        margin-bottom: 2rem;
+      }
+      .tih-page-share {
+        display: flex;
+        align-items: center;
+        gap: 0.6rem;
+      }
+      .tih-share-btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 42px;
+        height: 42px;
+        border-radius: 50%;
+        border: none;
+        cursor: pointer;
+        text-decoration: none;
+        transition: transform 0.15s, opacity 0.15s;
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.78rem;
+        font-weight: 600;
+      }
+      .tih-share-wa {
+        background: #25d366;
+        color: #fff;
+      }
+      .tih-share-fb {
+        background: #1877f2;
+        color: #fff;
+      }
+      .tih-share-copy {
+        background: var(--parchment);
+        color: var(--text);
+        border: 1px solid var(--border);
+        font-size: 0.72rem;
+        width: auto;
+        padding: 0 14px;
+        border-radius: 999px;
+        gap: 6px;
+      }
+      body.dark .tih-share-copy {
+        background: #1e2330;
+        color: #a8c8f0;
+        border-color: rgba(100,160,220,0.2);
+      }
+      @media (max-width: 768px) {
+        .tih-page-wrap {
+          padding: 2.5rem 1.2rem 4rem;
+          align-items: flex-start;
+        }
+        .tih-page-inner {
+          grid-template-columns: 1fr;
+          gap: 2rem;
+        }
+        .tih-page-left {
+          position: static;
+        }
+        .tih-page-brand { flex-direction: row; align-items: center; gap: 8px; flex-wrap: wrap; }
+        .tih-page-today, .tih-page-history { font-size: 2rem; }
+        .tih-page-right {
+          border-left: none;
+          border-top: 1px solid var(--border);
+          padding-left: 0;
+          padding-top: 1.5rem;
+        }
+        .tih-page-year { font-size: 2.8rem; }
+      }
+      /* dark mode */
+      body.dark .tih-page-today,
+      body.dark .tih-page-history,
+      body.dark .tih-page-year,
+      body.dark .tih-page-title { color: #e0e8f0; }
+      body.dark .tih-page-date,
+      body.dark .tih-page-excerpt { color: #7a90a8; }
+      body.dark .tih-page-right { border-color: rgba(100,160,220,0.15); }
+
+      /* ===== END TODAY IN HISTORY PAGE ===== */
+
       .about-hero {
         position: relative;
         min-height: 480px;
@@ -7186,15 +7353,7 @@
       async function navigateToArticle(articleId, specialItem = null) {
         if (specialItem) {
           history.pushState({ special: true }, "", "/artikel/sejarah-hari-ini");
-          renderArticlePage({
-            title: specialItem.title,
-            content: specialItem.content || specialItem.excerpt,
-            category: " Sejarah Hari Ini",
-            created_at: new Date().toISOString(),
-            image_url: null,
-            views: 0,
-            slug: "sejarah-hari-ini",
-          });
+          renderTihPage(specialItem);
           return;
         }
         const article = allArticles.find(
@@ -7601,6 +7760,88 @@
             if (tag) navigateToTag(tag);
           });
         });
+      }
+
+      function renderTihPage(item) {
+        document.querySelector("nav").classList.add("article-page-nav");
+        cleanupArticlePage();
+
+        // Extract year from hist_date or title
+        const year = (item.hist_date || item.title || "").match(/\d{4}/)?.[0] || "";
+        const dateLabel = item.hist_date || "";
+        const title = item.title || "";
+        const excerpt = item.excerpt || item.content || "";
+
+        const url = window.location.href;
+        const shareTitle = encodeURIComponent(title + "\n" + url);
+
+        const html = `
+<div class="tih-page-wrap">
+  <div class="tih-page-inner">
+    <!-- Kiri: label -->
+    <div class="tih-page-left">
+      <div class="tih-page-brand">
+        <span class="tih-page-today">today</span>
+        <span class="tih-page-in">in</span>
+        <span class="tih-page-history">history</span>
+      </div>
+    </div>
+    <!-- Kanan: konten -->
+    <div class="tih-page-right">
+      ${dateLabel ? `<div class="tih-page-date">${escapeHtml(dateLabel)}</div>` : ""}
+      ${year ? `<div class="tih-page-year">${escapeHtml(year)}</div>` : ""}
+      <div class="tih-page-title">${escapeHtml(title)}</div>
+      <div class="tih-page-excerpt">${escapeHtml(excerpt)}</div>
+      <div class="tih-page-share">
+        <a class="tih-share-btn tih-share-wa" id="tihShareWa" href="#" title="Bagikan ke WhatsApp">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.104.549 4.075 1.504 5.793L.058 23.948l6.304-1.654A11.937 11.937 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.907a9.9 9.9 0 01-5.048-1.376l-.362-.214-3.742.981.999-3.648-.235-.374A9.861 9.861 0 012.093 12C2.093 6.58 6.58 2.093 12 2.093S21.907 6.58 21.907 12 17.42 21.907 12 21.907z"/></svg>
+        </a>
+        <button class="tih-share-btn tih-share-fb" id="tihShareFb" title="Bagikan ke Facebook">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
+        </button>
+        <button class="tih-share-btn tih-share-copy" id="tihShareCopy" title="Salin Link">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>`;
+
+        document.getElementById("appRoot").innerHTML = html;
+
+        // Share: WA
+        document.getElementById("tihShareWa")?.addEventListener("click", function(e) {
+          e.preventDefault();
+          window.open("https://wa.me/?text=" + shareTitle, "_blank");
+        });
+        // Share: FB
+        document.getElementById("tihShareFb")?.addEventListener("click", function() {
+          window.open("https://www.facebook.com/sharer/sharer.php?u=" + encodeURIComponent(url), "_blank", "width=600,height=400");
+        });
+        // Share: Salin link
+        document.getElementById("tihShareCopy")?.addEventListener("click", function() {
+          const btn = this;
+          const orig = btn.innerHTML;
+          const copy = (txt) => {
+            if (navigator.clipboard?.writeText) {
+              navigator.clipboard.writeText(txt).catch(() => fallback(txt));
+            } else fallback(txt);
+          };
+          const fallback = (txt) => {
+            const ta = document.createElement("textarea");
+            ta.value = txt;
+            ta.style.cssText = "position:fixed;top:-9999px;opacity:0;";
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            ta.remove();
+          };
+          copy(url);
+          btn.textContent = "✓ Tersalin!";
+          setTimeout(() => { btn.innerHTML = orig; }, 2000);
+        });
+
+        window.scrollTo(0, 0);
       }
 
       function renderArticlePage(article) {
