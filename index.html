@@ -4363,6 +4363,17 @@
         animation-delay: 1.08s;
       }
 
+      /* ===== ARTICLE PAGE TAG BAR (below nav) ===== */
+      .article-page-tag-bar {
+        position: sticky;
+        top: 72px;
+        z-index: 89;
+      }
+      /* Hide sidebar Tag Terpopuler widget on article page (moved to top bar) */
+      .article-sidebar .article-sidebar-widget:has(#articleSidebarTags) {
+        display: none;
+      }
+
       /* ===== HISTORIA-STYLE HOME TAG BAR ===== */
       .home-tag-bar {
         position: sticky;
@@ -6220,7 +6231,7 @@
        latestArticle
          ? `
      <div class="home-hero-label">
-       <span>Premium</span>
+       <span>Terbaru</span>
      </div>
      <div class="home-hero-title-wrap" data-id="${latestArticle.id}" style="cursor:pointer;">
        <h1 class="home-hero-title">${escapeHtml(latestArticle.title)}</h1>
@@ -7532,7 +7543,53 @@
           getFirstTagName(article) || article.category
             ? `<span class="article-hero-cat">${escapeHtml(getFirstTagName(article) || article.category)}</span>`
             : "";
+        // Build popular tags for article tag bar
+        const articleTagBar = (function () {
+          var tagCount = {};
+          allArticles.forEach(function (a) {
+            var tags = Array.isArray(a.tags)
+              ? a.tags
+              : typeof a.tags === "string" && a.tags
+                ? a.tags
+                    .split(",")
+                    .map(function (t) {
+                      return t.trim();
+                    })
+                    .filter(Boolean)
+                : [];
+            tags.forEach(function (t) {
+              var name = normalizeTag(t);
+              if (name) tagCount[name] = (tagCount[name] || 0) + 1;
+            });
+          });
+          var sorted = Object.keys(tagCount)
+            .sort(function (a, b) {
+              return tagCount[b] - tagCount[a];
+            })
+            .slice(0, 15);
+          return sorted
+            .map(function (t) {
+              return (
+                '<span class="home-tag-bar-chip article-tagbar-chip" data-tag="' +
+                escapeHtml(t) +
+                '">' +
+                escapeHtml(t) +
+                "</span>"
+              );
+            })
+            .join("");
+        })();
+
         const html = `
+ <!-- Tag Terpopuler bar (sticky below nav, article page) -->
+ <div class="home-tag-bar article-page-tag-bar" id="articleTagBar">
+   <div class="home-tag-bar-inner">
+     <span class="home-tag-bar-label">TAG :</span>
+     <div class="home-tag-bar-tags" id="articleTagBarTags">
+       ${articleTagBar || "<span style=\"font-family:'Public Sans',sans-serif;font-size:0.75rem;color:var(--text-muted);\">Belum ada tag.</span>"}
+     </div>
+   </div>
+ </div>
  <!-- ARTICLE HEADER: category, title, meta, share buttons -->
  <div class="article-header-wrap">
  ${getFirstTagName(article) || article.category ? `<span class="article-category-label">${escapeHtml(getFirstTagName(article) || article.category)}</span>` : ""}
@@ -7803,6 +7860,15 @@
  </div>
  `;
         document.getElementById("appRoot").innerHTML = html;
+        // Article tag bar chip events
+        document
+          .querySelectorAll(".article-tagbar-chip")
+          .forEach(function (chip) {
+            chip.addEventListener("click", function () {
+              var tag = chip.getAttribute("data-tag");
+              if (tag) navigateToTag(tag);
+            });
+          });
         // Proses [person] dan [highlight] tags di konten artikel
         requestAnimationFrame(() => {
           const articleContent = document.querySelector(".article-content");
