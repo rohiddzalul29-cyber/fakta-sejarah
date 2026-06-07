@@ -4783,6 +4783,119 @@
         margin-bottom: 2.5rem;
       }
 
+      /* ===== VIDEO & KONTEN SOSIAL ===== */
+      .home-social-section {
+        margin-bottom: 2.5rem;
+      }
+      .home-social-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.2rem;
+      }
+      .home-social-card {
+        display: block;
+        text-decoration: none;
+        border: 1px solid var(--border);
+        border-radius: 3px;
+        overflow: hidden;
+        background: var(--white);
+        transition:
+          border-color 0.18s,
+          box-shadow 0.18s,
+          transform 0.18s;
+        cursor: pointer;
+      }
+      .home-social-card:hover {
+        border-color: var(--blue-primary);
+        box-shadow: 0 4px 18px rgba(26, 95, 168, 0.1);
+        transform: translateY(-2px);
+      }
+      .home-social-thumb {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        object-fit: cover;
+        display: block;
+        background: var(--parchment);
+      }
+      .home-social-thumb-placeholder {
+        width: 100%;
+        aspect-ratio: 16 / 9;
+        background: var(--parchment);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2.2rem;
+        color: var(--border);
+      }
+      .home-social-card-body {
+        padding: 0.8rem 1rem 0.9rem;
+      }
+      .home-social-platform {
+        display: inline-flex;
+        align-items: center;
+        gap: 4px;
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.6rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 2px 8px;
+        border-radius: 999px;
+        margin-bottom: 0.45rem;
+      }
+      .home-social-platform.tiktok {
+        color: #069;
+        background: rgba(0, 102, 153, 0.08);
+        border: 1px solid rgba(0, 102, 153, 0.2);
+      }
+      .home-social-platform.instagram {
+        color: #c0295b;
+        background: rgba(192, 41, 91, 0.07);
+        border: 1px solid rgba(192, 41, 91, 0.18);
+      }
+      .home-social-platform.youtube {
+        color: #cc0000;
+        background: rgba(204, 0, 0, 0.07);
+        border: 1px solid rgba(204, 0, 0, 0.18);
+      }
+      .home-social-card-title {
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.88rem;
+        font-weight: 700;
+        line-height: 1.4;
+        color: var(--text);
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+        transition: color 0.15s;
+      }
+      .home-social-card:hover .home-social-card-title {
+        color: var(--blue-primary);
+      }
+      /* Mobile: horizontal carousel */
+      @media (max-width: 768px) {
+        .home-social-grid {
+          display: flex;
+          overflow-x: auto;
+          gap: 0.85rem;
+          padding-bottom: 0.5rem;
+          scroll-snap-type: x mandatory;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+          grid-template-columns: unset;
+        }
+        .home-social-grid::-webkit-scrollbar {
+          display: none;
+        }
+        .home-social-card {
+          flex: 0 0 72vw;
+          max-width: 260px;
+          scroll-snap-align: start;
+        }
+      }
+      /* ===== END VIDEO & KONTEN SOSIAL ===== */
+
       /* ===== ARTIKEL LAINNYA HEADER ===== */
       .home-lainnya-header {
         display: flex;
@@ -6219,6 +6332,17 @@
          </div>
        </div>
      </div>
+
+     <!-- Video & Konten Sosial -->
+     <div class="home-social-section">
+       <div class="home-terbaru-header">
+         <h2 class="home-terbaru-title">Video &amp; Konten Sosial</h2>
+       </div>
+       <div class="home-social-grid" id="socialSectionGrid">
+         <div style="grid-column:1/-1;text-align:center;padding:1.5rem 0;color:var(--text-muted);font-size:.82rem">Memuat konten...</div>
+       </div>
+     </div>
+
      `
          : ""
      }
@@ -6312,6 +6436,7 @@
         loadTodayHistoryWidget();
         loadPopularTags();
         loadTagBar();
+        if (currentPage === 1) loadSocialSection();
       }
 
       function attachHomeEvents() {
@@ -6873,6 +6998,64 @@
             .join("");
         }
       }
+
+      // ── VIDEO & KONTEN SOSIAL ────────────────────────────────────────
+      async function loadSocialSection() {
+        const grid = document.getElementById("socialSectionGrid");
+        if (!grid) return;
+        const platformIcon = { TikTok: "🎵", Instagram: "📸", YouTube: "▶️" };
+        const platformClass = {
+          TikTok: "tiktok",
+          Instagram: "instagram",
+          YouTube: "youtube",
+        };
+        try {
+          const { data, error } = await db
+            .from("social_contents")
+            .select(
+              "id, title, platform, thumbnail_url, content_url, published_at",
+            )
+            .eq("status", "published")
+            .order("published_at", { ascending: false })
+            .limit(6);
+          if (error) throw error;
+          if (!data || !data.length) {
+            grid.innerHTML =
+              '<div style="grid-column:1/-1;text-align:center;padding:1.5rem 0;color:var(--text-muted);font-size:.82rem">Belum ada konten sosial yang dipublikasikan.</div>';
+            return;
+          }
+          grid.innerHTML = data
+            .map(
+              (c) => `
+            <a
+              class="home-social-card"
+              href="${escapeHtml(c.content_url)}"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="${escapeHtml(c.title)}"
+            >
+              ${
+                c.thumbnail_url
+                  ? `<img class="home-social-thumb" src="${escapeHtml(c.thumbnail_url)}" alt="${escapeHtml(c.title)}" loading="lazy" onerror="this.outerHTML='<div class=\\'home-social-thumb-placeholder\\'>${platformIcon[c.platform] || "📷"}</div>'" />`
+                  : `<div class="home-social-thumb-placeholder">${platformIcon[c.platform] || "📷"}</div>`
+              }
+              <div class="home-social-card-body">
+                <span class="home-social-platform ${platformClass[c.platform] || ""}">
+                  ${platformIcon[c.platform] || ""} ${escapeHtml(c.platform)}
+                </span>
+                <div class="home-social-card-title">${escapeHtml(c.title)}</div>
+              </div>
+            </a>
+          `,
+            )
+            .join("");
+        } catch (e) {
+          console.warn("Gagal memuat konten sosial:", e);
+          grid.innerHTML =
+            '<div style="grid-column:1/-1;text-align:center;padding:1.5rem 0;color:var(--text-muted);font-size:.82rem">Konten tidak dapat dimuat saat ini.</div>';
+        }
+      }
+      // ────────────────────────────────────────────────────────────────
 
       // SLUG GENERATOR
       function generateSlug(title) {
