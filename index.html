@@ -2021,8 +2021,10 @@
       }
       /* ── Inline article image with caption ── */
       .article-inline-figure {
-        margin: 1.8rem 0;
         display: block;
+        width: 100%;
+        margin: 1.8rem 0 1.2rem;
+        clear: both;
       }
       .article-inline-figure img {
         width: 100%;
@@ -2033,18 +2035,32 @@
         border-radius: 0;
       }
       .article-inline-caption {
+        display: block;
         font-family: "Public Sans", sans-serif;
-        font-size: 0.72rem;
-        color: var(--text-muted);
-        line-height: 1.5;
-        padding: 5px 8px 0;
-        border-left: 2px solid var(--border);
-        margin-top: 6px;
+        font-size: 0.7rem;
+        color: #888;
+        line-height: 1.45;
+        padding: 5px 10px;
+        border-left: 2px solid #d0d8e4;
+        margin-top: 0;
         font-style: italic;
+        background: transparent;
+        width: 100%;
+        box-sizing: border-box;
       }
       body.dark .article-inline-caption {
-        color: #6a7a8e;
-        border-left-color: #2a3a52;
+        color: #5a6a7e;
+        border-left-color: #253040;
+      }
+      @media (max-width: 600px) {
+        .article-inline-figure {
+          margin: 1.2rem 0 0.9rem;
+        }
+        .article-inline-caption {
+          font-size: 0.68rem;
+          padding: 4px 8px;
+          line-height: 1.4;
+        }
       }
       /* Legacy h1 (not used in new layout but keep safe) */
       .article-page h1 {
@@ -7895,24 +7911,26 @@
           images = [{ url: article.image_url, caption: "" }];
         }
 
-        let content =
-          article.content || "<p>Konten artikel sejarah tidak tersedia.</p>";
+        let content = article.content || "<p>Konten artikel sejarah tidak tersedia.</p>";
 
         // Ganti setiap token [imageN] dengan figure HTML
         content = content.replace(/\[image(\d+)\]/gi, function (match, num) {
           const idx = parseInt(num, 10) - 1;
-          if (idx < 0 || idx >= images.length) return ""; // token tidak ada gambarnya → hilangkan
+          if (idx < 0 || idx >= images.length) return "";
           const img = images[idx];
           const caption = img.caption
             ? `<span class="article-inline-caption">${escapeHtml(img.caption)}</span>`
             : "";
           return (
-            `<span class="article-inline-figure">` +
-            `<img src="${escapeHtml(img.url)}" alt="${caption ? escapeHtml(img.caption) : "Gambar " + num}" loading="lazy" onerror="this.parentElement.style.display='none'" />` +
+            `</p><span class="article-inline-figure">` +
+            `<img src="${escapeHtml(img.url)}" alt="${img.caption ? escapeHtml(img.caption) : "Gambar " + num}" loading="lazy" onerror="this.parentElement.style.display=\'none\'" />` +
             caption +
-            `</span>`
+            `</span><p>`
           );
         });
+
+        // Bersihkan tag <p> kosong yang muncul akibat injeksi di atas
+        content = content.replace(/<p>\s*<\/p>/g, "");
 
         return content;
       }
