@@ -4363,7 +4363,632 @@
         animation-delay: 1.08s;
       }
 
-      /* ===== TAG SISTEM ===== */
+      /* ===== HISTORIA-STYLE HOME TAG BAR ===== */
+      .home-tag-bar {
+        position: sticky;
+        top: 72px; /* height of nav */
+        z-index: 90;
+        background: #fff;
+        border-bottom: 1px solid #e2eaf4;
+        box-shadow: 0 1px 6px rgba(26, 95, 168, 0.06);
+      }
+      body.dark .home-tag-bar {
+        background: #13161f;
+        border-bottom-color: #252b3b;
+      }
+      .home-tag-bar-inner {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        align-items: center;
+        gap: 0.75rem;
+        height: 40px;
+        overflow: hidden;
+      }
+      .home-tag-bar-label {
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 800;
+        letter-spacing: 2px;
+        color: var(--text-muted);
+        white-space: nowrap;
+        flex-shrink: 0;
+      }
+      .home-tag-bar-tags {
+        display: flex;
+        gap: 0.25rem;
+        flex-wrap: nowrap;
+        overflow: hidden;
+      }
+      .home-tag-bar-chip {
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.72rem;
+        font-weight: 600;
+        color: var(--text);
+        text-decoration: none;
+        cursor: pointer;
+        white-space: nowrap;
+        padding: 0 6px;
+        transition: color 0.18s;
+      }
+      .home-tag-bar-chip:hover {
+        color: var(--blue-primary);
+      }
+      body.dark .home-tag-bar-chip {
+        color: #9aa4b2;
+      }
+
+      /* ===== 3-COLUMN HERO LAYOUT ===== */
+      .home-three-col {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 2rem 2rem 1rem;
+        display: grid;
+        grid-template-columns: 220px 1fr 260px;
+        gap: 2.5rem;
+        border-bottom: 1px solid var(--border);
+      }
+
+      /* LEFT: Today in History */
+      .home-left-col {
+      }
+      .today-in-history-widget {
+      }
+      .tih-date-block {
+        display: flex;
+        align-items: baseline;
+        gap: 0;
+        margin-bottom: 2px;
+      }
+      .tih-month {
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 1px;
+        color: var(--text-muted);
+        text-transform: uppercase;
+      }
+      .tih-day {
+        font-family: "Public Sans", sans-serif;
+        font-size: 2.8rem;
+        font-weight: 900;
+        line-height: 1;
+        color: var(--text);
+        margin-left: 6px;
+      }
+      .tih-brand {
+        display: flex;
+        align-items: baseline;
+        gap: 3px;
+        margin-bottom: 1.2rem;
+        border-bottom: 2px solid var(--border);
+        padding-bottom: 0.8rem;
+      }
+      .tih-today {
+        font-family: "Public Sans", sans-serif;
+        font-size: 1.35rem;
+        font-weight: 900;
+        color: var(--text);
+        font-style: italic;
+        letter-spacing: -0.03em;
+      }
+      .tih-in {
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.7rem;
+        font-weight: 700;
+        color: #fff;
+        background: #e03010;
+        padding: 1px 4px;
+        border-radius: 2px;
+        margin: 0 2px;
+        align-self: center;
+      }
+      .tih-history {
+        font-family: "Public Sans", sans-serif;
+        font-size: 1.35rem;
+        font-weight: 900;
+        color: var(--text);
+        font-style: italic;
+        letter-spacing: -0.03em;
+      }
+      .tih-events {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .tih-event-item {
+        display: flex;
+        gap: 0.7rem;
+        align-items: flex-start;
+        padding: 0.85rem 0;
+        border-bottom: 1px solid var(--border);
+        cursor: pointer;
+      }
+      .tih-event-item:last-child {
+        border-bottom: none;
+      }
+      .tih-event-item:hover .tih-event-text {
+        color: var(--blue-primary);
+      }
+      .tih-year-badge {
+        background: var(--text);
+        color: #fff;
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.68rem;
+        font-weight: 800;
+        padding: 3px 7px;
+        border-radius: 2px;
+        flex-shrink: 0;
+        margin-top: 2px;
+      }
+      body.dark .tih-year-badge {
+        background: #4d9de0;
+      }
+      .tih-event-text {
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.82rem;
+        line-height: 1.45;
+        color: var(--text);
+        transition: color 0.18s;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      /* CENTER: Hero article */
+      .home-center-col {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .home-hero-label {
+        margin-bottom: 0.7rem;
+      }
+      .home-hero-label span {
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        color: var(--text-muted);
+        border: 1px solid var(--border);
+        padding: 3px 14px;
+        border-radius: 999px;
+      }
+      .home-hero-title-wrap {
+        width: 100%;
+      }
+      .home-hero-title-wrap:hover .home-hero-title {
+        color: var(--blue-primary);
+      }
+      .home-hero-title {
+        font-family: "Source Serif 4", serif;
+        font-size: clamp(1.5rem, 2.5vw, 2.1rem);
+        font-weight: 700;
+        color: var(--text);
+        line-height: 1.3;
+        letter-spacing: -0.02em;
+        margin-bottom: 0.75rem;
+        transition: color 0.18s;
+      }
+      .home-hero-excerpt {
+        font-family: "Source Serif 4", serif;
+        font-size: 0.92rem;
+        color: var(--text-muted);
+        line-height: 1.65;
+        margin-bottom: 1.2rem;
+        max-width: 600px;
+        margin-left: auto;
+        margin-right: auto;
+      }
+      .home-hero-img-wrap {
+        width: 100%;
+        overflow: hidden;
+        border-radius: 2px;
+      }
+      .home-hero-img {
+        width: 100%;
+        max-height: 360px;
+        object-fit: cover;
+        display: block;
+        transition: transform 0.4s;
+      }
+      .home-hero-title-wrap:hover .home-hero-img {
+        transform: scale(1.02);
+      }
+
+      /* RIGHT: Terpopuler */
+      .home-right-col {
+      }
+      .terpopuler-header {
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.65rem;
+        font-weight: 800;
+        letter-spacing: 3px;
+        color: var(--blue-primary);
+        text-align: center;
+        margin-bottom: 1.2rem;
+        padding-bottom: 0.6rem;
+        border-bottom: 2px solid var(--blue-primary);
+      }
+      .terpopuler-list {
+        display: flex;
+        flex-direction: column;
+        gap: 0;
+      }
+      .terpopuler-item {
+        display: flex;
+        gap: 0.8rem;
+        align-items: flex-start;
+        padding: 0.85rem 0;
+        border-bottom: 1px solid var(--border);
+        cursor: pointer;
+        transition: background 0.18s;
+      }
+      .terpopuler-item:last-child {
+        border-bottom: none;
+      }
+      .terpopuler-item:hover .terpopuler-title {
+        color: var(--blue-primary);
+      }
+      .terpopuler-img-wrap {
+        width: 80px;
+        height: 60px;
+        flex-shrink: 0;
+        overflow: hidden;
+        border-radius: 3px;
+      }
+      .terpopuler-img-wrap img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s;
+      }
+      .terpopuler-item:hover .terpopuler-img-wrap img {
+        transform: scale(1.05);
+      }
+      .terpopuler-body {
+        flex: 1;
+        min-width: 0;
+      }
+      .terpopuler-cat {
+        display: inline-block;
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.6rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        color: var(--text-muted);
+        border: 1px solid var(--border);
+        padding: 1px 7px;
+        border-radius: 999px;
+        margin-bottom: 5px;
+      }
+      .terpopuler-title {
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.85rem;
+        font-weight: 700;
+        line-height: 1.35;
+        color: var(--text);
+        transition: color 0.18s;
+        display: -webkit-box;
+        -webkit-line-clamp: 3;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      /* ===== ARTIKEL TERBARU SECTION ===== */
+      .home-terbaru-section {
+        margin-bottom: 2.5rem;
+      }
+      .home-terbaru-header {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        margin-bottom: 1.4rem;
+      }
+      .home-terbaru-header::before {
+        content: "";
+        width: 4px;
+        height: 22px;
+        background: var(--blue-primary);
+        display: block;
+        flex-shrink: 0;
+      }
+      .home-terbaru-title {
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 3px;
+        text-transform: uppercase;
+        color: var(--text);
+      }
+      .home-terbaru-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 1.5rem;
+      }
+      .home-terbaru-card {
+        cursor: pointer;
+        display: flex;
+        flex-direction: column;
+      }
+      .home-terbaru-card-img {
+        width: 100%;
+        height: 170px;
+        overflow: hidden;
+        border-radius: 3px;
+        margin-bottom: 0.8rem;
+      }
+      .home-terbaru-card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.4s;
+      }
+      .home-terbaru-card:hover .home-terbaru-card-img img {
+        transform: scale(1.04);
+      }
+      .home-terbaru-card-body {
+        flex: 1;
+      }
+      .home-terbaru-card-cat {
+        display: inline-block;
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.6rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        color: var(--text-muted);
+        border: 1px solid var(--border);
+        padding: 2px 9px;
+        border-radius: 999px;
+        margin-bottom: 6px;
+      }
+      .home-terbaru-card-title {
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.98rem;
+        font-weight: 700;
+        line-height: 1.38;
+        color: var(--text);
+        margin-bottom: 6px;
+        transition: color 0.18s;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .home-terbaru-card:hover .home-terbaru-card-title {
+        color: var(--blue-primary);
+      }
+      .home-terbaru-card-excerpt {
+        font-family: "Source Serif 4", serif;
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        line-height: 1.55;
+        margin-bottom: 6px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .home-terbaru-card-meta {
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.65rem;
+        color: #aaa;
+      }
+
+      /* ===== AD STRIP ===== */
+      .home-ad-strip {
+        margin-bottom: 2.5rem;
+      }
+
+      /* ===== ARTIKEL LAINNYA HEADER ===== */
+      .home-lainnya-header {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-bottom: 2rem;
+        padding-bottom: 0.75rem;
+        border-bottom: 1px solid var(--border);
+        position: relative;
+      }
+      .home-lainnya-title {
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 4px;
+        color: var(--text);
+        margin-bottom: 0.4rem;
+        position: relative;
+      }
+      .home-lainnya-title::after {
+        content: "";
+        display: block;
+        width: 40px;
+        height: 2px;
+        background: var(--blue-primary);
+        margin: 6px auto 0;
+      }
+      .home-lainnya-selengkapnya {
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.72rem;
+        color: var(--text-muted);
+        text-decoration: none;
+        transition: color 0.18s;
+      }
+      .home-lainnya-selengkapnya:hover {
+        color: var(--blue-primary);
+      }
+
+      /* ===== MORE ARTICLES SECTION ===== */
+      .home-more-section {
+        max-width: 1280px;
+        margin: 0 auto;
+        padding: 2rem 2rem 3rem;
+      }
+      .home-more-inner {
+      }
+      .home-more-articles {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0;
+      }
+      .home-more-card {
+        display: flex;
+        gap: 1rem;
+        align-items: flex-start;
+        padding: 1.2rem 1rem 1.2rem 0;
+        border-bottom: 1px solid var(--border);
+        cursor: pointer;
+        transition: background 0.18s;
+      }
+      .home-more-card:nth-child(odd) {
+        padding-right: 2rem;
+        border-right: 1px solid var(--border);
+      }
+      .home-more-card:nth-child(even) {
+        padding-left: 2rem;
+      }
+      .home-more-card:hover {
+        background: var(--blue-light);
+      }
+      .home-more-card-img {
+        width: 130px;
+        height: 90px;
+        flex-shrink: 0;
+        overflow: hidden;
+        border-radius: 3px;
+      }
+      .home-more-card-img img {
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        transition: transform 0.3s;
+      }
+      .home-more-card:hover .home-more-card-img img {
+        transform: scale(1.04);
+      }
+      .home-more-card-body {
+        flex: 1;
+        min-width: 0;
+      }
+      .home-more-card-cat {
+        display: inline-block;
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.6rem;
+        font-weight: 700;
+        letter-spacing: 0.5px;
+        color: var(--text-muted);
+        border: 1px solid var(--border);
+        padding: 1px 8px;
+        border-radius: 999px;
+        margin-bottom: 6px;
+      }
+      .home-more-card-title {
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.95rem;
+        font-weight: 700;
+        line-height: 1.35;
+        color: var(--text);
+        margin-bottom: 5px;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+      .home-more-card-excerpt {
+        font-family: "Source Serif 4", serif;
+        font-size: 0.78rem;
+        color: var(--text-muted);
+        line-height: 1.5;
+        display: -webkit-box;
+        -webkit-line-clamp: 2;
+        -webkit-box-orient: vertical;
+        overflow: hidden;
+      }
+
+      /* Mobile-only blocks: hidden on desktop */
+      .home-mobile-tih,
+      .home-mobile-terpopuler {
+        display: none;
+      }
+
+      @media (max-width: 1024px) {
+        .home-three-col {
+          grid-template-columns: 180px 1fr 220px;
+          gap: 1.5rem;
+        }
+      }
+      @media (max-width: 768px) {
+        .home-three-col {
+          grid-template-columns: 1fr;
+          padding: 1rem;
+          gap: 1.5rem;
+        }
+        .home-right-col {
+          display: none;
+        }
+        .home-more-articles {
+          grid-template-columns: 1fr;
+        }
+        .home-more-card:nth-child(odd) {
+          padding-right: 0;
+          border-right: none;
+        }
+        .home-more-card:nth-child(even) {
+          padding-left: 0;
+        }
+        .home-more-section {
+          padding: 1rem;
+        }
+        .home-tag-bar-inner {
+          padding: 0 1rem;
+        }
+        /* Show mobile-only blocks */
+        .home-mobile-tih {
+          display: block;
+          margin-bottom: 1.5rem;
+        }
+        .home-mobile-terpopuler {
+          display: block;
+        }
+        .home-mobile-terpopuler-list {
+          display: flex;
+          flex-direction: column;
+          border-top: 1px solid var(--border);
+        }
+        /* Mobile terbaru: horizontal scroll single row */
+        .home-terbaru-grid {
+          grid-template-columns: unset;
+          display: flex;
+          flex-direction: row;
+          overflow-x: auto;
+          gap: 0.9rem;
+          padding-bottom: 0.5rem;
+          -webkit-overflow-scrolling: touch;
+          scrollbar-width: none;
+        }
+        .home-terbaru-grid::-webkit-scrollbar {
+          display: none;
+        }
+        .home-terbaru-card {
+          min-width: 200px;
+          max-width: 200px;
+          flex-shrink: 0;
+        }
+        .home-terbaru-card-img {
+          height: 130px;
+        }
+      }
+      @media (max-width: 600px) {
+        .home-left-col {
+          display: none;
+        }
+      }
+      /* ===== END HISTORIA LAYOUT ===== */
+
       /* Tag di halaman artikel */
       .article-tags-wrap {
         margin: 2rem 0 1rem;
@@ -5427,210 +6052,277 @@
           if (catsCount[a.category] !== undefined) catsCount[a.category]++;
         });
 
-        const html = `
- <div class="hero">
- <div class="hero-bg"></div>
- <div class="hero-content">
- <div class="hero-text-wrap">
- <p class="hero-eyebrow"> Temukan Kisah Masa Lalu</p>
- <h1>Mempelajari Sejarah, Memahami Masa Depan.</h1>
- <p>Temukan kisah, peristiwa, dan tokoh bersejarah dari Indonesia hingga dunia.</p>
- <button class="btn-hero" id="scrollToArticles">Jelajahi Artikel </button>
- </div>
- </div>
- </div>
- <div class="home-ticker-bar">
- <div class="home-ticker-label"><span>Sejarah Hari Ini</span></div>
- <div class="home-ticker-track-wrap">
- <div class="home-ticker-track" id="homeTickerTrack">
- <span class="home-ticker-item">Selamat datang di Fakta Sejarah — temukan kisah, tokoh, dan peristiwa bersejarah dari Nusantara hingga dunia!</span>
- <span class="home-ticker-sep">|</span>
- <span class="home-ticker-item">Setiap hari hadir artikel terbaru — jangan lewatkan kisah sejarah yang menginspirasi!</span>
- <span class="home-ticker-sep">|</span>
- <span class="home-ticker-item">Ada saran atau masukan? Sampaikan di kolom Saran &amp; Masukan — kami membaca setiap pesan!</span>
- <span class="home-ticker-sep">|</span>
- <span class="home-ticker-item">Jelajahi kategori Tokoh, Peristiwa, dan Artikel untuk menemukan konten pilihan sesuai minat Anda.</span>
- <span class="home-ticker-sep">|</span>
- </div>
- </div>
- </div>
- <div class="main">
- <div>
+        // Most recent article (hero center)
+        const latestArticle = filtered.length > 0 ? filtered[0] : null;
+        // Today in history entries (static sample, replaced by loadTodayHistory)
+        const popularSorted4 = [...allArticles]
+          .sort((a, b) => (b.views || 0) - (a.views || 0))
+          .slice(0, 4);
 
+        const html = `
+ <!-- Sticky tag bar below nav -->
+ <div class="home-tag-bar" id="homeTagBar">
+   <div class="home-tag-bar-inner">
+     <span class="home-tag-bar-label">TRENDING :</span>
+     <div class="home-tag-bar-tags" id="homeTagBarTags">
+       <span style="font-family:'Public Sans',sans-serif;font-size:0.75rem;color:var(--text-muted);">Memuat...</span>
+     </div>
+   </div>
+ </div>
+
+ <!-- 3-column hero layout — only on page 1 -->
  ${
    currentPage === 1
      ? `
- <div class="section-header">
- <h2>Artikel Terbaru</h2>
- </div>
- <div class="featured-articles-row" id="featuredArticlesRow">
- ${filtered
-   .slice(0, 3)
-   .map(
-     (a) => `
- <div class="featured-card" data-id="${a.id}">
- <div class="featured-card-img"><img src="${a.image_url || "https://via.placeholder.com/400x180/2D1F0E/C9972B?text=Sejarah"}" onerror="this.src='https://via.placeholder.com/400x180/2D1F0E/C9972B?text=Sejarah'"></div>
- <div class="featured-card-body">
- ${getFirstTagName(a) ? `<span class="featured-card-cat">${escapeHtml(getFirstTagName(a))}</span>` : ""}
- <h3>${escapeHtml(a.title)}</h3>
- <p>${escapeHtml(a.excerpt || "")}</p>
- <div class="featured-card-meta">${formatDate(a.created_at)}</div>
- </div>
- </div>
- `,
-   )
-   .join("")}
- </div>
- `
-     : ""
- }
- ${
-   currentPage === 1
-     ? `
- <div class="ad-slider-wrapper">
-   <div class="ad-slider-container" id="adSliderContainer">
-     <div class="ad-slide ad-slide-active">
-       <img src="/4.png" alt="TikTok & Instagram - Fakta Sejarah" />
-     </div>
-     <div class="ad-slide">
-       <img src="/2.png" alt="Biasakan Membaca Setiap Hari" />
+ <div class="home-three-col">
+
+   <!-- LEFT: Today in History -->
+   <div class="home-left-col">
+     <div class="today-in-history-widget">
+       <div class="tih-date-block">
+         <div class="tih-month" id="tihMonth">Jun</div>
+         <div class="tih-day" id="tihDay">7</div>
+       </div>
+       <div class="tih-brand">
+         <span class="tih-today">today</span>
+         <span class="tih-in">in</span>
+         <span class="tih-history">history</span>
+       </div>
+       <div class="tih-events" id="tihEvents">
+         <div class="tih-event-item">
+           <div class="tih-year-badge">...</div>
+           <div class="tih-event-text">Memuat peristiwa hari ini...</div>
+         </div>
+       </div>
      </div>
    </div>
-   <div class="ad-slider-dots" id="adSliderDots">
-     <span class="ad-dot ad-dot-active" data-index="0"></span>
-     <span class="ad-dot" data-index="1"></span>
+
+   <!-- CENTER: Latest article hero -->
+   <div class="home-center-col">
+     ${
+       latestArticle
+         ? `
+     <div class="home-hero-label">
+       <span>Premium</span>
+     </div>
+     <div class="home-hero-title-wrap" data-id="${latestArticle.id}" style="cursor:pointer;">
+       <h1 class="home-hero-title">${escapeHtml(latestArticle.title)}</h1>
+       <p class="home-hero-excerpt">${escapeHtml(latestArticle.excerpt || "")}</p>
+       <div class="home-hero-img-wrap">
+         <img src="${latestArticle.image_url || "https://via.placeholder.com/700x400/2D1F0E/C9972B?text=Sejarah"}" onerror="this.src='https://via.placeholder.com/700x400/2D1F0E/C9972B?text=Sejarah'" alt="${escapeHtml(latestArticle.title)}" class="home-hero-img">
+       </div>
+     </div>
+     `
+         : '<div style="padding:3rem;text-align:center;color:var(--text-muted);">Memuat artikel...</div>'
+     }
    </div>
- </div>
- `
-     : ""
- }
- <div class="section-header">
- <h2>${currentPage === 1 ? "Artikel" : "Artikel"}</h2>
- <a href="#" style="margin-left:auto; font-family:'Public Sans',sans-serif; font-size:0.78rem; color:var(--blue-primary); text-decoration:none; display:flex; align-items:center; gap:4px;" id="lihatSemua"></a>
- </div>
- <div class="articles-grid" id="articlesGrid">
- ${
-   paginated.length === 0
-     ? '<div style="grid-column:1/-1; text-align:center; padding:2rem;">Tidak ada artikel di kategori ini.</div>'
-     : paginated
+
+   <!-- RIGHT: Terpopuler -->
+   <div class="home-right-col">
+     <div class="terpopuler-header">TERPOPULER</div>
+     <div class="terpopuler-list" id="terpopulerList">
+       ${popularSorted4
          .map(
            (a) => `
- <div class="card" data-id="${a.id}">
- <div class="card-img"><img src="${a.image_url || "https://via.placeholder.com/400x180/2D1F0E/C9972B?text=Sejarah"}" onerror="this.src='https://via.placeholder.com/400x180/2D1F0E/C9972B?text=Sejarah'"></div>
- <div class="card-body"><span class="card-cat">${escapeHtml(getFirstTagName(a) || a.category)}</span><h3>${escapeHtml(a.title)}</h3><p>${escapeHtml(a.excerpt || "")}</p><div class="card-meta">${formatDate(a.created_at)}</div></div>
- </div>
- `,
+       <div class="terpopuler-item" data-id="${a.id}">
+         <div class="terpopuler-img-wrap">
+           <img src="${a.image_url || "https://via.placeholder.com/80x60/2D1F0E/C9972B?text=S"}" onerror="this.src='https://via.placeholder.com/80x60/2D1F0E/C9972B?text=S'" alt="${escapeHtml(a.title)}">
+         </div>
+         <div class="terpopuler-body">
+           ${getFirstTagName(a) ? `<span class="terpopuler-cat">${escapeHtml(getFirstTagName(a))}</span>` : ""}
+           <div class="terpopuler-title">${escapeHtml(a.title)}</div>
+         </div>
+       </div>
+       `,
          )
-         .join("")
- }
+         .join("")}
+     </div>
+   </div>
+
  </div>
- ${
-   totalPages > 1
-     ? `
- <div class="pagination" id="paginationControls">
- <button class="page-btn" id="prevPageBtn" ${currentPage === 1 ? "disabled" : ""}> Sebelumnya</button>
- ${Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
-   let pageNum = i + 1;
-   if (totalPages > 5 && currentPage > 3) {
-     pageNum = currentPage - 2 + i;
-     if (pageNum > totalPages) return "";
-     if (pageNum < 1) return "";
-   }
-   return `<button class="page-btn ${currentPage === pageNum ? "active" : ""}" data-page="${pageNum}">${pageNum}</button>`;
- }).join("")}
- ${totalPages > 5 && currentPage < totalPages - 2 ? '<span style="padding:0 4px;">...</span>' : ""}
- ${totalPages > 5 && currentPage < totalPages - 2 ? `<button class="page-btn" data-page="${totalPages}">${totalPages}</button>` : ""}
- <button class="page-btn" id="nextPageBtn" ${currentPage === totalPages ? "disabled" : ""}>Selanjutnya </button>
- </div>
- <div class="page-info">Halaman ${currentPage} dari ${totalPages} • Total ${filtered.length} artikel</div>
  `
      : ""
  }
- 
- <div style="margin-top: 3rem">
- <div class="section-header"><h2>Artikel Populer</h2></div>
- <div class="popular-list" id="popularList">
- ${popularSorted
-   .map(
-     (a, i) => `
- <div class="pop-item" data-id="${a.id}">
- <div class="pop-num">${i + 1}</div>
- <img class="pop-img" src="${a.image_url || "https://via.placeholder.com/80x60/2D1F0E/C9972B?text=S"}" onerror="this.src='https://via.placeholder.com/80x60/2D1F0E/C9972B?text=S'">
- <div class="pop-text"><h4>${escapeHtml(a.title)}</h4><div class="date">${formatDate(a.created_at)}</div></div>
- </div>
- `,
-   )
-   .join("")}
- </div>
- </div>
- </div>
- <aside class="sidebar">
- <div class="sidebar-widget" style="border-radius:6px; border:1px solid var(--border);">
- <h3 style="display:flex;align-items:center;gap:8px;font-size:0.72rem;letter-spacing:2px;border-bottom:1px solid var(--border);padding-bottom:0.8rem;margin-bottom:1rem;font-family:'Public Sans',sans-serif;font-weight:700;">
- <img src="/kalender-icon.png" alt="kalender" style="width:26px;height:26px;object-fit:contain;filter:invert(27%) sepia(90%) saturate(600%) hue-rotate(195deg) brightness(0.85);"> PERISTIWA HARI INI
- </h3>
- <div id="todayWidget" style="padding:0;">
- <div style="display:flex;gap:10px;align-items:flex-start;">
- <div style="display:flex;flex-direction:column;align-items:center;flex-shrink:0;padding-top:3px;">
- <div style="width:10px;height:10px;background:var(--blue-primary);border-radius:50%;"></div>
- <div style="width:2px;flex:1;background:var(--border);margin-top:4px;min-height:40px;"></div>
- </div>
- <div>
- <div style="font-family:'Public Sans',sans-serif; font-size:0.82rem; font-weight:700; color:var(--text); margin-bottom:0.3rem;" id="todayDate">—</div>
- <div style="font-size:0.8rem; color:var(--text-muted); line-height:1.55;" id="todayText">Memuat kisah...</div>
- </div>
- </div>
- <div class="tw-link" id="todayLink" style="display:none; margin-top:1rem; color:var(--blue-primary); font-family:'Public Sans',sans-serif; font-size:0.78rem; font-weight:500;">Lihat peristiwa lainnya →</div>
- </div>
- </div>
- <div class="sidebar-widget" style="border-radius:6px; border:1px solid var(--border);">
- <h3 style="display:flex;align-items:center;gap:8px;font-size:0.72rem;letter-spacing:2px;border-bottom:1px solid var(--border);padding-bottom:0.8rem;margin-bottom:1rem;font-family:'Public Sans',sans-serif;font-weight:700;">
- <span style="font-size:1.1rem;"></span> POPULER MINGGU INI
- </h3>
- <div style="display:flex;flex-direction:column;gap:0.7rem;">
- ${popularSorted
-   .map(
-     (a, i) => `
- <div class="pop-item" data-id="${a.id}" style="display:flex;gap:10px;align-items:flex-start;cursor:pointer;">
- <div style="width:24px;height:24px;background:var(--blue-primary);color:#fff;font-family:'Public Sans',sans-serif;font-size:0.72rem;font-weight:700;display:flex;align-items:center;justify-content:center;border-radius:50%;flex-shrink:0;margin-top:1px;">${i + 1}</div>
- <div style="flex:1;min-width:0;font-family:'Public Sans',sans-serif;font-size:0.82rem;line-height:1.4;color:var(--text);">${escapeHtml(a.title)}</div>
- </div>
- `,
-   )
-   .join("")}
- </div>
- <div style="margin-top:1rem;"><a href="#" style="font-family:'Public Sans',sans-serif;font-size:0.78rem;color:var(--blue-primary);text-decoration:none;font-weight:500;">Lihat semua populer →</a></div>
- </div>
- <div class="feedback-widget">
- <h3> Saran &amp; Masukan</h3>
- <p>Ada saran, masukan, atau pertanyaan untuk kami? Sampaikan langsung — kami selalu terbuka untuk perbaikan.</p>
- <button class="feedback-widget-btn" id="openFeedbackSidebar">Kirim Masukan</button>
- </div>
- <div class="sidebar-widget" style="border-radius:6px; border:1px solid var(--border);">
- <h3 style="display:flex;align-items:center;gap:8px;font-size:0.72rem;letter-spacing:2px;border-bottom:1px solid var(--border);padding-bottom:0.8rem;margin-bottom:1rem;font-family:'Public Sans',sans-serif;font-weight:700;">
- <span style="font-size:1.1rem;"></span> TAG POPULER
- </h3>
- <div class="popular-tags-wrap" id="popularTagsWidget">
- <span style="font-family:'Public Sans',sans-serif;font-size:0.75rem;color:var(--text-muted);">Memuat tag...</span>
- </div>
- </div>
- </aside>
+
+ <!-- More articles section -->
+ <div class="home-more-section">
+   <div class="home-more-inner">
+
+     <!-- 3 Artikel Terbaru -->
+     ${
+       currentPage === 1
+         ? `
+     <div class="home-terbaru-section">
+       <div class="home-terbaru-header">
+         <h2 class="home-terbaru-title">Artikel Terbaru</h2>
+       </div>
+       <div class="home-terbaru-grid">
+         ${filtered
+           .slice(0, 3)
+           .map(
+             (a) => `
+         <div class="home-terbaru-card" data-id="${a.id}">
+           <div class="home-terbaru-card-img">
+             <img src="${a.image_url || "https://via.placeholder.com/400x220/2D1F0E/C9972B?text=Sejarah"}" onerror="this.src='https://via.placeholder.com/400x220/2D1F0E/C9972B?text=Sejarah'" alt="${escapeHtml(a.title)}">
+           </div>
+           <div class="home-terbaru-card-body">
+             ${getFirstTagName(a) ? `<span class="home-terbaru-card-cat">${escapeHtml(getFirstTagName(a))}</span>` : ""}
+             <h3 class="home-terbaru-card-title">${escapeHtml(a.title)}</h3>
+             <p class="home-terbaru-card-excerpt">${escapeHtml(a.excerpt || "")}</p>
+             <div class="home-terbaru-card-meta">${formatDate(a.created_at)}</div>
+           </div>
+         </div>
+         `,
+           )
+           .join("")}
+       </div>
+     </div>
+
+     <!-- Mobile: Today in History (hidden on desktop) -->
+     <div class="home-mobile-tih">
+       <div class="home-terbaru-header">
+         <h2 class="home-terbaru-title">Today in History</h2>
+       </div>
+       <div class="today-in-history-widget">
+         <div style="display:flex;align-items:baseline;gap:6px;margin-bottom:4px;">
+           <div class="tih-month" id="tihMonthMobile">Jun</div>
+           <div class="tih-day" id="tihDayMobile" style="font-size:2rem;">7</div>
+           <div class="tih-brand" style="margin-bottom:0;border-bottom:none;padding-bottom:0;">
+             <span class="tih-today">today</span>
+             <span class="tih-in">in</span>
+             <span class="tih-history">history</span>
+           </div>
+         </div>
+         <div class="tih-events" id="tihEventsMobile">
+           <div class="tih-event-item">
+             <div class="tih-year-badge">...</div>
+             <div class="tih-event-text">Memuat peristiwa hari ini...</div>
+           </div>
+         </div>
+       </div>
+     </div>
+
+     <!-- Ad Slider -->
+     <div class="home-ad-strip">
+       <div class="ad-slider-wrapper" style="margin:0; border-radius:4px;">
+         <div class="ad-slider-container" id="adSliderContainer">
+           <div class="ad-slide ad-slide-active">
+             <img src="/4.png" alt="TikTok & Instagram - Fakta Sejarah" />
+           </div>
+           <div class="ad-slide">
+             <img src="/2.png" alt="Biasakan Membaca Setiap Hari" />
+           </div>
+         </div>
+         <div class="ad-slider-dots" id="adSliderDots">
+           <span class="ad-dot ad-dot-active" data-index="0"></span>
+           <span class="ad-dot" data-index="1"></span>
+         </div>
+       </div>
+     </div>
+     `
+         : ""
+     }
+
+     <!-- Artikel Lainnya header -->
+     <div class="home-lainnya-header">
+       <h2 class="home-lainnya-title">ARTIKEL LAINNYA</h2>
+       <a class="home-lainnya-selengkapnya" href="#"></a>
+     </div>
+
+     <div class="home-more-articles" id="articlesGrid">
+       ${
+         paginated.length === 0
+           ? '<div style="text-align:center;padding:2rem;color:var(--text-muted);">Tidak ada artikel lainnya.</div>'
+           : paginated
+               .map(
+                 (a) => `
+           <div class="home-more-card" data-id="${a.id}">
+             <div class="home-more-card-img">
+               <img src="${a.image_url || "https://via.placeholder.com/180x120/2D1F0E/C9972B?text=Sejarah"}" onerror="this.src='https://via.placeholder.com/180x120/2D1F0E/C9972B?text=Sejarah'" alt="${escapeHtml(a.title)}">
+             </div>
+             <div class="home-more-card-body">
+               ${getFirstTagName(a) ? `<span class="home-more-card-cat">${escapeHtml(getFirstTagName(a))}</span>` : ""}
+               <h3 class="home-more-card-title">${escapeHtml(a.title)}</h3>
+               <p class="home-more-card-excerpt">${escapeHtml(a.excerpt || "")}</p>
+             </div>
+           </div>
+           `,
+               )
+               .join("")
+       }
+     </div>
+     ${
+       totalPages > 1
+         ? `
+     <div class="pagination" id="paginationControls" style="margin-top:2rem;">
+     <button class="page-btn" id="prevPageBtn" ${currentPage === 1 ? "disabled" : ""}> Sebelumnya</button>
+     ${Array.from({ length: Math.min(totalPages, 5) }, (_, i) => {
+       let pageNum = i + 1;
+       if (totalPages > 5 && currentPage > 3) {
+         pageNum = currentPage - 2 + i;
+         if (pageNum > totalPages) return "";
+         if (pageNum < 1) return "";
+       }
+       return `<button class="page-btn ${currentPage === pageNum ? "active" : ""}" data-page="${pageNum}">${pageNum}</button>`;
+     }).join("")}
+     ${totalPages > 5 && currentPage < totalPages - 2 ? '<span style="padding:0 4px;">...</span>' : ""}
+     ${totalPages > 5 && currentPage < totalPages - 2 ? `<button class="page-btn" data-page="${totalPages}">${totalPages}</button>` : ""}
+     <button class="page-btn" id="nextPageBtn" ${currentPage === totalPages ? "disabled" : ""}>Selanjutnya </button>
+     </div>
+     <div class="page-info">Halaman ${currentPage} dari ${totalPages} • Total ${filtered.length} artikel</div>
+     `
+         : ""
+     }
+
+     <!-- Mobile: Terpopuler (hidden on desktop, shown after artikel lainnya) -->
+     ${
+       currentPage === 1
+         ? `
+     <div class="home-mobile-terpopuler">
+       <div class="home-terbaru-header" style="margin-top:2rem;">
+         <h2 class="home-terbaru-title" style="color:var(--blue-primary);">Terpopuler</h2>
+       </div>
+       <div class="home-mobile-terpopuler-list">
+         ${popularSorted4
+           .map(
+             (a) => `
+         <div class="terpopuler-item" data-id="${a.id}">
+           <div class="terpopuler-img-wrap">
+             <img src="${a.image_url || "https://via.placeholder.com/80x60/2D1F0E/C9972B?text=S"}" onerror="this.src='https://via.placeholder.com/80x60/2D1F0E/C9972B?text=S'" alt="${escapeHtml(a.title)}">
+           </div>
+           <div class="terpopuler-body">
+             ${getFirstTagName(a) ? `<span class="terpopuler-cat">${escapeHtml(getFirstTagName(a))}</span>` : ""}
+             <div class="terpopuler-title">${escapeHtml(a.title)}</div>
+           </div>
+         </div>
+         `,
+           )
+           .join("")}
+       </div>
+     </div>
+     `
+         : ""
+     }
+
+   </div>
  </div>
  `;
         document.getElementById("appRoot").innerHTML = html;
         attachHomeEvents();
-        loadTodayHistory();
+        loadTodayHistoryWidget();
         loadPopularTags();
+        loadTagBar();
       }
 
       function attachHomeEvents() {
         document
-          .querySelectorAll(".card, .pop-item, .featured-card")
+          .querySelectorAll(
+            ".home-more-card, .terpopuler-item, .home-hero-title-wrap, .home-terbaru-card",
+          )
           .forEach((el) => {
             el.addEventListener("click", (e) => {
               const id = el.getAttribute("data-id");
               if (id) {
-                // Simpan posisi saat ini sebelum pergi ke artikel
                 lastFilter = currentFilter;
                 lastPage = currentPage;
                 navigateToArticle(id);
@@ -6048,6 +6740,137 @@
           lastFilter = currentFilter;
           lastPage = currentPage;
           navigateToArticle(null, todayHistoryItem);
+        }
+      }
+
+      // Load today in history widget for new homepage
+      async function loadTodayHistoryWidget() {
+        const d = new Date();
+        const monthNames = [
+          "Jan",
+          "Feb",
+          "Mar",
+          "Apr",
+          "Mei",
+          "Jun",
+          "Jul",
+          "Agu",
+          "Sep",
+          "Okt",
+          "Nov",
+          "Des",
+        ];
+
+        // Populate both desktop and mobile date elements
+        ["tihMonth", "tihMonthMobile"].forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) el.textContent = monthNames[d.getMonth()];
+        });
+        ["tihDay", "tihDayMobile"].forEach((id) => {
+          const el = document.getElementById(id);
+          if (el) el.textContent = d.getDate();
+        });
+
+        const eventsEl = document.getElementById("tihEvents");
+        const eventsElMobile = document.getElementById("tihEventsMobile");
+        if (!eventsEl && !eventsElMobile) return;
+
+        try {
+          const { data } = await db
+            .from("daily_history")
+            .select("*")
+            .eq("published", true)
+            .gt("expires_at", new Date().toISOString())
+            .order("created_at", { ascending: false })
+            .limit(4);
+
+          const renderEvents = (containerEl, dataArr) => {
+            if (!containerEl) return;
+            if (dataArr && dataArr.length) {
+              containerEl.innerHTML = dataArr
+                .map(
+                  (item) => `
+                <div class="tih-event-item" data-tih-id="${item.id}">
+                  <div class="tih-year-badge">${item.hist_date ? item.hist_date.substring(0, 4) : "—"}</div>
+                  <div class="tih-event-text">${escapeHtml(item.title || item.excerpt || "")}</div>
+                </div>
+              `,
+                )
+                .join("");
+              containerEl
+                .querySelectorAll(".tih-event-item")
+                .forEach((el, i) => {
+                  el.addEventListener("click", () => {
+                    if (dataArr[i]) {
+                      lastFilter = currentFilter;
+                      lastPage = currentPage;
+                      navigateToArticle(null, dataArr[i]);
+                    }
+                  });
+                });
+            } else {
+              containerEl.innerHTML = `<div class="tih-event-item"><div class="tih-year-badge">—</div><div class="tih-event-text">Belum ada kisah sejarah untuk hari ini.</div></div>`;
+            }
+          };
+
+          if (data && data.length) todayHistoryItem = data[0];
+          renderEvents(eventsEl, data);
+          renderEvents(eventsElMobile, data);
+        } catch (e) {
+          console.warn(e);
+          const errHtml = `<div class="tih-event-item"><div class="tih-year-badge">—</div><div class="tih-event-text">Gagal memuat data.</div></div>`;
+          if (eventsEl) eventsEl.innerHTML = errHtml;
+          if (eventsElMobile) eventsElMobile.innerHTML = errHtml;
+        }
+      }
+
+      // Load tag bar
+      async function loadTagBar() {
+        const el = document.getElementById("homeTagBarTags");
+        if (!el) return;
+        try {
+          const { data } = await db.from("tags").select("name").limit(12);
+          if (data && data.length) {
+            el.innerHTML = data
+              .map(
+                (t) =>
+                  `<span class="home-tag-bar-chip">#${escapeHtml(t.name)}</span>`,
+              )
+              .join("");
+            el.querySelectorAll(".home-tag-bar-chip").forEach((chip, i) => {
+              chip.addEventListener("click", () => {
+                // filter articles by tag name if possible
+              });
+            });
+          } else {
+            // Fallback: use categories from articles
+            const cats = [
+              ...new Set(
+                allArticles
+                  .map((a) => getFirstTagName(a) || a.category)
+                  .filter(Boolean),
+              ),
+            ].slice(0, 12);
+            el.innerHTML = cats
+              .map(
+                (c) =>
+                  `<span class="home-tag-bar-chip">#${escapeHtml(c)}</span>`,
+              )
+              .join("");
+          }
+        } catch (e) {
+          const cats = [
+            ...new Set(
+              allArticles
+                .map((a) => getFirstTagName(a) || a.category)
+                .filter(Boolean),
+            ),
+          ].slice(0, 12);
+          el.innerHTML = cats
+            .map(
+              (c) => `<span class="home-tag-bar-chip">#${escapeHtml(c)}</span>`,
+            )
+            .join("");
         }
       }
 
