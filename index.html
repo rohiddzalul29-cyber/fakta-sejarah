@@ -61,27 +61,54 @@
         -webkit-tap-highlight-color: transparent !important;
         outline: none;
       }
-      /* Nonaktifkan semua efek hover di perangkat touch (no hover capability) */
+      /* Nonaktifkan efek hover spesifik di perangkat touch */
       @media (hover: none) {
-        *:hover {
-          background-color: inherit !important;
+        .card:hover {
+          background: transparent !important;
+          padding-left: 0 !important;
+          padding-right: 0 !important;
+          margin-left: 0 !important;
+          margin-right: 0 !important;
+        }
+        .card:hover .card-img img {
+          transform: none !important;
+        }
+        .home-tag-bar-chip:hover,
+        .popular-tag-chip:hover,
+        .article-tag-chip:hover,
+        .article-tagbar-chip:hover,
+        .sidebar-tag-chip:hover {
           color: inherit !important;
-          border-color: inherit !important;
-          box-shadow: inherit !important;
-          opacity: inherit !important;
-          transform: inherit !important;
-          text-decoration: inherit !important;
-          filter: inherit !important;
         }
-        /* Kecuali nav link active (halaman aktif tetap tampil) */
-        .nav-links a.active {
-          color: var(--blue-primary) !important;
-          border-bottom-color: var(--blue-primary) !important;
+        .tih-event-item:hover .tih-event-text {
+          color: inherit !important;
         }
-        /* Input/textarea tetap bisa fokus normal */
-        input:focus,
-        textarea:focus {
-          outline: revert !important;
+        .terpopuler-item:hover .terpopuler-title {
+          color: inherit !important;
+        }
+        .terpopuler-item:hover .terpopuler-img-wrap img {
+          transform: none !important;
+        }
+        .article-popular-item:hover {
+          background: none !important;
+        }
+        .article-mobile-popular-item:hover {
+          background: none !important;
+        }
+        .home-hero-title-wrap:hover .home-hero-title {
+          color: inherit !important;
+        }
+        .nav-links a:hover:not(.active) {
+          color: #444 !important;
+          border-bottom-color: transparent !important;
+        }
+        .nav-dropdown a:hover {
+          color: var(--blue-dark) !important;
+          background: none !important;
+        }
+        .share-btn:hover {
+          background: none !important;
+          color: inherit !important;
         }
       }
       body {
