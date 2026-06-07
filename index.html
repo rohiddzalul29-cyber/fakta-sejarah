@@ -34,12 +34,31 @@
         margin: 0;
         padding: 0;
         box-sizing: border-box;
-        -webkit-tap-highlight-color: transparent;
+        -webkit-tap-highlight-color: transparent !important;
         -webkit-touch-callout: none;
       }
       a,
-      button {
-        -webkit-tap-highlight-color: transparent;
+      button,
+      [role="button"],
+      [data-id],
+      [data-tag],
+      .card,
+      .card *,
+      .home-tag-bar-chip,
+      .popular-tag-chip,
+      .article-tag-chip,
+      .article-tagbar-chip,
+      .home-tag-bar-chip,
+      .tih-event-item,
+      .terpopuler-item,
+      .article-popular-item,
+      .article-mobile-popular-item,
+      .home-hero-title-wrap,
+      .nav-hamburger-side,
+      .sidebar-tag-chip,
+      span[data-tag],
+      div[data-id] {
+        -webkit-tap-highlight-color: transparent !important;
         outline: none;
       }
       body {
@@ -6231,7 +6250,7 @@
        latestArticle
          ? `
      <div class="home-hero-label">
-       <span>Terbaru</span>
+       <span>Premium</span>
      </div>
      <div class="home-hero-title-wrap" data-id="${latestArticle.id}" style="cursor:pointer;">
        <h1 class="home-hero-title">${escapeHtml(latestArticle.title)}</h1>
@@ -7550,12 +7569,7 @@
             var tags = Array.isArray(a.tags)
               ? a.tags
               : typeof a.tags === "string" && a.tags
-                ? a.tags
-                    .split(",")
-                    .map(function (t) {
-                      return t.trim();
-                    })
-                    .filter(Boolean)
+                ? a.tags.split(",").map(function (t) { return t.trim(); }).filter(Boolean)
                 : [];
             tags.forEach(function (t) {
               var name = normalizeTag(t);
@@ -7563,21 +7577,11 @@
             });
           });
           var sorted = Object.keys(tagCount)
-            .sort(function (a, b) {
-              return tagCount[b] - tagCount[a];
-            })
+            .sort(function (a, b) { return tagCount[b] - tagCount[a]; })
             .slice(0, 15);
-          return sorted
-            .map(function (t) {
-              return (
-                '<span class="home-tag-bar-chip article-tagbar-chip" data-tag="' +
-                escapeHtml(t) +
-                '">' +
-                escapeHtml(t) +
-                "</span>"
-              );
-            })
-            .join("");
+          return sorted.map(function (t) {
+            return '<span class="home-tag-bar-chip article-tagbar-chip" data-tag="' + escapeHtml(t) + '">' + escapeHtml(t) + '</span>';
+          }).join('');
         })();
 
         const html = `
@@ -7586,7 +7590,7 @@
    <div class="home-tag-bar-inner">
      <span class="home-tag-bar-label">TAG :</span>
      <div class="home-tag-bar-tags" id="articleTagBarTags">
-       ${articleTagBar || "<span style=\"font-family:'Public Sans',sans-serif;font-size:0.75rem;color:var(--text-muted);\">Belum ada tag.</span>"}
+       ${articleTagBar || '<span style="font-family:\'Public Sans\',sans-serif;font-size:0.75rem;color:var(--text-muted);">Belum ada tag.</span>'}
      </div>
    </div>
  </div>
@@ -7861,14 +7865,12 @@
  `;
         document.getElementById("appRoot").innerHTML = html;
         // Article tag bar chip events
-        document
-          .querySelectorAll(".article-tagbar-chip")
-          .forEach(function (chip) {
-            chip.addEventListener("click", function () {
-              var tag = chip.getAttribute("data-tag");
-              if (tag) navigateToTag(tag);
-            });
+        document.querySelectorAll(".article-tagbar-chip").forEach(function (chip) {
+          chip.addEventListener("click", function () {
+            var tag = chip.getAttribute("data-tag");
+            if (tag) navigateToTag(tag);
           });
+        });
         // Proses [person] dan [highlight] tags di konten artikel
         requestAnimationFrame(() => {
           const articleContent = document.querySelector(".article-content");
