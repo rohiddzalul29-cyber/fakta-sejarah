@@ -720,7 +720,7 @@
         position: relative;
         width: 100%;
         aspect-ratio: 1200 / 500;
-        background: #111;
+        background: transparent;
       }
       @media (max-width: 768px) {
         .ad-slider-wrapper {
@@ -2431,6 +2431,7 @@
       }
       .article-top-image {
         width: 100%;
+        position: relative;
       }
       .article-top-image img {
         width: 100%;
@@ -2439,6 +2440,7 @@
         border-radius: 0;
         display: block;
       }
+
       .article-top-popular {
         background: #fff;
         border: 1px solid var(--border);
@@ -4903,11 +4905,81 @@
       }
       .home-hero-img-wrap {
         width: 100%;
-        overflow: hidden;
+        overflow: visible;
         border-radius: 12px;
         box-shadow:
-          0 12px 36px rgba(0, 0, 0, 0.18),
-          0 4px 12px rgba(0, 0, 0, 0.1);
+          0 20px 60px rgba(0, 0, 0, 0.35),
+          0 8px 24px rgba(0, 0, 0, 0.2);
+        position: relative;
+      }
+      /* Inner wrap untuk clip gambar dengan border-radius */
+      .home-hero-img-clip {
+        width: 100%;
+        overflow: hidden;
+        border-radius: 12px;
+        position: relative;
+      }
+      /* Tombol panah — di bawah gambar, bukan menempel di atas */
+      .home-hero-scroll-btn {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 4px;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 0;
+        margin: 16px auto 0;
+        width: fit-content;
+      }
+      .home-hero-scroll-label {
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.6rem;
+        font-weight: 600;
+        letter-spacing: 2.5px;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        white-space: nowrap;
+      }
+      .home-hero-scroll-circle {
+        width: 38px;
+        height: 38px;
+        border-radius: 50%;
+        background: #ffffff;
+        border: 1px solid #dde5f0;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition:
+          box-shadow 0.2s,
+          transform 0.2s;
+      }
+      .home-hero-scroll-btn:hover .home-hero-scroll-circle {
+        box-shadow: 0 4px 18px rgba(26, 95, 168, 0.18);
+        transform: translateY(2px);
+      }
+      .home-hero-scroll-circle svg {
+        color: #9aabbf;
+        transition: color 0.2s;
+      }
+      .home-hero-scroll-btn:hover .home-hero-scroll-circle svg {
+        color: var(--blue-primary);
+      }
+      body.dark .home-hero-scroll-circle {
+        background: #1a1f2e;
+        border-color: #2a3344;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.35);
+      }
+      @media (max-width: 600px) {
+        .home-hero-scroll-circle {
+          width: 32px;
+          height: 32px;
+        }
+        .home-hero-scroll-label {
+          font-size: 0.52rem;
+          letter-spacing: 2px;
+        }
       }
       .home-hero-img {
         width: 100%;
@@ -5205,6 +5277,7 @@
 
       /* ===== ARTIKEL LAINNYA HEADER ===== */
       .home-lainnya-header {
+        scroll-margin-top: 88px;
         display: flex;
         flex-direction: column;
         align-items: center;
@@ -6543,6 +6616,10 @@
          </div>
        </div>
      </div>
+     <!-- Iklan di bawah Today in History -->
+     <div style="margin-top:1.2rem;border-radius:8px;overflow:hidden;">
+       <img src="/5.png" alt="Biasakan Membaca Setiap Hari" style="width:100%;display:block;border-radius:8px;" />
+     </div>
    </div>
 
    <!-- CENTER: Latest article hero -->
@@ -6557,8 +6634,16 @@
        <h1 class="home-hero-title">${escapeHtml(latestArticle.title)}</h1>
        <p class="home-hero-excerpt">${escapeHtml(latestArticle.excerpt || "")}</p>
        <div class="home-hero-img-wrap">
-         <img src="${latestArticle.image_url || "https://via.placeholder.com/700x400/2D1F0E/C9972B?text=Sejarah"}" onerror="this.src='https://via.placeholder.com/700x400/2D1F0E/C9972B?text=Sejarah'" alt="${escapeHtml(latestArticle.title)}" class="home-hero-img">
+         <div class="home-hero-img-clip">
+           <img src="${latestArticle.image_url || "https://via.placeholder.com/700x400/2D1F0E/C9972B?text=Sejarah"}" onerror="this.src='https://via.placeholder.com/700x400/2D1F0E/C9972B?text=Sejarah'" alt="${escapeHtml(latestArticle.title)}" class="home-hero-img">
+         </div>
        </div>
+       <button class="home-hero-scroll-btn" onclick="event.stopPropagation();(function(){var el=document.getElementById('homeArtikelLainnya');if(el){var top=el.getBoundingClientRect().top+window.scrollY-88;window.scrollTo({top:top,behavior:'smooth'});}})();" aria-label="Artikel lainnya">
+         <span class="home-hero-scroll-label">Artikel Lainnya</span>
+         <span class="home-hero-scroll-circle">
+           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+         </span>
+       </button>
      </div>
      `
          : '<div style="padding:3rem;text-align:center;color:var(--text-muted);">Memuat artikel...</div>'
@@ -6593,14 +6678,14 @@
  }
 
  <!-- More articles section -->
- <div class="home-more-section">
+ <div class="home-more-section" id="homeMoreSection">
    <div class="home-more-inner">
 
      <!-- 3 Artikel Terbaru -->
      ${
        currentPage === 1
          ? `
-     <div class="home-terbaru-section">
+     <div class="home-terbaru-section" id="homeArtikelSection">
        <div class="home-terbaru-header">
          <h2 class="home-terbaru-title">Artikel Terbaru</h2>
        </div>
@@ -6655,10 +6740,10 @@
        <div class="ad-slider-wrapper" style="margin:0; border-radius:4px;">
          <div class="ad-slider-container" id="adSliderContainer">
            <div class="ad-slide ad-slide-active">
-             <img src="/4.png" alt="TikTok & Instagram - Fakta Sejarah" />
+             <img src="/4.png" onerror="this.src='/ig__1_.png'" alt="TikTok & Instagram - Fakta Sejarah" />
            </div>
            <div class="ad-slide">
-             <img src="/2.png" alt="Biasakan Membaca Setiap Hari" />
+             <img src="/ig__1_.png" alt="Biasakan Membaca Setiap Hari" style="object-fit:contain;background:#f5f0e8;" />
            </div>
          </div>
          <div class="ad-slider-dots" id="adSliderDots">
@@ -6683,7 +6768,7 @@
      }
 
      <!-- Artikel Lainnya header -->
-     <div class="home-lainnya-header">
+     <div class="home-lainnya-header" id="homeArtikelLainnya">
        <h2 class="home-lainnya-title">ARTIKEL LAINNYA</h2>
        <a class="home-lainnya-selengkapnya" href="#"></a>
      </div>
@@ -7911,7 +7996,8 @@
           images = [{ url: article.image_url, caption: "" }];
         }
 
-        let content = article.content || "<p>Konten artikel sejarah tidak tersedia.</p>";
+        let content =
+          article.content || "<p>Konten artikel sejarah tidak tersedia.</p>";
 
         // Ganti setiap token [imageN] dengan figure HTML
         content = content.replace(/\[image(\d+)\]/gi, function (match, num) {
@@ -8042,7 +8128,7 @@
  </div>
  </div>
  <!-- BODY: two-column -->
- <div class="article-body-wrap">
+ <div class="article-body-wrap" id="articleBodySection">
  <div>
  <div class="article-page">
  <div class="article-content">${renderArticleContent(article)}</div>
