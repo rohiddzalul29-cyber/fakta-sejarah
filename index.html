@@ -12,6 +12,76 @@
       rel="stylesheet"
     />
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+    <!-- ══ ONESIGNAL PUSH NOTIFICATION ══════════════════════════════════
+         Ganti ONESIGNAL_APP_ID dengan App ID dari dashboard OneSignal kamu.
+         File OneSignalSDKWorker.js harus ada di root domain website ini.
+    ════════════════════════════════════════════════════════════════════ -->
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      // ── GANTI INI DENGAN APP ID DARI AKUN ONESIGNAL KAMU ─────────────
+      const ONESIGNAL_APP_ID = "111e883c-4bb5-418e-92e9-139868554285";
+    </script>
+    <script
+      src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
+      defer
+    ></script>
+    <script>
+      OneSignalDeferred.push(async function (OneSignal) {
+        await OneSignal.init({
+          appId: ONESIGNAL_APP_ID,
+          promptOptions: {
+            slidedown: {
+              prompts: [
+                {
+                  type: "push",
+                  autoPrompt: true,
+                  text: {
+                    actionMessage:
+                      "Aktifkan notifikasi untuk mendapat artikel sejarah terbaru langsung di browser kamu!",
+                    acceptButton: "Izinkan",
+                    cancelButton: "Nanti",
+                  },
+                  delay: {
+                    pageViews: 1,
+                    timeDelay: 4,
+                  },
+                },
+              ],
+            },
+          },
+          welcomeNotification: {
+            title: "📜 Sejarah Setiap Hari",
+            message:
+              "Berhasil! Kamu akan menerima notifikasi artikel sejarah terbaru.",
+          },
+          notifyButton: {
+            enable: true,
+            size: "medium",
+            position: "bottom-right",
+            showCredit: false,
+            offset: { bottom: "24px", right: "24px" },
+            text: {
+              "tip.state.unsubscribed": "Aktifkan notifikasi artikel baru",
+              "tip.state.subscribed": "Notifikasi aktif ✓",
+              "tip.state.blocked": "Notifikasi diblokir browser",
+              "message.prenotify": "Klik untuk berlangganan",
+              "message.action.subscribed": "Berhasil berlangganan!",
+              "message.action.resubscribed": "Notifikasi diaktifkan kembali",
+              "message.action.unsubscribed": "Notifikasi dinonaktifkan",
+              "dialog.main.title": "Kelola Notifikasi",
+              "dialog.main.button.subscribe": "AKTIFKAN",
+              "dialog.main.button.unsubscribe": "NONAKTIFKAN",
+              "dialog.blocked.title": "Buka Blokir Notifikasi",
+              "dialog.blocked.message":
+                "Ikuti panduan ini untuk mengizinkan notifikasi:",
+            },
+          },
+        });
+      });
+    </script>
+    <!-- ══ END ONESIGNAL ════════════════════════════════════════════════ -->
+
     <!-- Anti-flash: terapkan tema sebelum CSS dirender -->
     <script>
       (function () {
