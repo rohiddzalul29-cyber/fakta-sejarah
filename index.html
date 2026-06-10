@@ -20,12 +20,9 @@
     <script>
       window.OneSignalDeferred = window.OneSignalDeferred || [];
       // ── GANTI INI DENGAN APP ID DARI AKUN ONESIGNAL KAMU ─────────────
-      const ONESIGNAL_APP_ID = "111e883c-4bb5-418e-92e9-139868554285";
+      const ONESIGNAL_APP_ID = "GANTI_DENGAN_APP_ID_ONESIGNAL_KAMU";
     </script>
-    <script
-      src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
-      defer
-    ></script>
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
     <script>
       OneSignalDeferred.push(async function (OneSignal) {
         await OneSignal.init({
@@ -37,8 +34,7 @@
                   type: "push",
                   autoPrompt: true,
                   text: {
-                    actionMessage:
-                      "Aktifkan notifikasi untuk mendapat artikel sejarah terbaru langsung di browser kamu!",
+                    actionMessage: "Aktifkan notifikasi untuk mendapat artikel sejarah terbaru langsung di browser kamu!",
                     acceptButton: "Izinkan",
                     cancelButton: "Nanti",
                   },
@@ -52,8 +48,7 @@
           },
           welcomeNotification: {
             title: "📜 Sejarah Setiap Hari",
-            message:
-              "Berhasil! Kamu akan menerima notifikasi artikel sejarah terbaru.",
+            message: "Berhasil! Kamu akan menerima notifikasi artikel sejarah terbaru.",
           },
           notifyButton: {
             enable: true,
@@ -62,19 +57,18 @@
             showCredit: false,
             offset: { bottom: "24px", right: "24px" },
             text: {
-              "tip.state.unsubscribed": "Aktifkan notifikasi artikel baru",
-              "tip.state.subscribed": "Notifikasi aktif ✓",
-              "tip.state.blocked": "Notifikasi diblokir browser",
-              "message.prenotify": "Klik untuk berlangganan",
-              "message.action.subscribed": "Berhasil berlangganan!",
-              "message.action.resubscribed": "Notifikasi diaktifkan kembali",
-              "message.action.unsubscribed": "Notifikasi dinonaktifkan",
-              "dialog.main.title": "Kelola Notifikasi",
+              "tip.state.unsubscribed":       "Aktifkan notifikasi artikel baru",
+              "tip.state.subscribed":         "Notifikasi aktif ✓",
+              "tip.state.blocked":            "Notifikasi diblokir browser",
+              "message.prenotify":            "Klik untuk berlangganan",
+              "message.action.subscribed":    "Berhasil berlangganan!",
+              "message.action.resubscribed":  "Notifikasi diaktifkan kembali",
+              "message.action.unsubscribed":  "Notifikasi dinonaktifkan",
+              "dialog.main.title":            "Kelola Notifikasi",
               "dialog.main.button.subscribe": "AKTIFKAN",
               "dialog.main.button.unsubscribe": "NONAKTIFKAN",
-              "dialog.blocked.title": "Buka Blokir Notifikasi",
-              "dialog.blocked.message":
-                "Ikuti panduan ini untuk mengizinkan notifikasi:",
+              "dialog.blocked.title":         "Buka Blokir Notifikasi",
+              "dialog.blocked.message":       "Ikuti panduan ini untuk mengizinkan notifikasi:",
             },
           },
         });
@@ -212,10 +206,10 @@
       .nav-inner {
         max-width: 1280px;
         margin: 0 auto;
-        padding: 0 2rem;
+        padding: 0 1.5rem;
         display: flex;
         align-items: center;
-        height: 72px;
+        height: 54px;
         gap: 0;
       }
       /* Hamburger beside logo */
@@ -351,14 +345,14 @@
         align-self: center;
       }
       .nav-logo-icon {
-        width: 46px;
-        height: 46px;
+        width: 36px;
+        height: 36px;
         background: transparent;
         border-radius: 4px;
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: 22px;
+        font-size: 18px;
         flex-shrink: 0;
       }
       .nav-logo-text {
@@ -370,7 +364,7 @@
       .nav-logo-text strong {
         display: block;
         font-family: "Public Sans", sans-serif;
-        font-size: 1.2rem;
+        font-size: 1rem;
         font-weight: 800;
         letter-spacing: -0.02em;
         color: var(--blue-primary);
@@ -378,7 +372,7 @@
       }
       .nav-logo-text small {
         font-family: "Public Sans", sans-serif;
-        font-size: 0.65rem;
+        font-size: 0.6rem;
         letter-spacing: 2.5px;
         color: var(--blue-dark);
         text-transform: uppercase;
@@ -389,14 +383,14 @@
         position: relative;
         display: inline-flex;
         align-items: center;
-        height: 62px;
-        max-height: 62px;
+        height: 46px;
+        max-height: 46px;
       }
       .nav-brand-img {
         display: block;
-        height: 110px;
+        height: 82px;
         width: auto;
-        max-width: 560px;
+        max-width: 420px;
         object-fit: contain;
         position: relative;
         z-index: 1;
@@ -439,12 +433,12 @@
       }
       .nav-links a {
         font-family: "Public Sans", sans-serif;
-        font-size: 0.8rem;
+        font-size: 0.78rem;
         font-weight: 500;
         color: #444;
         text-decoration: none;
-        padding: 0 18px;
-        height: 72px;
+        padding: 0 14px;
+        height: 54px;
         display: flex;
         align-items: center;
         border-bottom: 3px solid transparent;
@@ -1375,7 +1369,7 @@
         }
         .nav-inner {
           padding: 0 1rem;
-          height: 72px;
+          height: 54px;
           gap: 0;
           position: relative;
           align-items: center;
@@ -4756,7 +4750,7 @@
       /* ===== HISTORIA-STYLE HOME TAG BAR ===== */
       .home-tag-bar {
         position: sticky;
-        top: 72px; /* height of nav */
+        top: 54px; /* height of nav */
         z-index: 90;
         background: #fff;
         border-bottom: 1px solid #e2eaf4;
