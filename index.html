@@ -22,7 +22,10 @@
       // ── GANTI INI DENGAN APP ID DARI AKUN ONESIGNAL KAMU ─────────────
       const ONESIGNAL_APP_ID = "GANTI_DENGAN_APP_ID_ONESIGNAL_KAMU";
     </script>
-    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script
+      src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
+      defer
+    ></script>
     <script>
       OneSignalDeferred.push(async function (OneSignal) {
         await OneSignal.init({
@@ -34,7 +37,8 @@
                   type: "push",
                   autoPrompt: true,
                   text: {
-                    actionMessage: "Aktifkan notifikasi untuk mendapat artikel sejarah terbaru langsung di browser kamu!",
+                    actionMessage:
+                      "Aktifkan notifikasi untuk mendapat artikel sejarah terbaru langsung di browser kamu!",
                     acceptButton: "Izinkan",
                     cancelButton: "Nanti",
                   },
@@ -48,7 +52,8 @@
           },
           welcomeNotification: {
             title: "📜 Sejarah Setiap Hari",
-            message: "Berhasil! Kamu akan menerima notifikasi artikel sejarah terbaru.",
+            message:
+              "Berhasil! Kamu akan menerima notifikasi artikel sejarah terbaru.",
           },
           notifyButton: {
             enable: true,
@@ -57,18 +62,19 @@
             showCredit: false,
             offset: { bottom: "24px", right: "24px" },
             text: {
-              "tip.state.unsubscribed":       "Aktifkan notifikasi artikel baru",
-              "tip.state.subscribed":         "Notifikasi aktif ✓",
-              "tip.state.blocked":            "Notifikasi diblokir browser",
-              "message.prenotify":            "Klik untuk berlangganan",
-              "message.action.subscribed":    "Berhasil berlangganan!",
-              "message.action.resubscribed":  "Notifikasi diaktifkan kembali",
-              "message.action.unsubscribed":  "Notifikasi dinonaktifkan",
-              "dialog.main.title":            "Kelola Notifikasi",
+              "tip.state.unsubscribed": "Aktifkan notifikasi artikel baru",
+              "tip.state.subscribed": "Notifikasi aktif ✓",
+              "tip.state.blocked": "Notifikasi diblokir browser",
+              "message.prenotify": "Klik untuk berlangganan",
+              "message.action.subscribed": "Berhasil berlangganan!",
+              "message.action.resubscribed": "Notifikasi diaktifkan kembali",
+              "message.action.unsubscribed": "Notifikasi dinonaktifkan",
+              "dialog.main.title": "Kelola Notifikasi",
               "dialog.main.button.subscribe": "AKTIFKAN",
               "dialog.main.button.unsubscribe": "NONAKTIFKAN",
-              "dialog.blocked.title":         "Buka Blokir Notifikasi",
-              "dialog.blocked.message":       "Ikuti panduan ini untuk mengizinkan notifikasi:",
+              "dialog.blocked.title": "Buka Blokir Notifikasi",
+              "dialog.blocked.message":
+                "Ikuti panduan ini untuk mengizinkan notifikasi:",
             },
           },
         });
@@ -6176,6 +6182,104 @@
           transform: translate(-50%, -50%) rotate(360deg) scale(1);
         }
       }
+
+      /* ===== IKLAN BANNER (dinamis dari Supabase) ===== */
+      .ad-banner-block {
+        margin: 1.2rem 0 0.5rem;
+        border-radius: 10px;
+        overflow: hidden;
+        display: block;
+        text-decoration: none;
+        position: relative;
+        box-shadow: 0 2px 12px rgba(26, 95, 168, 0.1);
+        transition:
+          transform 0.18s,
+          box-shadow 0.18s;
+        cursor: pointer;
+      }
+      .ad-banner-block:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 6px 22px rgba(26, 95, 168, 0.18);
+      }
+      .ad-banner-block img {
+        width: 100%;
+        display: block;
+        border-radius: 10px;
+        object-fit: cover;
+      }
+      .ad-banner-label {
+        position: absolute;
+        top: 7px;
+        right: 9px;
+        background: rgba(0, 0, 0, 0.45);
+        color: rgba(255, 255, 255, 0.75);
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.55rem;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        padding: 2px 7px;
+        border-radius: 4px;
+        pointer-events: none;
+      }
+      /* Iklan di bawah artikel-lainnya (horizontal strip) */
+      .ad-strip-block {
+        margin: 1.4rem 0;
+        border-radius: 10px;
+        overflow: hidden;
+        display: block;
+        text-decoration: none;
+        position: relative;
+        box-shadow: 0 2px 10px rgba(26, 95, 168, 0.09);
+        transition:
+          transform 0.18s,
+          box-shadow 0.18s;
+        cursor: pointer;
+      }
+      .ad-strip-block:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 18px rgba(26, 95, 168, 0.16);
+      }
+      .ad-strip-block img {
+        width: 100%;
+        display: block;
+        border-radius: 10px;
+      }
+      /* Iklan inline di konten artikel */
+      .article-inline-ad {
+        display: block;
+        margin: 1.5rem 0;
+        border-radius: 10px;
+        overflow: hidden;
+        text-decoration: none;
+        position: relative;
+        box-shadow: 0 2px 10px rgba(26, 95, 168, 0.09);
+        transition:
+          transform 0.18s,
+          box-shadow 0.18s;
+        cursor: pointer;
+      }
+      .article-inline-ad:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 18px rgba(26, 95, 168, 0.16);
+      }
+      .article-inline-ad img {
+        width: 100%;
+        display: block;
+        border-radius: 10px;
+        object-fit: cover;
+        max-height: 180px;
+      }
+      .article-inline-ad .ad-banner-label {
+        top: 6px;
+        right: 8px;
+      }
+      /* Dark mode */
+      body.dark .ad-banner-block,
+      body.dark .ad-strip-block,
+      body.dark .article-inline-ad {
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.28);
+      }
     </style>
   </head>
   <body>
@@ -6606,6 +6710,44 @@
         }
       }
 
+      // ══ IKLAN: cache global ══════════════════════════════════════════
+      let _adsCache = null;
+      async function fetchAds(position) {
+        if (!_adsCache) {
+          try {
+            const { data } = await db
+              .from("ads")
+              .select("id, title, image_url, link_url, position, ad_order")
+              .eq("is_active", true)
+              .order("ad_order", { ascending: true });
+            _adsCache = data || [];
+          } catch (e) {
+            _adsCache = [];
+          }
+        }
+        return position
+          ? _adsCache.filter((a) => a.position === position)
+          : _adsCache;
+      }
+
+      function buildAdBannerHtml(ad, cls = "ad-banner-block") {
+        if (!ad || !ad.image_url) return "";
+        return `<a class="${cls}" href="${escapeHtml(ad.link_url)}" target="_blank" rel="noopener" title="${escapeHtml(ad.title)}">
+          <img src="${escapeHtml(ad.image_url)}" alt="${escapeHtml(ad.title)}" loading="lazy" onerror="this.parentElement.style.display='none'" />
+          <span class="ad-banner-label">Iklan</span>
+        </a>`;
+      }
+
+      async function injectAd(containerId, position, cls) {
+        const el = document.getElementById(containerId);
+        if (!el) return;
+        const ads = await fetchAds(position);
+        if (!ads.length) return;
+        // Pick first active ad for position
+        el.innerHTML = buildAdBannerHtml(ads[0], cls);
+      }
+      // ════════════════════════════════════════════════════════════════
+
       function renderHomePage() {
         document.querySelector("nav").classList.remove("article-page-nav");
         cleanupArticlePage();
@@ -6680,10 +6822,8 @@
          </div>
        </div>
      </div>
-     <!-- Iklan di bawah Today in History -->
-     <div style="margin-top:1.2rem;border-radius:8px;overflow:hidden;">
-       <img src="/5.png" alt="Biasakan Membaca Setiap Hari" style="width:100%;display:block;border-radius:8px;" />
-     </div>
+     <!-- Iklan di bawah Today in History (dinamis) -->
+     <div id="adBelowTodayHistory" style="margin-top:1.2rem;"></div>
    </div>
 
    <!-- CENTER: Latest article hero -->
@@ -6831,6 +6971,9 @@
          : ""
      }
 
+     <!-- Iklan di bawah Artikel Terbaru (dinamis) -->
+     <div id="adBelowLatestArticles" style="margin:1rem 0 0.5rem;"></div>
+
      <!-- Artikel Lainnya header -->
      <div class="home-lainnya-header" id="homeArtikelLainnya">
        <h2 class="home-lainnya-title">ARTIKEL LAINNYA</h2>
@@ -6921,6 +7064,11 @@
         loadPopularTags();
         loadTagBar();
         if (currentPage === 1) loadSocialSection();
+        // Inject iklan dinamis
+        if (currentPage === 1) {
+          injectAd("adBelowTodayHistory", "sidebar", "ad-banner-block");
+          injectAd("adBelowLatestArticles", "top", "ad-strip-block");
+        }
       }
 
       function attachHomeEvents() {
@@ -8196,6 +8344,8 @@
  <div>
  <div class="article-page">
  <div class="article-content">${renderArticleContent(article)}</div>
+ <!-- Iklan inline di halaman artikel (dinamis) -->
+ <div id="articleInlineAd" style="margin:1.5rem 0 0.5rem;"></div>
  ${(function () {
    var tags = Array.isArray(article.tags)
      ? article.tags
@@ -8425,6 +8575,8 @@
  </div>
  `;
         document.getElementById("appRoot").innerHTML = html;
+        // Inject iklan inline di halaman artikel
+        injectAd("articleInlineAd", "inline", "article-inline-ad");
         // Article tag bar chip events
         document
           .querySelectorAll(".article-tagbar-chip")
