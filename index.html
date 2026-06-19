@@ -1915,6 +1915,11 @@
           font-size: 0.65rem;
           text-decoration: none;
         }
+        .article-mobile-author-socials a svg {
+          width: 13px;
+          height: 13px;
+          flex-shrink: 0;
+        }
         .article-mobile-popular-item {
           display: flex;
           gap: 0.75rem;
@@ -2456,6 +2461,11 @@
         font-size: 0.7rem;
         text-decoration: none;
         transition: all 0.2s;
+      }
+      .article-author-socials a svg {
+        width: 14px;
+        height: 14px;
+        flex-shrink: 0;
       }
       .article-author-socials a:hover {
         background: var(--blue-primary);
@@ -7527,17 +7537,17 @@
         const socials = [];
         if (article.author_instagram) {
           socials.push(
-            `<a href="${escapeHtml(getAuthorSocialUrl("instagram", article.author_instagram))}" title="Instagram" target="_blank" rel="noopener noreferrer">IG</a>`,
+            `<a href="${escapeHtml(getAuthorSocialUrl("instagram", article.author_instagram))}" title="Instagram" target="_blank" rel="noopener noreferrer"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg></a>`,
           );
         }
         if (article.author_tiktok) {
           socials.push(
-            `<a href="${escapeHtml(getAuthorSocialUrl("tiktok", article.author_tiktok))}" title="TikTok" target="_blank" rel="noopener noreferrer">TT</a>`,
+            `<a href="${escapeHtml(getAuthorSocialUrl("tiktok", article.author_tiktok))}" title="TikTok" target="_blank" rel="noopener noreferrer"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M16.6 5.82s.51.5 0 0A4.278 4.278 0 0115.54 3h-3.09v12.4a2.592 2.592 0 01-2.59 2.5c-1.42 0-2.6-1.16-2.6-2.6 0-1.72 1.66-3.01 3.37-2.48V9.66c-3.45-.46-6.47 2.22-6.47 5.64 0 3.33 2.76 5.7 5.69 5.7 3.14 0 5.69-2.55 5.69-5.7V9.01a7.35 7.35 0 004.3 1.38V7.3s-1.88.09-3.24-1.48z"></path></svg></a>`,
           );
         }
         if (article.author_facebook) {
           socials.push(
-            `<a href="${escapeHtml(getAuthorSocialUrl("facebook", article.author_facebook))}" title="Facebook" target="_blank" rel="noopener noreferrer">f</a>`,
+            `<a href="${escapeHtml(getAuthorSocialUrl("facebook", article.author_facebook))}" title="Facebook" target="_blank" rel="noopener noreferrer"><svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"></path></svg></a>`,
           );
         }
         return {
