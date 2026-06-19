@@ -6284,6 +6284,14 @@
         }
       }
       /* Iklan inline di TENGAH konten artikel */
+      .article-inline-ad-slot {
+        display: block;
+        margin: 1.8rem 0;
+        clear: both;
+      }
+      .article-inline-ad-slot:empty {
+        margin: 0;
+      }
       .article-inline-ad {
         display: block;
         margin: 1.6rem 0;
@@ -7500,7 +7508,8 @@
 
       // Bangun data kartu "Tentang Penulis" berdasarkan author_type artikel
       function buildAuthorInfo(article) {
-        const isCustom = article.author_type === "custom" && article.author_name;
+        const isCustom =
+          article.author_type === "custom" && article.author_name;
         if (!isCustom) {
           return {
             name: "Tim Redaksi",
@@ -8322,6 +8331,24 @@
         // Bersihkan tag <p> kosong yang muncul akibat injeksi di atas
         content = content.replace(/<p>\s*<\/p>/g, "");
 
+        // Sisipkan slot iklan inline di tengah-tengah paragraf konten
+        // (bukan lagi di paling bawah setelah semua konten)
+        const adSlotHtml = '<div id="articleInlineAd" class="article-inline-ad-slot"></div>';
+        const paragraphCloseRegex = /<\/p>/gi;
+        const closeTags = content.match(paragraphCloseRegex);
+        if (closeTags && closeTags.length >= 2) {
+          // Sisipkan setelah paragraf di tengah (minimal setelah paragraf ke-2)
+          const targetIndex = Math.max(1, Math.ceil(closeTags.length / 2) - 1);
+          let count = -1;
+          content = content.replace(paragraphCloseRegex, function (match) {
+            count++;
+            return count === targetIndex ? match + adSlotHtml : match;
+          });
+        } else {
+          // Kalau konten tidak punya cukup paragraf, taruh di akhir sebagai fallback
+          content += adSlotHtml;
+        }
+
         return content;
       }
 
@@ -8437,8 +8464,6 @@
  <div>
  <div class="article-page">
  <div class="article-content">${renderArticleContent(article)}</div>
- <!-- Iklan inline di halaman artikel (dinamis) -->
- <div id="articleInlineAd" style="margin:1.5rem 0 0.5rem;"></div>
  ${(function () {
    var tags = Array.isArray(article.tags)
      ? article.tags
