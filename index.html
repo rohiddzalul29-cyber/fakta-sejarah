@@ -1898,6 +1898,23 @@
           color: var(--text-muted);
           line-height: 1.5;
         }
+        .article-mobile-author-socials {
+          display: flex;
+          gap: 7px;
+          margin-top: 0.5rem;
+        }
+        .article-mobile-author-socials a {
+          width: 24px;
+          height: 24px;
+          border: 1px solid var(--border);
+          border-radius: 4px;
+          display: flex;
+          align-items: center;
+          justify-content: center;
+          color: var(--text-muted);
+          font-size: 0.65rem;
+          text-decoration: none;
+        }
         .article-mobile-popular-item {
           display: flex;
           gap: 0.75rem;
@@ -2395,6 +2412,12 @@
         object-fit: cover !important;
         margin: 0 !important;
         border-radius: 50% !important;
+      }
+      .article-author-initial {
+        font-family: "Public Sans", sans-serif;
+        font-weight: 700;
+        font-size: 1.15rem;
+        color: var(--blue-primary);
       }
       .article-author-name {
         font-family: "Public Sans", sans-serif;
@@ -6192,7 +6215,9 @@
         text-decoration: none;
         position: relative;
         box-shadow: 0 2px 12px rgba(26, 95, 168, 0.1);
-        transition: transform 0.18s, box-shadow 0.18s;
+        transition:
+          transform 0.18s,
+          box-shadow 0.18s;
         cursor: pointer;
       }
       .ad-banner-block:hover {
@@ -6229,7 +6254,9 @@
         text-decoration: none;
         position: relative;
         box-shadow: 0 2px 10px rgba(26, 95, 168, 0.09);
-        transition: transform 0.18s, box-shadow 0.18s;
+        transition:
+          transform 0.18s,
+          box-shadow 0.18s;
         cursor: pointer;
       }
       .ad-strip-block:hover {
@@ -6251,7 +6278,9 @@
         text-decoration: none;
         position: relative;
         box-shadow: 0 2px 10px rgba(26, 95, 168, 0.09);
-        transition: transform 0.18s, box-shadow 0.18s;
+        transition:
+          transform 0.18s,
+          box-shadow 0.18s;
         cursor: pointer;
       }
       .article-inline-ad:hover {
@@ -7443,6 +7472,62 @@
         });
       }
 
+      // Bangun URL sosial media penulis dari input admin (boleh @username atau link penuh)
+      function getAuthorSocialUrl(platform, value) {
+        if (!value) return "";
+        let v = String(value).trim();
+        if (/^https?:\/\//i.test(v)) return v;
+        v = v.replace(/^@/, "");
+        if (platform === "instagram") return "https://instagram.com/" + v;
+        if (platform === "tiktok") return "https://tiktok.com/@" + v;
+        if (platform === "facebook") return "https://facebook.com/" + v;
+        return "#";
+      }
+
+      // Bangun data kartu "Tentang Penulis" berdasarkan author_type artikel
+      function buildAuthorInfo(article) {
+        const isCustom =
+          article.author_type === "custom" && article.author_name;
+        if (!isCustom) {
+          return {
+            name: "Tim Redaksi",
+            label: "Fakta Sejarah",
+            desc: "Menyajikan informasi sejarah yang akurat, mendalam, dan menarik untuk menambah wawasan tentang masa lalu.",
+            verifiedBadge: '<span class="verified"></span>',
+            avatarHtml: `<img src="/editlogo.png" alt="Tim Redaksi" onerror="this.style.display='none'" style="filter:invert(27%) sepia(90%) saturate(600%) hue-rotate(195deg) brightness(0.85); width:100%; height:100%; object-fit:cover;">`,
+            socialsHtml: "",
+          };
+        }
+        const name = escapeHtml(article.author_name.trim());
+        const initial = escapeHtml(
+          article.author_name.trim().charAt(0).toUpperCase() || "P",
+        );
+        const socials = [];
+        if (article.author_instagram) {
+          socials.push(
+            `<a href="${escapeHtml(getAuthorSocialUrl("instagram", article.author_instagram))}" title="Instagram" target="_blank" rel="noopener noreferrer">IG</a>`,
+          );
+        }
+        if (article.author_tiktok) {
+          socials.push(
+            `<a href="${escapeHtml(getAuthorSocialUrl("tiktok", article.author_tiktok))}" title="TikTok" target="_blank" rel="noopener noreferrer">TT</a>`,
+          );
+        }
+        if (article.author_facebook) {
+          socials.push(
+            `<a href="${escapeHtml(getAuthorSocialUrl("facebook", article.author_facebook))}" title="Facebook" target="_blank" rel="noopener noreferrer">f</a>`,
+          );
+        }
+        return {
+          name,
+          label: "Penulis di Fakta Sejarah",
+          desc: "",
+          verifiedBadge: "",
+          avatarHtml: `<div class="article-author-initial">${initial}</div>`,
+          socialsHtml: socials.join(""),
+        };
+      }
+
       // Normalise satu item tag: object {name,slug,...} → string nama tag
       function normalizeTag(t) {
         if (!t) return "";
@@ -8238,6 +8323,7 @@
         const dateStr = article.created_at
           ? formatDate(article.created_at)
           : "";
+        const authorInfo = buildAuthorInfo(article);
         // Popular articles for sidebar (exclude current)
         const popularForSidebar = [...allArticles]
           .filter((a) => a.id !== article.id)
@@ -8395,18 +8481,13 @@
  <h3>Tentang Penulis</h3>
  <div class="article-author-card">
  <div class="article-author-avatar">
- <img src="/editlogo.png" alt="Tim Redaksi" onerror="this.src=''" style="filter:invert(27%) sepia(90%) saturate(600%) hue-rotate(195deg) brightness(0.85);">
+ ${authorInfo.avatarHtml}
  </div>
  <div>
- <div class="article-author-name">Tim Redaksi <span class="verified"></span></div>
- <div class="article-author-bio">Fakta Sejarah</div>
- <div class="article-author-bio">Menyajikan informasi sejarah yang akurat, mendalam, dan menarik untuk menambah wawasan tentang masa lalu.</div>
- <div class="article-author-socials">
- <a href="#" title="Facebook">f</a>
- <a href="#" title="Twitter"></a>
- <a href="#" title="YouTube"></a>
- <a href="#" title="Instagram"></a>
- </div>
+ <div class="article-author-name">${authorInfo.name} ${authorInfo.verifiedBadge}</div>
+ <div class="article-author-bio">${authorInfo.label}</div>
+ ${authorInfo.desc ? `<div class="article-author-bio">${authorInfo.desc}</div>` : ""}
+ ${authorInfo.socialsHtml ? `<div class="article-author-socials">${authorInfo.socialsHtml}</div>` : ""}
  </div>
  </div>
  </div>
@@ -8500,12 +8581,13 @@
  <div class="article-mobile-section-title">Tentang Penulis</div>
  <div class="article-mobile-author">
  <div class="article-mobile-author-avatar">
- <img src="/editlogo.png" alt="Tim Redaksi" onerror="this.style.display='none'" style="filter:invert(27%) sepia(90%) saturate(600%) hue-rotate(195deg) brightness(0.85); width:100%; height:100%; object-fit:cover;">
+ ${authorInfo.avatarHtml}
  </div>
  <div>
- <div class="article-mobile-author-name">Tim Redaksi <span style="color:var(--blue-primary);font-size:0.7rem;"></span></div>
- <div class="article-mobile-author-label">Fakta Sejarah</div>
- <div class="article-mobile-author-bio">Menyajikan informasi sejarah yang akurat, mendalam, dan menarik untuk menambah wawasan tentang masa lalu.</div>
+ <div class="article-mobile-author-name">${authorInfo.name} ${authorInfo.verifiedBadge}</div>
+ <div class="article-mobile-author-label">${authorInfo.label}</div>
+ ${authorInfo.desc ? `<div class="article-mobile-author-bio">${authorInfo.desc}</div>` : ""}
+ ${authorInfo.socialsHtml ? `<div class="article-mobile-author-socials">${authorInfo.socialsHtml}</div>` : ""}
  </div>
  </div>
  <!-- Artikel lainnya -->
