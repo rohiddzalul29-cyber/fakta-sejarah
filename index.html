@@ -6265,9 +6265,23 @@
       }
       .ad-strip-block img {
         width: 100%;
-        height: auto;
+        aspect-ratio: 16 / 4.5;
+        max-height: 260px;
+        object-fit: cover;
         display: block;
         border-radius: 10px;
+      }
+      @media (max-width: 768px) {
+        .ad-strip-block img {
+          aspect-ratio: 16 / 7;
+          max-height: 180px;
+        }
+      }
+      @media (max-width: 480px) {
+        .ad-strip-block img {
+          aspect-ratio: 4 / 3;
+          max-height: 160px;
+        }
       }
       /* Iklan inline di TENGAH konten artikel */
       .article-inline-ad {
@@ -7486,8 +7500,7 @@
 
       // Bangun data kartu "Tentang Penulis" berdasarkan author_type artikel
       function buildAuthorInfo(article) {
-        const isCustom =
-          article.author_type === "custom" && article.author_name;
+        const isCustom = article.author_type === "custom" && article.author_name;
         if (!isCustom) {
           return {
             name: "Tim Redaksi",
