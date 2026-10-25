@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Sejarah Setiap Hari | Arsip Nusantara & Dunia</title>
-    <link rel="icon" type="image/x-icon" href="/merahlogo.png" />
+    <link rel="icon" type="image/x-icon" href="merahlogo.png" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -26,6 +26,8 @@
       src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js"
       defer
     ></script>
+    0
+
     <script>
       OneSignalDeferred.push(async function (OneSignal) {
         await OneSignal.init({
@@ -312,12 +314,16 @@
         display: block;
         width: 22px;
         height: 2px;
-        background: var(--blue-primary);
+        background: #000;
         border-radius: 2px;
         transform-origin: center;
       }
       .nav-hamburger-side:hover span {
-        background: var(--blue-dark);
+        background: #000;
+      }
+      body.dark .nav-hamburger-side span,
+      body.dark .nav-hamburger-side:hover span {
+        background: #fff;
       }
 
       /* State: menutup (default) */
@@ -517,12 +523,23 @@
       nav.article-page-nav .nav-brand-img {
         height: 76px;
       }
-      /* ── Article page: search icon button ── */
-      .article-nav-search-btn {
+      /* ── Article page: hide feedback icon (only theme + font size remain) ── */
+      nav.article-page-nav .nav-feedback-btn {
+        display: none !important;
+      }
+      /* ── Article page: font size control ── */
+      .article-font-size-wrap {
+        position: relative;
         display: none;
+      }
+      nav.article-page-nav .article-font-size-wrap {
+        display: block;
+      }
+      .article-font-size-btn {
+        display: flex;
         background: none;
         border: none;
-        color: var(--blue-primary);
+        color: #000;
         cursor: pointer;
         padding: 8px;
         align-items: center;
@@ -532,19 +549,130 @@
           background 0.2s,
           color 0.2s;
       }
-      nav.article-page-nav .article-nav-search-btn {
+      .article-font-size-btn:hover {
+        background: #f2f2f2;
+        color: #000;
+      }
+      body.dark .article-font-size-btn {
+        color: #fff;
+      }
+      body.dark .article-font-size-btn:hover {
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
+      }
+      .article-font-size-menu {
+        display: none;
+        position: absolute;
+        top: calc(100% + 8px);
+        right: 0;
+        min-width: 170px;
+        background: #fff;
+        border: 1px solid #e2e2e2;
+        border-radius: 10px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        padding: 6px;
+        z-index: 1200;
+      }
+      .article-font-size-menu.open {
+        display: block;
+      }
+      body.dark .article-font-size-menu {
+        background: #1c2330;
+        border-color: #2a3a52;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+      }
+      .article-font-size-menu button {
         display: flex;
+        align-items: center;
+        gap: 10px;
+        width: 100%;
+        background: none;
+        border: none;
+        cursor: pointer;
+        padding: 9px 12px;
+        border-radius: 7px;
+        font-family: "Public Sans", sans-serif;
+        font-size: 0.85rem;
+        color: #000;
+        text-align: left;
       }
-      .article-nav-search-btn:hover {
-        background: var(--blue-light);
-        color: var(--blue-dark);
+      body.dark .article-font-size-menu button {
+        color: #e8edf5;
       }
-      body.dark .article-nav-search-btn {
-        color: #a8c8f0;
+      .article-font-size-menu button:hover {
+        background: #f2f2f2;
       }
-      body.dark .article-nav-search-btn:hover {
-        background: rgba(26, 95, 168, 0.2);
-        color: #d0e8ff;
+      body.dark .article-font-size-menu button:hover {
+        background: rgba(255, 255, 255, 0.08);
+      }
+      .article-font-size-menu button.active {
+        font-weight: 700;
+        background: #e9e9e9;
+      }
+      body.dark .article-font-size-menu button.active {
+        background: rgba(255, 255, 255, 0.14);
+      }
+      .article-font-size-menu button .afs-preview {
+        flex: 1;
+      }
+      .article-font-size-menu button .afs-check {
+        width: 14px;
+        opacity: 0;
+      }
+      .article-font-size-menu button.active .afs-check {
+        opacity: 1;
+      }
+      /* Font size scale for article body text */
+      body.afs-s .article-content {
+        font-size: 15px;
+      }
+      body.afs-s .article-content p,
+      body.afs-s .article-content li {
+        font-size: 15px;
+      }
+      body.afs-s .article-content blockquote p,
+      body.afs-s .article-content blockquote {
+        font-size: 15px;
+      }
+      body.afs-s .article-content h2 {
+        font-size: 1.4rem;
+      }
+      body.afs-s .article-content h3 {
+        font-size: 1.05rem;
+      }
+      body.afs-l .article-content {
+        font-size: 20px;
+      }
+      body.afs-l .article-content p,
+      body.afs-l .article-content li {
+        font-size: 20px;
+      }
+      body.afs-l .article-content blockquote p,
+      body.afs-l .article-content blockquote {
+        font-size: 20px;
+      }
+      body.afs-l .article-content h2 {
+        font-size: 1.7rem;
+      }
+      body.afs-l .article-content h3 {
+        font-size: 1.28rem;
+      }
+      body.afs-xl .article-content {
+        font-size: 23px;
+      }
+      body.afs-xl .article-content p,
+      body.afs-xl .article-content li {
+        font-size: 23px;
+      }
+      body.afs-xl .article-content blockquote p,
+      body.afs-xl .article-content blockquote {
+        font-size: 23px;
+      }
+      body.afs-xl .article-content h2 {
+        font-size: 1.9rem;
+      }
+      body.afs-xl .article-content h3 {
+        font-size: 1.42rem;
       }
 
       .nav-right {
@@ -588,7 +716,7 @@
       .nav-search-btn {
         background: none;
         border: none;
-        color: var(--blue-primary);
+        color: #000;
         cursor: pointer;
         padding: 8px;
         display: flex;
@@ -602,8 +730,15 @@
         z-index: 1;
       }
       .nav-search-btn:hover {
-        background: var(--blue-light);
-        color: var(--blue-dark);
+        background: #f2f2f2;
+        color: #000;
+      }
+      body.dark .nav-search-btn {
+        color: #fff;
+      }
+      body.dark .nav-search-btn:hover {
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
       }
       .hero {
         position: relative;
@@ -3977,7 +4112,7 @@
       .nav-feedback-btn {
         background: none;
         border: none;
-        color: var(--blue-primary);
+        color: #000;
         cursor: pointer;
         padding: 8px;
         display: flex;
@@ -3989,8 +4124,15 @@
           color 0.2s;
       }
       .nav-feedback-btn:hover {
-        background: var(--blue-light);
-        color: var(--blue-dark);
+        background: #f2f2f2;
+        color: #000;
+      }
+      body.dark .nav-feedback-btn {
+        color: #fff;
+      }
+      body.dark .nav-feedback-btn:hover {
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
       }
 
       /* ===== MODAL SARAN & MASUKAN ===== */
@@ -6130,7 +6272,7 @@
         align-items: center;
         justify-content: center;
         border-radius: 50%;
-        color: var(--blue-primary);
+        color: #000;
         transition:
           background 0.2s,
           color 0.2s !important;
@@ -6141,8 +6283,15 @@
         flex-shrink: 0;
       }
       .theme-toggle-btn:hover {
-        background: var(--blue-light);
-        color: var(--blue-dark);
+        background: #f2f2f2;
+        color: #000;
+      }
+      body.dark .theme-toggle-btn {
+        color: #fff;
+      }
+      body.dark .theme-toggle-btn:hover {
+        background: rgba(255, 255, 255, 0.12);
+        color: #fff;
       }
       .theme-toggle-btn svg {
         position: absolute;
@@ -6365,18 +6514,14 @@
         </div>
         <a href="/" class="nav-logo" id="homeLink">
           <img
-            src="/editlogo.png"
+            src="editlogo.png"
             alt="Fakta Sejarah Logo"
             class="nav-logo-main-img"
             style="width: 52px; height: 52px; object-fit: contain"
           />
           <div class="nav-logo-text">
             <div class="nav-brand-img-wrap">
-              <img
-                src="/faktaa.png"
-                alt="Fakta Sejarah"
-                class="nav-brand-img"
-              />
+              <img src="faktaa.png" alt="Fakta Sejarah" class="nav-brand-img" />
             </div>
           </div>
         </a>
@@ -6420,28 +6565,82 @@
               </svg>
             </button>
           </div>
-          <!-- Search icon (article page only) -->
-          <button
-            class="article-nav-search-btn"
-            id="articleNavSearchBtn"
-            aria-label="Cari artikel"
-            title="Cari"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              stroke-width="2.5"
-              stroke-linecap="round"
-              stroke-linejoin="round"
+          <!-- Font size control (article page only) -->
+          <div class="article-font-size-wrap">
+            <button
+              class="article-font-size-btn"
+              id="articleFontSizeBtn"
+              aria-label="Ukuran teks bacaan"
+              title="Ukuran teks bacaan"
             >
-              <circle cx="10.5" cy="10.5" r="7.5" />
-              <line x1="16.5" y1="16.5" x2="22" y2="22" />
-            </svg>
-          </button>
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <path
+                  d="M2.6 18.5 7.9 5.2h2.3l5.3 13.3h-2.3l-1.2-3.1H6.1l-1.2 3.1H2.6zm4.1-5h4.6L9 8.4l-2.3 5.1z"
+                />
+                <path
+                  d="M16.9 18.5 20.2 10l3.3 8.5h-1.9l-.85-2.3h-2.3l-.85 2.3h-1.9zm2-3.9h1.4l-.7-1.9-.7 1.9z"
+                />
+              </svg>
+            </button>
+            <div class="article-font-size-menu" id="articleFontSizeMenu">
+              <button data-fs="s">
+                <span class="afs-preview" style="font-size: 0.78rem">Kecil</span
+                ><svg
+                  class="afs-check"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </button>
+              <button data-fs="m">
+                <span class="afs-preview" style="font-size: 0.92rem"
+                  >Sedang</span
+                ><svg
+                  class="afs-check"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </button>
+              <button data-fs="l">
+                <span class="afs-preview" style="font-size: 1.08rem">Besar</span
+                ><svg
+                  class="afs-check"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </button>
+              <button data-fs="xl">
+                <span class="afs-preview" style="font-size: 1.25rem"
+                  >Lebih Besar</span
+                ><svg
+                  class="afs-check"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  stroke-width="3"
+                >
+                  <polyline points="20 6 9 17 4 12" />
+                </svg>
+              </button>
+            </div>
+          </div>
           <!-- Dark / Light mode toggle -->
           <button
             class="theme-toggle-btn"
@@ -6585,14 +6784,36 @@
       const _searchForm = document.getElementById("navSearchForm");
       const _searchBtn = document.getElementById("searchBtnMobile");
       const _searchInput = document.getElementById("navSearchInput");
-      // Article page search button → open overlay
-      const _articleSearchBtn = document.getElementById("articleNavSearchBtn");
-      if (_articleSearchBtn) {
-        _articleSearchBtn.addEventListener("click", function (e) {
+      // Article page font size control
+      (function () {
+        const _fsBtn = document.getElementById("articleFontSizeBtn");
+        const _fsMenu = document.getElementById("articleFontSizeMenu");
+        if (!_fsBtn || !_fsMenu) return;
+        const FS_KEY = "articleFontSize";
+        function applyFs(v) {
+          document.body.classList.remove("afs-s", "afs-l", "afs-xl");
+          if (v !== "m") document.body.classList.add("afs-" + v);
+          _fsMenu.querySelectorAll("button[data-fs]").forEach(function (b) {
+            b.classList.toggle("active", b.dataset.fs === v);
+          });
+        }
+        applyFs(localStorage.getItem(FS_KEY) || "m");
+        _fsBtn.addEventListener("click", function (e) {
           e.stopPropagation();
-          openSearchOverlay();
+          _fsMenu.classList.toggle("open");
         });
-      }
+        _fsMenu.addEventListener("click", function (e) {
+          const b = e.target.closest("button[data-fs]");
+          if (!b) return;
+          e.stopPropagation();
+          localStorage.setItem(FS_KEY, b.dataset.fs);
+          applyFs(b.dataset.fs);
+          _fsMenu.classList.remove("open");
+        });
+        document.addEventListener("click", function () {
+          _fsMenu.classList.remove("open");
+        });
+      })();
       if (_searchBtn && _searchForm) {
         _searchBtn.addEventListener("click", function (e) {
           e.stopPropagation();
@@ -6607,11 +6828,7 @@
           }
         });
         document.addEventListener("click", function (e) {
-          if (
-            _searchForm &&
-            !_searchForm.contains(e.target) &&
-            e.target !== _articleSearchBtn
-          ) {
+          if (_searchForm && !_searchForm.contains(e.target)) {
             _searchForm.classList.remove("search-open");
             _searchForm.style.display = "";
           }
@@ -6679,7 +6896,7 @@
         <div class="footer-brand">
           <div style="display: flex; gap: 10px; align-items: center">
             <img
-              src="/editlogo.png"
+              src="editlogo.png"
               alt="Fakta Sejarah Logo"
               style="
                 width: 60px;
@@ -7526,7 +7743,7 @@
             label: "Fakta Sejarah",
             desc: "Menyajikan informasi sejarah yang akurat, mendalam, dan menarik untuk menambah wawasan tentang masa lalu.",
             verifiedBadge: '<span class="verified"></span>',
-            avatarHtml: `<img src="/editlogo.png" alt="Tim Redaksi" onerror="this.style.display='none'" style="filter:invert(27%) sepia(90%) saturate(600%) hue-rotate(195deg) brightness(0.85); width:100%; height:100%; object-fit:cover;">`,
+            avatarHtml: `<img src="editlogo.png" alt="Tim Redaksi" onerror="this.style.display='none'" style="filter:invert(27%) sepia(90%) saturate(600%) hue-rotate(195deg) brightness(0.85); width:100%; height:100%; object-fit:cover;">`,
             socialsHtml: "",
           };
         }
@@ -9210,7 +9427,7 @@
  </div>
  <div class="about-feedback-illustration" data-scroll="fade-right">
  <div class="about-feedback-icon-wrap" data-scroll="zoom-in" data-delay="200">
- <img src="/image.png" alt="saran dan masukan"/>
+ <img src="image.png" alt="saran dan masukan"/>
  </div>
  <div class="about-feedback-facts">
  <div class="about-feedback-fact" data-scroll="fade-up" data-delay="100"><span class="fact-icon"></span><span>Setiap pesan kami baca</span></div>
